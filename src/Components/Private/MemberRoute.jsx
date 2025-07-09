@@ -7,8 +7,8 @@ const MemberRoute = ({ children }) => {
     const {user} = useAuth()
   const [role, loading] = useUserRole();
 
-  if (loading) return <span>Checking access...</span>;
-  if (!user || role !== 'member') return <Navigate to="/forbidden" replace />;
+  if (loading) {return <span>Checking access...</span>};
+  if (!user || role !== 'member') {return <Navigate to="/forbidden" replace />};
 
   return children;
 };

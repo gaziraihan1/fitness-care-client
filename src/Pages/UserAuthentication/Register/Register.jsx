@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../Hooks/useAuth';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
@@ -8,10 +8,11 @@ import useAxios from '../../../Hooks/useAxios';
 
 const Register = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
-  const { createUser, updateUserProfile, signInWithGoogle } = useAuth();
+  const { createUser, updateUserProfile, signInWithGoogle,logOut } = useAuth();
   const axiosSecure = useAxiosSecure();
   const axiosInstance = useAxios();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [firebaseError, setFirebaseError] = useState('');
 
@@ -36,8 +37,14 @@ const Register = () => {
 
             axiosSecure.post('/users', userInfo)
               .then(() => {
+                logOut()
+                .then(() => {
+                  navigate('/login');
+                  
+                })
                 reset();
-                navigate('/');
+
+                
               });
           });
       })
@@ -64,7 +71,7 @@ const Register = () => {
         axiosInstance.post('/jwt', { email: loggedInUser.email })
           .then(response => {
             localStorage.setItem('access-token', response.data.token);
-            navigate('/');
+            navigate(location.state ? location.state : "/")
           })
           .catch(() => {
           });

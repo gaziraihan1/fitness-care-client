@@ -12,9 +12,10 @@ const PrivateRouter = ({children}) => {
         return <Loading />
     }
     if(!user) {
-        <Navigate state={{from: location.pathname}} to={'/login'}/>
+        return <Navigate state={location.pathname} replace to={'/login'}/>
     }
     return children;
+    
 };
 
 export default PrivateRouter;

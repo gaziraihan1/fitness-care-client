@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../Hooks/useAuth';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import SocialLogin from '../SocialLogin/SocialLogin';
@@ -14,6 +14,7 @@ const Login = () => {
   const axiosInstance = useAxios();
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState('');
+  const location = useLocation();
 
   const onSubmit = (data) => {
     const { email, password } = data;
@@ -26,7 +27,7 @@ const Login = () => {
     .post('/jwt', { email: loggedInUser.email })
       .then(response => {
         localStorage.setItem('access-token', response.data.token);
-        navigate('/');
+        navigate(location.state ? location.state : "/");
       });
       })
       .catch((err) => {
@@ -53,7 +54,7 @@ const Login = () => {
         axiosInstance.post('/jwt', { email: loggedInUser.email })
           .then(response => {
             localStorage.setItem('access-token', response.data.token);
-            navigate('/');
+            navigate(location.state ? location.state : "/");
           })
           .catch(() => {
             setLoginError('Failed to get JWT token');

@@ -24,6 +24,7 @@ import AppliedTrainer from "../Pages/AdminRoutePages/AppliedTrainer";
 import Balance from "../Pages/AdminRoutePages/Balance";
 import NewClass from "../Pages/AdminRoutePages/NewClass";
 import AllTrainerAdmin from "../Pages/AdminRoutePages/AllTrainerAdmin";
+import BeATrainer from "../Pages/BeATrainer/BeATrainer";
 
 export const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
                 path: 'forums',
                 Component: Forums
             },
+            {
+                path: 'beATrainer',
+                element: <MemberRoute><BeATrainer></BeATrainer></MemberRoute>
+            }
             
         ]
     },
@@ -101,7 +106,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'admin/appliedTrainer',
-                element: <AdminRoute><AllTrainerAdmin></AllTrainerAdmin></AdminRoute>
+                element: <AdminRoute><AppliedTrainer></AppliedTrainer></AdminRoute>
             },
             {
                 path: 'admin/balance',

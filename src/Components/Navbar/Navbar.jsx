@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import { Button } from "@material-tailwind/react";
 
@@ -31,9 +31,9 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav>
+      <nav className="flex justify-between items-center my-2">
         <div>GYM</div>
-        <ul className="flex flex-row">{navLink}
+        <ul className="lg:flex gap-8 hidden 2xl:text-lg py-6 px-8 2xl:gap-12 bg-gray-200 rounded">{navLink}
             {
                 user && <>
                 <li>
@@ -43,23 +43,29 @@ const Navbar = () => {
                 </>
             }
         </ul>
-        <div>
+        <div className="lg:flex gap-3 hidden">
           {
             user ? (
               <>
-              <img src={user.photoURL} alt="" />
+              <img className="w-12 h-12 rounded-full" src={user.photoURL} alt="" />
               <button onClick={loggedOut}>
                 Logout
               </button>
               </>
             ):(
               <>
-              <Button color="blue" size="lg" variant="filled">
-                Register
-              </Button>
-              <Button>
-                Login
-              </Button>
+              <Link to={'/register'}>
+             <button className="py-2 px-5 bg-blue-700 text-white rounded">
+              Register
+             </button>
+              </Link>
+              
+              <Link to={'/login'}>
+             <button className="py-2 px-5 bg-blue-700 text-white rounded">
+              Login
+             </button>
+              </Link>
+              
               </>
             )
           }
