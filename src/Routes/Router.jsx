@@ -25,6 +25,7 @@ import Balance from "../Pages/AdminRoutePages/Balance";
 import NewClass from "../Pages/AdminRoutePages/NewClass";
 import AllTrainerAdmin from "../Pages/AdminRoutePages/AllTrainerAdmin";
 import BeATrainer from "../Pages/BeATrainer/BeATrainer";
+import TrainerDetails from "../Pages/TrainerDetails/TrainerDetails";
 
 export const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
             {
                 path: 'allTrainer',
                 Component: AllTrainer
+            },
+            {
+                path: 'trainerDetails/:id',
+                Component: TrainerDetails
             },
             {
                 path: 'allClasses',

@@ -23,36 +23,34 @@ const AllTrainerAdmin = () => {
 
   const downgradeTrainer = useMutation({
     mutationFn: async (trainer) => {
-      return axiosSecure.patch(`/users/promote/${trainer.email}`, {
+      const res = await axiosSecure.patch(`/users/downgrade/${trainer.email}`, {
         role: "member",
       });
+      return res.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["trainers"]);
-      Swal.fire({
-        icon: "success",
-        title: "Trainer removed!",
-        text: "This trainer is now a member.",
-        timer: 2000,
-        showConfirmButton: false,
-      });
+      queryClient.invalidateQueries(["allTrainers"]);
+      Swal.fire("Success", "Trainer successfully downgraded and removed successfully", "success");
+    },
+    onError: () => {
+      Swal.fire("Error", "Failed to remove trainer", "error");
     },
   });
 
   const handleDeleteTrainer = (trainer) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: `Remove ${trainer.name} as trainer?`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      confirmButtonText: "Yes, remove",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        downgradeTrainer.mutate(trainer);
-      }
-    });
-  };
+  Swal.fire({
+    title: "Are you sure?",
+    text: `Remove ${trainer.fullName} as trainer?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Yes, remove",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      downgradeTrainer.mutate(trainer);
+    }
+  });
+};
 
   // Filtered and paginated trainers
   const filteredTrainers = trainers.filter((trainer) =>

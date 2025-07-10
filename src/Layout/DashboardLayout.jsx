@@ -13,6 +13,8 @@ import {
   FaUserCheck,
   FaMoneyBill,
   FaChalkboard,
+  FaChevronDown, 
+  FaChevronUp
 } from "react-icons/fa";
 import useUserRole from "../Hooks/useUserRole";
 
@@ -22,7 +24,7 @@ const DashboardLayout = () => {
 
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? "text-blue-600 font-semibold flex items-center gap-2 px-4 py-2 rounded bg-blue-100"
+      ? "text-blue-600 font-semibold flex items-center gap-2 px-4 lg:px-2 xl:px-4 py-2 rounded bg-blue-100"
       : "text-gray-700 hover:text-blue-600 flex items-center gap-2 px-4 py-2";
 
   // Auto-close sidebar on small screen link click
@@ -34,27 +36,29 @@ const DashboardLayout = () => {
 
   return (
     <div>
-      <header className="p-4 md:px-6 lg:p-0 lg:w-11/12 2xl:w-10/12 mx-auto">
-        <Navbar />
-      </header>
+      
 
-      <main className="p-4 md:px-6 lg:p-0 lg:w-11/12 2xl:w-10/12 mx-auto lg:grid grid-cols-6 min-h-screen mt-6 lg:mt-12 gap-12">
+      <main className="p-4 md:px-6 lg:p-0 lg:w-11/12 2xl:w-10/12 mx-auto lg:grid grid-cols-8 2xl:grid-cols-6 min-h-screen mt-2 gap-12 lg:mt-0">
         {/* Toggle Button (only visible on small screens) */}
         <button
-          onClick={() => setShowDashboard(!showDashboard)}
-          className="lg:hidden bg-blue-500 text-white px-4 py-2 rounded mb-4"
-        >
-          {showDashboard ? "Hide Dashboard" : "Show Dashboard"}
-        </button>
+  onClick={() => setShowDashboard(!showDashboard)}
+  className="lg:hidden bg-blue-500 text-white px-4 py-2 rounded mb-4 flex items-center gap-2 uppercase"
+>
+ {role} Dashboard
+  {showDashboard ? <FaChevronUp /> : <FaChevronDown />}
+</button>
 
         {/* Sidebar */}
         <div
-          className={`bg-gray-200 space-y-2 p-4 lg:block col-span-1 ${
-            showDashboard ? "block" : "hidden"
-          }`}
+          className={`bg-gray-200 space-y-2 p-4 lg:col-span-2 2xl:col-span-1 
+    ${showDashboard ? "block" : "hidden"} 
+    lg:block`}
         >
           {role === "member" && (
             <>
+            <h2 className="my-2 px-2 py-2 bg-gray-600 text-white rounded hidden lg:block font-bold">
+              Member Dashboard
+            </h2>
               <NavLink to="/dashboard/activityLog" className={navLinkClass} onClick={handleLinkClick}>
                 <FaClipboardList /> Activity Log
               </NavLink>
@@ -69,6 +73,9 @@ const DashboardLayout = () => {
 
           {role === "trainer" && (
             <>
+            <h2 className="my-2 px-2 py-2 bg-gray-600 text-white rounded hidden lg:block font-bold">
+              Trainer Dashboard
+            </h2>
               <NavLink to="/dashboard/trainer/addForum" className={navLinkClass} onClick={handleLinkClick}>
                 <FaPlusCircle /> Add Forum
               </NavLink>
@@ -83,6 +90,9 @@ const DashboardLayout = () => {
 
           {role === "admin" && (
             <>
+            <h2 className="my-2 px-2 py-2 bg-gray-600 text-white rounded hidden lg:block font-bold">
+              Admin Dashboard
+            </h2>
               <NavLink to="/dashboard/admin/allNewsletter" className={navLinkClass} onClick={handleLinkClick}>
                 <FaEnvelopeOpenText /> All Newsletters
               </NavLink>
@@ -103,7 +113,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-5">
+        <div className="lg:col-span-6 2xl:col-span-5 my-2 lg:my-0 lg:py-6">
           <Outlet />
         </div>
       </main>

@@ -59,7 +59,7 @@ const AppliedTrainer = () => {
 
   return (
     <div className="overflow-x-auto">
-      <h2 className="text-xl font-bold mb-4">Trainer Applications</h2>
+      <h2 className="text-2xl font-semibold mb-4">Trainer Applications</h2>
       <table className="min-w-full table-auto text-sm text-left">
   <thead className="bg-gray-100">
     <tr>
