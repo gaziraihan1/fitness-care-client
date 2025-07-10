@@ -102,7 +102,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'admin/allTrainer',
-                element: <AdminRoute><AllTrainer></AllTrainer></AdminRoute>
+                element: <AdminRoute><AllTrainerAdmin></AllTrainerAdmin></AdminRoute>
             },
             {
                 path: 'admin/appliedTrainer',
