@@ -63,16 +63,16 @@ const AppliedTrainer = () => {
       <table className="min-w-full table-auto text-sm text-left">
   <thead className="bg-gray-100">
     <tr>
-      <th className="px-4 py-2">#</th>
-      <th className="px-4 py-2">Profile</th>
-      <th className="px-4 py-2">Name</th>
-      <th className="px-4 py-2">Email</th>
-      <th className="px-4 py-2">Skills</th>
-      <th className="px-4 py-2">Status</th>
-      <th className="px-4 py-2">Actions</th>
+      <th className=" py-2">#</th>
+      <th className=" py-2">Profile</th>
+      <th className=" py-2">Name</th>
+      <th className=" py-2">Email</th>
+      <th className=" py-2">Skills</th>
+      <th className=" py-2">Status</th>
+      <th className=" py-2">Actions</th>
     </tr>
   </thead>
-  <tbody className="px-4">
+  <tbody className="">
           {trainers.map((trainer, idx) => (
             <tr key={trainer._id}>
               <td>{idx + 1}</td>
@@ -87,11 +87,11 @@ const AppliedTrainer = () => {
               <td>{trainer.email}</td>
               <td>{trainer.skills.join(", ")}</td>
               <td>{trainer.status}</td>
-              <td className="flex gap-3">
+              <td className="flex gap-3 py-2">
                 <button
                   className="btn btn-sm btn-outline"
                   onClick={() =>
-                    navigate(`/dashboard/appliedTrainer/${trainer._id}`)
+                    navigate(`/dashboard/admin/appliedTrainer/${trainer._id}`)
                   }
                 >
                   <FaEye size={20}/>

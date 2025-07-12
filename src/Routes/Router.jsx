@@ -3,7 +3,7 @@ import RootLayout from "../Layout/RootLayout";
 import Home from "../Pages/Home/Home";
 import AllTrainer from "../Pages/AllTrainer/AllTrainer";
 import AllClasses from "../Pages/AllClasses/AllClasses";
-import Forums from "../Pages/Forums/Forums";
+import Forums from "../Pages/Forums/ForumsPage";
 import AuthLayout from "../Layout/AuthLayout";
 import Register from "../Pages/UserAuthentication/Register/Register";
 import Login from "../Pages/UserAuthentication/Login/Login";
@@ -26,6 +26,10 @@ import NewClass from "../Pages/AdminRoutePages/NewClass";
 import AllTrainerAdmin from "../Pages/AdminRoutePages/AllTrainerAdmin";
 import BeATrainer from "../Pages/BeATrainer/BeATrainer";
 import TrainerDetails from "../Pages/TrainerDetails/TrainerDetails";
+import Payment from "../Components/Payment/Payment";
+import AdminBalance from "../Pages/AdminRoutePages/AdminBalance";
+import AppliedTrainerDetails from "../Pages/AdminRoutePages/AppliedTrainerDetails";
+import TrainerBooked from "../Pages/TrainerBooked/TrainerBooked";
 
 export const router = createBrowserRouter([
     {
@@ -45,6 +49,10 @@ export const router = createBrowserRouter([
                 Component: TrainerDetails
             },
             {
+                path: 'bookTrainer/:id',
+                element: <PrivateRouter><TrainerBooked></TrainerBooked></PrivateRouter>
+            },
+            {
                 path: 'allClasses',
                 Component: AllClasses
             },
@@ -55,6 +63,10 @@ export const router = createBrowserRouter([
             {
                 path: 'beATrainer',
                 element: <MemberRoute><BeATrainer></BeATrainer></MemberRoute>
+            },
+            {
+                path: 'payment',
+                element: <PrivateRouter><Payment /></PrivateRouter>
             }
             
         ]
@@ -114,12 +126,20 @@ export const router = createBrowserRouter([
                 element: <AdminRoute><AppliedTrainer></AppliedTrainer></AdminRoute>
             },
             {
+                path: 'admin/appliedTrainer/:id',
+                element: <AdminRoute><AppliedTrainerDetails></AppliedTrainerDetails></AdminRoute>
+            },
+            {
                 path: 'admin/balance',
                 element: <AdminRoute><Balance></Balance></AdminRoute>
             },
             {
                 path: 'admin/newClass',
                 element: <AdminRoute><NewClass></NewClass></AdminRoute>
+            },
+            {
+                path: 'admin/balance',
+                element: <AdminRoute><AdminBalance></AdminBalance></AdminRoute>
             }
         ]
     },
