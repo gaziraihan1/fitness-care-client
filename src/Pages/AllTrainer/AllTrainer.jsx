@@ -21,7 +21,7 @@ const AllTrainer = () => {
         {trainers.map((trainer) => (
           <div
             key={trainer._id}
-            className="bg-white shadow rounded-lg p-4 space-y-3 transition duration-300 hover:shadow-lg"
+            className="bg-white shadow rounded-lg p-4 space-y-3 transition duration-300 hover:shadow-lg flex flex-col justify-between"
           >
             <img
               src={trainer.profileImage}
@@ -41,7 +41,7 @@ const AllTrainer = () => {
             </div>
             <Link
               to={`/trainerDetails/${trainer._id}`}
-              className="inline-block mt-2 text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition"
+              className="mt-2 text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition w-full text-center"
             >
               Know More
             </Link>

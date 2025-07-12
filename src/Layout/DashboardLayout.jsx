@@ -14,7 +14,9 @@ import {
   FaMoneyBill,
   FaChalkboard,
   FaChevronDown, 
-  FaChevronUp
+  FaChevronUp,
+  FaDumbbell,
+  FaShieldAlt
 } from "react-icons/fa";
 import useUserRole from "../Hooks/useUserRole";
 
@@ -77,7 +79,7 @@ const DashboardLayout = () => {
               Trainer Dashboard
             </h2>
               <NavLink to="/dashboard/trainer/addForum" className={navLinkClass} onClick={handleLinkClick}>
-                <FaPlusCircle /> Add Forum
+                <FaDumbbell /> Add Forum
               </NavLink>
               <NavLink to="/dashboard/trainer/addSlot" className={navLinkClass} onClick={handleLinkClick}>
                 <FaClock /> Add Slot
@@ -107,6 +109,9 @@ const DashboardLayout = () => {
               </NavLink>
               <NavLink to="/dashboard/admin/newClass" className={navLinkClass} onClick={handleLinkClick}>
                 <FaChalkboard /> New Class
+              </NavLink>
+              <NavLink to="/dashboard/admin/addForum" className={navLinkClass} onClick={handleLinkClick}>
+                <FaShieldAlt /> Add Forum
               </NavLink>
             </>
           )}

@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
-import Swal from "sweetalert2";
+import useUserRole from "../../Hooks/useUserRole";
 
 const AddForum = () => {
-  const { user } = useAuth();
+  const [role, isLoading] = useUserRole();
+  console.log(role)
+  const {user} = useAuth()
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
 
@@ -14,11 +17,13 @@ const AddForum = () => {
       content: data.content,
       author: user.displayName,
       email: user.email,
-      role: user.role, // e.g., "admin" or "trainer"
+      role,
       createdAt: new Date(),
       upVotes: [],
       downVotes: [],
     };
+
+     if (isLoading) return <p>Loading...</p>;
 
     await axiosSecure.post("/forum", forumData);
     Swal.fire("Success", "Forum post added", "success");

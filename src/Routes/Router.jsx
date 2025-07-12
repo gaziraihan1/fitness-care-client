@@ -3,7 +3,6 @@ import RootLayout from "../Layout/RootLayout";
 import Home from "../Pages/Home/Home";
 import AllTrainer from "../Pages/AllTrainer/AllTrainer";
 import AllClasses from "../Pages/AllClasses/AllClasses";
-import Forums from "../Pages/Forums/ForumsPage";
 import AuthLayout from "../Layout/AuthLayout";
 import Register from "../Pages/UserAuthentication/Register/Register";
 import Login from "../Pages/UserAuthentication/Login/Login";
@@ -15,7 +14,6 @@ import ActivityLog from "../Pages/MemberRoutePages/ActivityLog";
 import BookedTrainer from "../Pages/MemberRoutePages/BookedTrainer";
 import Profile from "../Pages/MemberRoutePages/Profile";
 import TrainerRoute from "../Components/Private/TrainerRouter";
-import AddForum from "../Pages/TrainerRoutePages/AddForum";
 import AddSlot from "../Pages/TrainerRoutePages/AddSlot";
 import ManageSlot from "../Pages/TrainerRoutePages/ManageSlot";
 import AdminRoute from "../Components/Private/AdminRoute";
@@ -30,6 +28,8 @@ import Payment from "../Components/Payment/Payment";
 import AdminBalance from "../Pages/AdminRoutePages/AdminBalance";
 import AppliedTrainerDetails from "../Pages/AdminRoutePages/AppliedTrainerDetails";
 import TrainerBooked from "../Pages/TrainerBooked/TrainerBooked";
+import ForumsPage from "../Pages/Forums/ForumsPage";
+import AddForum from "../Pages/Forums/AddForum";
 
 export const router = createBrowserRouter([
     {
@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'forums',
-                Component: Forums
+                Component: ForumsPage
             },
             {
                 path: 'beATrainer',
@@ -132,6 +132,10 @@ export const router = createBrowserRouter([
             {
                 path: 'admin/balance',
                 element: <AdminRoute><Balance></Balance></AdminRoute>
+            },
+            {
+                path: 'admin/addForum',
+                element: <AdminRoute><AddForum></AddForum> </AdminRoute>
             },
             {
                 path: 'admin/newClass',
