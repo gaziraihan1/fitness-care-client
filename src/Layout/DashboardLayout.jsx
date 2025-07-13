@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../Components/Navbar/Navbar";
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import {
   FaClipboardList,
   FaUserCircle,
@@ -16,11 +16,17 @@ import {
   FaChevronDown, 
   FaChevronUp,
   FaDumbbell,
-  FaShieldAlt
+  FaShieldAlt,
+  FaHome 
 } from "react-icons/fa";
 import useUserRole from "../Hooks/useUserRole";
 
 const DashboardLayout = () => {
+  const home = <>
+  <Link to="/" className="text-gray-700 hover:text-blue-600 flex items-center gap-2 px-4 py-2">
+                <FaHome /> Home
+              </Link>
+  </>
   const [role] = useUserRole();
   const [showDashboard, setShowDashboard] = useState(false);
 
@@ -40,7 +46,7 @@ const DashboardLayout = () => {
     <div>
       
 
-      <main className="p-4 md:px-6 lg:p-0 lg:w-11/12 2xl:w-10/12 mx-auto lg:grid grid-cols-8 2xl:grid-cols-6 min-h-screen mt-2 gap-12 lg:mt-0">
+      <main className="p-4 md:px-6 lg:p-0 lg:grid grid-cols-8 2xl:grid-cols-6 min-h-screen mt-2 gap-12 lg:mt-0">
         {/* Toggle Button (only visible on small screens) */}
         <button
   onClick={() => setShowDashboard(!showDashboard)}
@@ -61,6 +67,9 @@ const DashboardLayout = () => {
             <h2 className="my-2 px-2 py-2 bg-gray-600 text-white rounded hidden lg:block font-bold">
               Member Dashboard
             </h2>
+            {
+              home
+            }
               <NavLink to="/dashboard/activityLog" className={navLinkClass} onClick={handleLinkClick}>
                 <FaClipboardList /> Activity Log
               </NavLink>
@@ -78,6 +87,7 @@ const DashboardLayout = () => {
             <h2 className="my-2 px-2 py-2 bg-gray-600 text-white rounded hidden lg:block font-bold">
               Trainer Dashboard
             </h2>
+            {home}
               <NavLink to="/dashboard/trainer/addForum" className={navLinkClass} onClick={handleLinkClick}>
                 <FaDumbbell /> Add Forum
               </NavLink>
@@ -95,6 +105,7 @@ const DashboardLayout = () => {
             <h2 className="my-2 px-2 py-2 bg-gray-600 text-white rounded hidden lg:block font-bold">
               Admin Dashboard
             </h2>
+            {home}
               <NavLink to="/dashboard/admin/allNewsletter" className={navLinkClass} onClick={handleLinkClick}>
                 <FaEnvelopeOpenText /> All Newsletters
               </NavLink>

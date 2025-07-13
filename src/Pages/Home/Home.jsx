@@ -2,6 +2,7 @@ import React from 'react';
 import Banner from '../../Components/Banner/Banner';
 import FeaturedSection from '../../Components/FeaturedSection/FeaturedSection';
 import AboutSection from '../../Components/AboutSection/AboutSection';
+import FeaturedClasses from '../../Components/FeaturedClasses/FeaturedClasses';
 
 const Home = () => {
     return (
@@ -9,6 +10,7 @@ const Home = () => {
             <Banner />
             <FeaturedSection />
             <AboutSection />
+            <FeaturedClasses />
         </div>
     );
 };

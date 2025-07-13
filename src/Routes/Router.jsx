@@ -40,6 +40,9 @@ export const router = createBrowserRouter([
                 Component: Home
             },
             {
+
+            },
+            {
                 path: 'allTrainer',
                 Component: AllTrainer
             },

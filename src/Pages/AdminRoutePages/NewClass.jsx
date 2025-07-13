@@ -2,30 +2,56 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import { FaCloudUploadAlt } from "react-icons/fa";
+
+const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 const NewClass = () => {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
   const axiosSecure = useAxiosSecure();
+  const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
 
-  const onSubmit = async (data) => {
-    const classData = {
-      className: data.className.trim(),
-      image: data.image,
-      details: data.details.trim(),
-      additionalInfo: data.additionalInfo?.trim() || "",
-      createdAt: new Date(),
-    };
+  const uploadImageToCloudinary = async (imageFile) => {
+    const formData = new FormData();
+    formData.append("file", imageFile);
+    formData.append("upload_preset", upload_preset);
 
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+    return data.secure_url; // Cloudinary image URL
+  };
+
+  const onSubmit = async (data) => {
     try {
+      if (!imageFile) {
+        return Swal.fire("Error", "Please select an image file", "error");
+      }
+
+      const imageUrl = await uploadImageToCloudinary(imageFile);
+
+      const classData = {
+        className: data.className.trim(),
+        image: imageUrl,
+        details: data.details.trim(),
+        additionalInfo: data.additionalInfo?.trim() || "",
+        createdAt: new Date(),
+      };
+
       const res = await axiosSecure.post("/classes", classData);
       if (res.data.insertedId) {
         Swal.fire("✅ Success", "New class added!", "success");
         reset();
+        setImageFile(null);
         setImagePreview("");
       }
     } catch (err) {
-      Swal.fire("❌ Error", "Something went wrong.", "error", err);
+      Swal.fire("❌ Error", "Something went wrong while uploading", "error", err);
     }
   };
 
@@ -46,26 +72,39 @@ const NewClass = () => {
           {errors.className && <p className="text-red-500 text-sm mt-1">{errors.className.message}</p>}
         </div>
 
-        {/* Image URL */}
+        {/* Upload Image */}
         <div>
-          <label className="block font-semibold mb-1">Image URL <span className="text-red-500">*</span></label>
-          <input
-            type="url"
-            {...register("image", {
-              required: "Image URL is required",
-              onChange: (e) => setImagePreview(e.target.value)
-            })}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Paste image URL here"
-          />
-          {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image.message}</p>}
-          {imagePreview && (
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="w-full h-48 object-cover mt-3 rounded-lg border"
-            />
-          )}
+          <div>
+  <label className="block font-semibold mb-1">
+    Upload Image <span className="text-red-500">*</span>
+  </label>
+
+  <div className="relative border-2  border-gray-400 p-6 rounded-lg flex flex-col items-center justify-center bg-blue-50 text-center cursor-pointer hover:bg-blue-100 transition">
+    <input
+      type="file"
+      accept="image/*"
+      {...register("image", { required: "Image is required" })}
+      onChange={(e) => {
+        setImageFile(e.target.files[0]);
+        setImagePreview(URL.createObjectURL(e.target.files[0]));
+      }}
+      className="absolute inset-0 opacity-0 cursor-pointer"
+    />
+    <FaCloudUploadAlt className="text-4xl text-blue-600 mb-2" />
+    <span className="text-blue-700 font-medium">
+      {imageFile?.name || "Click or drag to upload image"}
+    </span>
+  </div>
+
+  {imagePreview && (
+    <img
+      src={imagePreview}
+      alt="Preview"
+      className="w-full h-48 object-cover mt-3 rounded-lg border"
+    />
+  )}
+  {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image.message}</p>}
+</div>
         </div>
 
         {/* Details */}
