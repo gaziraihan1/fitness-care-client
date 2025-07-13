@@ -34,20 +34,22 @@ const PaymentForm = ({ trainer, slot, selectedPackage }) => {
     if (!stripe || !elements) return;
 
     setProcessing(true);
-    const { data: clientSecret } = await axiosSecure.post("/create-payment-intent", {
+    const { data } = await axiosSecure.post("/create-payment-intent", {
       price: selectedPackage.price,
     });
+    const clientSecret = data.clientSecret;
 
     const card = elements.getElement(CardElement);
     const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card,
-        billing_details: {
-          name: user?.displayName,
-          email: user?.email,
-        },
-      },
-    });
+  payment_method: {
+    card,
+    billing_details: {
+      name: user?.displayName,
+      email: user?.email,
+    },
+  },
+});
+
 
     if (paymentIntent?.status === "succeeded") {
       const paymentData = {

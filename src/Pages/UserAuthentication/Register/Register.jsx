@@ -4,13 +4,11 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../Hooks/useAuth';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
-import useAxios from '../../../Hooks/useAxios';
 
 const Register = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const { createUser, updateUserProfile, signInWithGoogle,logOut } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const axiosInstance = useAxios();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -68,7 +66,7 @@ const Register = () => {
 
     axiosSecure.post('/users', userInfo)
       .then(() => {
-        axiosInstance.post('/jwt', { email: loggedInUser.email })
+        axiosSecure.post('/jwt', { email: loggedInUser.email })
           .then(response => {
             localStorage.setItem('access-token', response.data.token);
             navigate(location.state ? location.state : "/")

@@ -17,9 +17,11 @@ const ActivityLog = () => {
     queryKey: ["myTrainerApplications", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/trainerApplications/user/${user.email}`);
-      return res.data.filter(app => app.status !== "confirmed");
-    }
+      const res = await axiosSecure.get(
+        `/trainerApplications/user/${user.email}`
+      );
+      return res.data.filter((app) => app.status !== "confirmed");
+    },
   });
 
   const openModal = (feedback) => {
@@ -39,7 +41,9 @@ const ActivityLog = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : applications.length === 0 ? (
-        <p className="text-gray-600">No pending or rejected applications found.</p>
+        <p className="text-gray-600">
+          No pending or rejected applications found.
+        </p>
       ) : (
         <div className="space-y-4">
           {applications.map((app) => (
@@ -54,7 +58,9 @@ const ActivityLog = () => {
                   Status:{" "}
                   <span
                     className={`font-semibold ${
-                      app.status === "pending" ? "text-yellow-600" : "text-red-600"
+                      app.status === "pending"
+                        ? "text-yellow-600"
+                        : "text-red-600"
                     }`}
                   >
                     {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
@@ -76,7 +82,6 @@ const ActivityLog = () => {
         </div>
       )}
 
-      {/* Feedback Modal */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -84,8 +89,12 @@ const ActivityLog = () => {
         className="max-w-md w-full mx-auto bg-white rounded p-6 shadow-md mt-40"
         overlayClassName="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center"
       >
-        <h2 className="text-xl font-semibold mb-4 text-red-600">🛑 Rejection Feedback</h2>
-        <p className="text-gray-700">{selectedFeedback || "No feedback provided."}</p>
+        <h2 className="text-xl font-semibold mb-4 text-red-600">
+          🛑 Rejection Feedback
+        </h2>
+        <p className="text-gray-700">
+          {selectedFeedback || "No feedback provided."}
+        </p>
         <div className="text-right mt-6">
           <button
             onClick={closeModal}

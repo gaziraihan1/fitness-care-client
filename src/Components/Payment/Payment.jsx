@@ -3,7 +3,7 @@ import PaymentForm from "./PaymentForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe("pk_test_51NBcYKLXWDZEdJTh6U3SEjOQQcdRGiGCrKLGu4XkY7lK6Dj4hAIM1Od9kBSO3rpMGgaht2Sl4YBeG3ZyQOWbTHRE00YImz7RDI");
+const stripePromise = loadStripe(import.meta.env.VITE_piblishable_api_key);
 
 const Payment = () => {
   const { state } = useLocation();

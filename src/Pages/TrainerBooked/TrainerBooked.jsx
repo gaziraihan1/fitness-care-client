@@ -38,9 +38,17 @@ const TrainerBooked = () => {
   };
 
   if (isLoading)
-    return <p className="text-center text-lg text-blue-600 mt-10">Loading trainer details...</p>;
+    return (
+      <p className="text-center text-lg text-blue-600 mt-10">
+        Loading trainer details...
+      </p>
+    );
   if (isError || !trainer)
-    return <p className="text-center text-red-600 mt-10">Failed to load trainer data.</p>;
+    return (
+      <p className="text-center text-red-600 mt-10">
+        Failed to load trainer data.
+      </p>
+    );
 
   return (
     <div className="px-4 py-10 max-w-7xl mx-auto">
@@ -53,7 +61,6 @@ const TrainerBooked = () => {
         Book {trainer.fullName}
       </motion.h1>
 
-      {/* Trainer Info Card */}
       <motion.div
         className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white shadow-xl rounded-lg overflow-hidden p-6 mb-10 border border-gray-200"
         initial={{ opacity: 0, y: 20 }}
@@ -73,7 +80,8 @@ const TrainerBooked = () => {
             {trainer.fullName}
           </h2>
           <p>
-            <strong>Slot:</strong> <span className="text-blue-500">{selectedSlot}</span>
+            <strong>Slot:</strong>{" "}
+            <span className="text-blue-500">{selectedSlot}</span>
           </p>
           <p>
             <strong>Experience:</strong>{" "}
@@ -97,7 +105,6 @@ const TrainerBooked = () => {
         </div>
       </motion.div>
 
-      {/* Membership Plans */}
       <motion.div
         className="mb-10"
         initial={{ opacity: 0, y: 30 }}
