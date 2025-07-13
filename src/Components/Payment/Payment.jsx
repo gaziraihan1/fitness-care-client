@@ -9,25 +9,57 @@ const Payment = () => {
   const { state } = useLocation();
   const { trainer, slot, package: selectedPackage } = state || {};
 
-  if (!state) return <p>No booking selected.</p>;
+  if (!state) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-xl text-gray-500">No booking selected.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-semibold mb-4">Payment Info</h2>
-      <div className="mb-4 space-y-1 text-sm">
-        <p>Trainer: {trainer.fullName}</p>
-        <p>Slot: {slot}</p>
-        <p>Package: {selectedPackage.name}</p>
-        <p>Price: ${selectedPackage.price}</p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto bg-white/60 backdrop-blur-md border border-blue-100 shadow-xl rounded-2xl p-8 md:p-12">
+        <h2 className="text-3xl font-bold text-center text-blue-700 mb-8">💳 Complete Your Payment</h2>
 
-      <Elements stripe={stripePromise}>
-        <PaymentForm
-          trainer={trainer}
-          slot={slot}
-          selectedPackage={selectedPackage}
-        />
-      </Elements>
+        <div className="grid md:grid-cols-2 gap-8 items-start">
+          {/* Payment Summary */}
+          <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
+            <h3 className="text-lg font-semibold text-gray-700 mb-4">🧾 Payment Summary</h3>
+            <div className="space-y-3 text-sm text-gray-600">
+              <div>
+                <span className="font-medium text-gray-800">Trainer:</span>{" "}
+                {trainer?.fullName}
+              </div>
+              <div>
+                <span className="font-medium text-gray-800">Slot:</span>{" "}
+                {slot}
+              </div>
+              <div>
+                <span className="font-medium text-gray-800">Package:</span>{" "}
+                {selectedPackage?.name}
+              </div>
+              <div className="text-lg font-bold text-blue-600 pt-2">
+                Total: ${selectedPackage?.price}
+              </div>
+            </div>
+          </div>
+
+          {/* Payment Form */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-700 mb-4">💸 Enter Payment Details</h3>
+            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow">
+              <Elements stripe={stripePromise}>
+                <PaymentForm
+                  trainer={trainer}
+                  slot={slot}
+                  selectedPackage={selectedPackage}
+                />
+              </Elements>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

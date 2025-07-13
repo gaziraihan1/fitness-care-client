@@ -68,7 +68,7 @@ const PaymentForm = ({ trainer, slot, selectedPackage }) => {
       const bookingData = {
       ...paymentData,
       trainerImage: trainer.profileImage,
-      className: selectedPackage.name + " Class", // customize if needed
+      className: selectedPackage.name + " Class",
       status: "booked",
       createdAt: new Date(),
     };

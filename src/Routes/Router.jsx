@@ -25,7 +25,6 @@ import AllTrainerAdmin from "../Pages/AdminRoutePages/AllTrainerAdmin";
 import BeATrainer from "../Pages/BeATrainer/BeATrainer";
 import TrainerDetails from "../Pages/TrainerDetails/TrainerDetails";
 import Payment from "../Components/Payment/Payment";
-import AdminBalance from "../Pages/AdminRoutePages/AdminBalance";
 import AppliedTrainerDetails from "../Pages/AdminRoutePages/AppliedTrainerDetails";
 import TrainerBooked from "../Pages/TrainerBooked/TrainerBooked";
 import ForumsPage from "../Pages/Forums/ForumsPage";
@@ -141,10 +140,7 @@ export const router = createBrowserRouter([
                 path: 'admin/newClass',
                 element: <AdminRoute><NewClass></NewClass></AdminRoute>
             },
-            {
-                path: 'admin/balance',
-                element: <AdminRoute><AdminBalance></AdminBalance></AdminRoute>
-            }
+            
         ]
     },
     {
