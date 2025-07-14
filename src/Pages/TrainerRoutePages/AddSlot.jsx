@@ -36,28 +36,34 @@ const AddSlot = () => {
       return res.data;
     },
   });
+  console.log(classes)
 
-  const onSubmit = async (data) => {
-    const slotData = {
-      trainerEmail: user.email,
-      slotName: data.slotName,
-      slotTime: data.slotTime,
-      days: data.days.map((d) => d.value),
-      classId: data.classId,
-      notes: data.notes || "",
-    };
+ const onSubmit = async (data) => {
+  const selectedDays = Array.isArray(data.days)
+    ? data.days.map((d) => d.value)
+    : [];
 
-    try {
-      const res = await axiosSecure.post("/slots", slotData);
-      if (res.data.insertedId) {
-        Swal.fire("Success", "Slot added successfully", "success");
-        reset();
-      }
-    } catch (err) {
-      console.error(err);
-      Swal.fire("Error", "Failed to add slot", "error");
-    }
+  const slotData = {
+    trainerEmail: user.email,
+    slotName: data.slotName,
+    slotTime: data.slotTime,
+    days: selectedDays,
+    classId: data.classId,
+    notes: data.notes || "",
   };
+
+  try {
+    const res = await axiosSecure.post("/slots", slotData);
+    if (res.data.insertedId) {
+      Swal.fire("Success", "Slot added successfully", "success");
+      reset();
+    }
+  } catch (err) {
+    console.error(err);
+    Swal.fire("Error", "Failed to add slot", "error");
+  }
+};
+
 
   if (isLoading) return <p className="text-center mt-10">Loading trainer info...</p>;
 

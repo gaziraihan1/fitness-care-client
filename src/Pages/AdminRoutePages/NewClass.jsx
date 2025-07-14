@@ -11,6 +11,30 @@ const NewClass = () => {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
   const axiosSecure = useAxiosSecure();
   const [imageFile, setImageFile] = useState(null);
+
+  const classOptions = [
+  "Yoga",
+  "Power Yoga",
+  "HIIT",
+  "Zumba",
+  "Strength Training",
+  "Cardio Kickboxing",
+  "CrossFit",
+  "Pilates",
+  "Spin Class",
+  "BodyPump",
+  "Bootcamp",
+  "Calisthenics",
+  "Stretch & Mobility",
+  "Circuit Training",
+  "Barre",
+  "Aerobics",
+  "Core Conditioning",
+  "TRX Training",
+  "Functional Fitness",
+  "Personal Training"
+];
+
   const [imagePreview, setImagePreview] = useState("");
 
   const uploadImageToCloudinary = async (imageFile) => {
@@ -62,15 +86,26 @@ const NewClass = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Class Name */}
         <div>
-          <label className="block font-semibold mb-1">Class Name <span className="text-red-500">*</span></label>
-          <input
-            type="text"
-            {...register("className", { required: "Class name is required" })}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="e.g. Yoga, Strength Training"
-          />
-          {errors.className && <p className="text-red-500 text-sm mt-1">{errors.className.message}</p>}
-        </div>
+  <label className="block font-semibold mb-1">
+    Class Name <span className="text-red-500">*</span>
+  </label>
+  <select
+    {...register("className", { required: "Class name is required" })}
+    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    defaultValue=""
+  >
+    <option value="" disabled>Select a class</option>
+    {classOptions.map((className) => (
+      <option key={className} value={className}>
+        {className}
+      </option>
+    ))}
+  </select>
+  {errors.className && (
+    <p className="text-red-500 text-sm mt-1">{errors.className.message}</p>
+  )}
+</div>
+
 
         {/* Upload Image */}
         <div>

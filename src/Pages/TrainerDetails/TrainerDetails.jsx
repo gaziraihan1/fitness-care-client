@@ -10,7 +10,7 @@ const TrainerDetails = () => {
   const { data: trainer = {} } = useQuery({
     queryKey: ["trainerDetails", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/trainers/${id}`);
+      const res = await axiosSecure.get(`/trainerApplications/${id}`);
       return res.data;
     },
   });

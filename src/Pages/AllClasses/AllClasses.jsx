@@ -13,15 +13,14 @@ const AllClasses = () => {
   const axiosSecure = useAxiosSecure();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("");
   const navigate = useNavigate();
   const limit = 6;
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["all-classes", page, search, filter],
+    queryKey: ["all-classes", page, search],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/allClasses?page=${page}&limit=${limit}&search=${search}&filter=${filter}`
+        `/allClasses?page=${page}&limit=${limit}&search=${search}`
       );
       return res.data;
     },
@@ -38,26 +37,18 @@ const AllClasses = () => {
         🎓 Explore Our Classes
       </h1>
 
-      {/* Search and Filter */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-8 w-full">
+      {/* 🔍 Search Only */}
+      <div className="mb-8 w-full flex justify-center">
         <input
           type="text"
           placeholder="🔍 Search classes..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(1); // Reset to page 1 when searching
+          }}
           className="w-full md:w-1/3 px-4 py-2 border rounded shadow"
         />
-
-        <select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="px-4 py-2 border rounded shadow"
-        >
-          <option value="">All Categories</option>
-          <option value="yoga">Yoga</option>
-          <option value="cardio">Cardio</option>
-          <option value="strength">Strength</option>
-        </select>
       </div>
 
       {isLoading ? (

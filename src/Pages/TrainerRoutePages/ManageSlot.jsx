@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
@@ -17,7 +17,22 @@ const ManageSlots = () => {
     enabled: !!user?.email,
   });
 
-  
+  const { data: classes = [] } = useQuery({
+    queryKey: ["classes"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/classes");
+      return res.data;
+    },
+  });
+
+  // Map slots with class info
+  const slotsWithClass = slots.map((slot) => {
+    const matchedClass = classes.find((c) => c._id === slot.classId);
+    return {
+      ...slot,
+      className: matchedClass?.className || "Unknown Class",
+    };
+  });
 
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
@@ -33,7 +48,7 @@ const ManageSlots = () => {
         const res = await axiosSecure.delete(`/slots/${id}`);
         if (res.data?.deletedCount > 0) {
           Swal.fire("Deleted!", "Slot has been removed.", "success");
-          refetch(); // Re-fetch updated slot list
+          refetch();
         } else {
           Swal.fire("Error", "Slot not found or already deleted.", "error");
         }
@@ -66,42 +81,45 @@ const ManageSlots = () => {
               </tr>
             </thead>
             <tbody>
-              {slots.map((slot, idx) => (
-                <tr key={slot._id} className="border-t">
-                  <td className="px-4 py-3">{idx + 1}</td>
-                  <td className="px-4 py-3">{slot.slotName}</td>
-                  <td className="px-4 py-3">{slot.availableDays?.join(", ")}</td>
-                  <td className="px-4 py-3">{slot.slotTime}</td>
-                  <td className="px-4 py-3">{slot.className}</td>
-                  <td className="px-4 py-3 capitalize">
-                    {slot.status || "available"}
-                  </td>
-                  <td className="px-4 py-3">
-                    {slot.bookedBy ? (
-                      <div>
-                        <p className="font-semibold">{slot.bookedBy.name}</p>
-                        <p className="text-xs text-gray-500">{slot.bookedBy.email}</p>
-                      </div>
-                    ) : (
-                      <span className="text-gray-400 italic">Not booked</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => handleDelete(slot._id)}
-                      className="text-red-600 hover:text-red-800"
-                    >
-                      <FaTrashAlt />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {slots.length === 0 && (
+              {slotsWithClass.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className="text-center py-5 text-gray-500">
-                    No slots found.
+                  <td colSpan="8" className="text-center py-6 text-gray-500 italic">
+                    You haven’t added any slots yet.
                   </td>
                 </tr>
+              ) : (
+                slotsWithClass.map((slot, idx) => (
+                  <tr key={slot._id} className="border-t">
+                    <td className="px-4 py-3">{idx + 1}</td>
+                    <td className="px-4 py-3">{slot.slotName}</td>
+                    <td className="px-4 py-3">
+                      {slot.days?.length ? slot.days.join(", ") : "N/A"}
+                    </td>
+                    <td className="px-4 py-3">{slot.slotTime}</td>
+                    <td className="px-4 py-3">{slot.className}</td>
+                    <td className="px-4 py-3 capitalize">
+                      {slot.status || "available"}
+                    </td>
+                    <td className="px-4 py-3">
+                      {slot.bookedBy ? (
+                        <div>
+                          <p className="font-semibold">{slot.bookedBy.name}</p>
+                          <p className="text-xs text-gray-500">{slot.bookedBy.email}</p>
+                        </div>
+                      ) : (
+                        <span className="text-gray-400 italic">Not booked</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => handleDelete(slot._id)}
+                        className="text-red-600 hover:text-red-800"
+                      >
+                        <FaTrashAlt />
+                      </button>
+                    </td>
+                  </tr>
+                ))
               )}
             </tbody>
           </table>

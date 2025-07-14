@@ -6,13 +6,14 @@ const AppliedTrainerDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
 
-  const { data: trainer, isLoading, isError } = useQuery({
+  const { data: trainer , isLoading, isError } = useQuery({
     queryKey: ["trainerDetails", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/trainerApplications/${id}`);
+      const res = await axiosSecure.get(`/trainers/${id}`);
       return res.data;
     },
   });
+  console.log(trainer)
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
   if (isError || !trainer) return <p className="text-center text-red-500 mt-10">Trainer not found.</p>;
@@ -21,7 +22,7 @@ const AppliedTrainerDetails = () => {
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow border">
       <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
         <img
-          src={trainer.profileImage}
+          src={trainer?.profileImage}
           alt={trainer.fullName}
           className="w-40 h-40 rounded-full object-cover border-4 border-blue-500"
         />

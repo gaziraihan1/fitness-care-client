@@ -5,6 +5,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { FaCloudUploadAlt } from "react-icons/fa";
 
+
 import Swal from "sweetalert2";
 
 const daysOptions = [
@@ -25,23 +26,34 @@ const BeATrainer = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [selectedDays, setSelectedDays] = useState([]);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset , formState : {errors}} = useForm();
   const [uploading, setUploading] = useState(false);
+  const [imagePreview, setImagePreview] = useState("");
+  const [imageFile, setImageFile] = useState("");
+
 
   const uploadImageToCloudinary = async (imageFile) => {
     const formData = new FormData();
     formData.append("file", imageFile);
-    formData.append("upload_preset", upload_preset); // 👈 Replace
-    formData.append("cloud_name", cloud_name); // 👈 Replace
+    formData.append("upload_preset", upload_preset); 
+    formData.append("cloud_name", cloud_name); 
 
-    const res = await fetch("https://api.cloudinary.com/v1_1/your_cloud_name/image/upload", {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
       method: "POST",
       body: formData,
     });
 
     const data = await res.json();
-    return data.secure_url; // 👈 Return image URL
+    return data.secure_url; 
   };
+  const experienceOptions = [
+  "Less than 1 year",
+  "1-2 years",
+  "2-3 years",
+  "3-5 years",
+  "5+ years",
+];
+
 
   const onSubmit = async (data) => {
     setUploading(true);
@@ -63,6 +75,7 @@ const BeATrainer = () => {
       availableDays: selectedDays.map((day) => day.value),
       availableTime: data.availableTime,
       additionalInfo: data.additionalInfo,
+      experience: data.experience, 
       status: "pending",
     };
 
@@ -86,50 +99,74 @@ const BeATrainer = () => {
     <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded my-8">
       <h2 className="text-2xl font-semibold mb-6">Apply to be a Trainer</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* Full Name */}
         <div>
           <label className="font-medium">Full Name</label>
           <input {...register("fullName", { required: true })} className="w-full border px-4 py-2 rounded" />
         </div>
 
-        {/* Email (readonly) */}
         <div>
           <label className="font-medium">Email</label>
           <input defaultValue={user?.email} readOnly className="w-full bg-gray-100 border px-4 py-2 rounded" />
         </div>
 
-        {/* Age */}
         <div>
           <label className="font-medium">Age</label>
           <input type="number" {...register("age", { required: true })} className="w-full border px-4 py-2 rounded" />
         </div>
-
-        {/* Profile Image */}
-        {/* Profile Image Upload */}
-<div>
-  <label className="block font-medium mb-2">Profile Image</label>
-
-  <label
-    htmlFor="profileImage"
-    className="flex items-center justify-center border  p-4 rounded-lg cursor-pointer hover:bg-blue-50 transition"
+        <div>
+  <label className="font-medium block mb-1">Experience <span className="text-red-500">*</span></label>
+  <select
+    {...register("experience", { required: true })}
+    className="w-full border px-4 py-2 rounded"
+    defaultValue=""
   >
-    <div className="flex flex-col items-center text-blue-600">
-      <FaCloudUploadAlt className="text-3xl mb-2" />
-      <p className="text-sm font-medium">Click to upload image</p>
-    </div>
+    <option value="" disabled>Select your experience</option>
+    {experienceOptions.map((exp) => (
+      <option key={exp} value={exp}>{exp}</option>
+    ))}
+  </select>
+</div>
+<div>
+  <label className="block font-semibold mb-1">
+    Upload Profile Image <span className="text-red-500">*</span>
   </label>
 
-  <input
-    id="profileImage"
-    type="file"
-    accept="image/*"
-    {...register("profileImage", { required: true })}
-    className="hidden"
-  />
+  <div className="relative border-2 border-gray-400 p-6 rounded-lg flex flex-col items-center justify-center bg-blue-50 text-center cursor-pointer hover:bg-blue-100 transition">
+    <input
+      type="file"
+      accept="image/*"
+      {...register("profileImage", { required: "Image is required" })}
+      onChange={(e) => {
+        const file = e.target.files[0];
+        if (file) {
+          setImageFile(file); 
+          setImagePreview(URL.createObjectURL(file));
+        }
+      }}
+      className="absolute inset-0 opacity-0 cursor-pointer"
+    />
+    <FaCloudUploadAlt className="text-4xl text-blue-600 mb-2" />
+    <span className="text-blue-700 font-medium">
+      {imageFile?.name || "Click or drag to upload image"}
+    </span>
+  </div>
+
+  {/* Preview */}
+  {imagePreview && (
+    <img
+      src={imagePreview}
+      alt="Preview"
+      className="w-56 h-48 object-cover mt-3 rounded-lg border"
+    />
+  )}
+
+  {/* Error Message */}
+  {errors.profileImage && (
+    <p className="text-red-500 text-sm mt-1">{errors.profileImage.message}</p>
+  )}
 </div>
 
 
-        {/* Skills */}
         <div>
           <label className="font-medium">Skills</label>
           <div className="flex flex-wrap gap-4 mt-2">
@@ -142,25 +179,21 @@ const BeATrainer = () => {
           </div>
         </div>
 
-        {/* Available Days */}
         <div>
           <label className="font-medium">Available Days</label>
           <Select options={daysOptions} isMulti value={selectedDays} onChange={setSelectedDays} isSearchable={false} />
         </div>
 
-        {/* Available Time */}
         <div>
           <label className="font-medium">Available Time</label>
           <input {...register("availableTime", { required: true })} className="w-full border px-4 py-2 rounded" placeholder="e.g. 8AM - 4PM" />
         </div>
 
-        {/* Additional Info */}
         <div>
           <label className="font-medium">Additional Info</label>
           <textarea {...register("additionalInfo")} className="w-full border px-4 py-2 rounded" />
         </div>
 
-        {/* Submit */}
         <div>
           <button type="submit" disabled={uploading} className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
             {uploading ? "Uploading..." : "Apply"}

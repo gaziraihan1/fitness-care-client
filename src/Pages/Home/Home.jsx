@@ -3,6 +3,7 @@ import Banner from '../../Components/Banner/Banner';
 import FeaturedSection from '../../Components/FeaturedSection/FeaturedSection';
 import AboutSection from '../../Components/AboutSection/AboutSection';
 import FeaturedClasses from '../../Components/FeaturedClasses/FeaturedClasses';
+import Testimonials from '../../Components/ReviewsSection/Testimonials';
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <FeaturedSection />
             <AboutSection />
             <FeaturedClasses />
+            <Testimonials />
         </div>
     );
 };

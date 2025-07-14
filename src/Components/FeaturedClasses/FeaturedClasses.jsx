@@ -9,7 +9,7 @@ const FeaturedClasses = () => {
   const { data: featuredClasses = [], isLoading } = useQuery({
     queryKey: ["featured-classes"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/classes/featured");
+      const res = await axiosSecure.get("/featured-classes");
       return res.data;
     },
   });
@@ -19,7 +19,7 @@ const FeaturedClasses = () => {
   }
 
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 to-white">
+    <section className="bg-gradient-to-br from-blue-50 to-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-blue-700">🔥 Featured Classes</h2>
@@ -46,16 +46,11 @@ const FeaturedClasses = () => {
                 {cls.details.length > 100 ? cls.details.slice(0, 100) + "..." : cls.details}
               </p>
 
-              <div className="mt-auto flex justify-between items-center">
+              <div className="mt-auto">
                 <span className="text-sm font-medium text-gray-700 flex items-center gap-1">
                   <FaFire className="text-red-500" /> {cls.bookingCount || 0} Bookings
                 </span>
-                <Link
-                  to={`/class/${cls._id}`}
-                  className="text-sm font-semibold text-blue-600 hover:underline"
-                >
-                  View Details
-                </Link>
+                
               </div>
             </div>
           ))}

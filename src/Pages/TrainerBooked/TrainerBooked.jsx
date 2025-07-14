@@ -21,7 +21,7 @@ const TrainerBooked = () => {
   } = useQuery({
     queryKey: ["trainer", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/trainers/${id}`);
+      const res = await axiosSecure.get(`/trainerApplications/${id}`);
       return res.data;
     },
   });
