@@ -2,14 +2,29 @@ import { useLocation } from "react-router";
 import PaymentForm from "./PaymentForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const stripePromise = loadStripe(import.meta.env.VITE_piblishable_api_key);
 
 const Payment = () => {
   const { state } = useLocation();
-  const { trainer, slot, package: selectedPackage } = state || {};
+  const { trainer,  package: selectedPackage, classId, slotId } = state || {};
 
-  if (!state) {
+
+  const axiosSecure = useAxiosSecure();
+
+const { data: slot, isLoading } = useQuery({
+  queryKey: ["slot", slotId],
+  queryFn: async () => {
+    const res = await axiosSecure.get(`/slots/${slotId}`);
+    return res.data;
+  },
+  enabled: !!slotId,
+});
+
+
+  if (!state || !slotId) {
     return (
       <div className="h-screen flex items-center justify-center">
         <p className="text-xl text-gray-500">No booking selected.</p>
@@ -17,15 +32,29 @@ const Payment = () => {
     );
   }
 
+  if (isLoading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-xl text-blue-500">Loading slot info...</p>
+      </div>
+    );
+  }
+
+ 
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-white/60 backdrop-blur-md border border-blue-100 shadow-xl rounded-2xl p-8 md:p-12">
-        <h2 className="text-3xl font-bold text-center text-blue-700 mb-8">💳 Complete Your Payment</h2>
+        <h2 className="text-3xl font-bold text-center text-blue-700 mb-8">
+          💳 Complete Your Payment
+        </h2>
 
         <div className="grid md:grid-cols-2 gap-8 items-start">
           {/* Payment Summary */}
           <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">🧾 Payment Summary</h3>
+            <h3 className="text-lg font-semibold text-gray-700 mb-4">
+              🧾 Payment Summary
+            </h3>
             <div className="space-y-3 text-sm text-gray-600">
               <div>
                 <span className="font-medium text-gray-800">Trainer:</span>{" "}
@@ -33,7 +62,11 @@ const Payment = () => {
               </div>
               <div>
                 <span className="font-medium text-gray-800">Slot:</span>{" "}
-                {slot}
+                {slot.slotName} ({slot.slotTime})
+              </div>
+              <div>
+                <span className="font-medium text-gray-800">Days:</span>{" "}
+                {slot.days?.join(", ")}
               </div>
               <div>
                 <span className="font-medium text-gray-800">Package:</span>{" "}
@@ -45,15 +78,18 @@ const Payment = () => {
             </div>
           </div>
 
-          {/* Payment Form */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">💸 Enter Payment Details</h3>
+            <h3 className="text-lg font-semibold text-gray-700 mb-4">
+              💸 Enter Payment Details
+            </h3>
             <div className="bg-white rounded-xl p-6 border border-gray-100 shadow">
               <Elements stripe={stripePromise}>
                 <PaymentForm
                   trainer={trainer}
                   slot={slot}
                   selectedPackage={selectedPackage}
+                  classId={classId}
+                  slotId={slotId}
                 />
               </Elements>
             </div>

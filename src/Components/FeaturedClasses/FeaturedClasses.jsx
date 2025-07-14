@@ -48,7 +48,7 @@ const FeaturedClasses = () => {
 
               <div className="mt-auto">
                 <span className="text-sm font-medium text-gray-700 flex items-center gap-1">
-                  <FaFire className="text-red-500" /> {cls.bookingCount || 0} Bookings
+                  <FaFire className="text-red-500" /> {cls.bookings || 0} Bookings
                 </span>
                 
               </div>

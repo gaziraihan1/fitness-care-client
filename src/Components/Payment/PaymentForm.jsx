@@ -3,7 +3,7 @@ import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
-const PaymentForm = ({ trainer, slot, selectedPackage }) => {
+const PaymentForm = ({ trainer, slot, selectedPackage, slotId, classId }) => {
   const stripe = useStripe();
   const axiosSecure = useAxiosSecure();
   const elements = useElements();
@@ -58,6 +58,8 @@ const PaymentForm = ({ trainer, slot, selectedPackage }) => {
         trainerName: trainer.fullName,
         trainerId: trainer._id,
         slot,
+        classId,
+        slotId,
         package: selectedPackage.name,
         price: selectedPackage.price,
         date: new Date(),

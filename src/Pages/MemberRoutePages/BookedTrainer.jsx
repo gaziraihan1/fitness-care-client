@@ -128,7 +128,6 @@ const BookedTrainer = () => {
         ))}
       </div>
 
-      {/* Review Modal */}
       {showModal && selectedBooking && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-50">
           <div className="bg-white rounded-xl w-[95%] max-w-lg p-6 shadow-2xl relative">

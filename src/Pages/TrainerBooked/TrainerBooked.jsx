@@ -6,47 +6,63 @@ import SubscriptionCards from "../../Components/Payment/SubscriptionCards";
 import { motion } from "framer-motion";
 
 const TrainerBooked = () => {
-  const { id } = useParams();
+  const { id } = useParams(); 
   const location = useLocation();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const [selectedPackage, setSelectedPackage] = useState(null);
 
-  const selectedSlot = new URLSearchParams(location.search).get("day");
+  const slotId = new URLSearchParams(location.search).get("slotId");
 
   const {
     data: trainer,
-    isLoading,
-    isError,
+    isLoading: trainerLoading,
+    isError: trainerError,
   } = useQuery({
     queryKey: ["trainer", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/trainerApplications/${id}`);
+      const res = await axiosSecure.get(`/trainers/${id}`);
       return res.data;
     },
   });
+
+  const {
+    data: slotData,
+    isLoading: slotLoading,
+    isError: slotError,
+  } = useQuery({
+    queryKey: ["slot", slotId],
+    enabled: !!slotId,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/slots/${slotId}`);
+      return res.data;
+    },
+  });
+  console.log(slotData)
 
   const handlePackageSelect = (pkg) => {
     setSelectedPackage(pkg);
     navigate("/payment", {
       state: {
-        trainer,
-        slot: selectedSlot,
-        package: pkg,
-      },
+    trainer,
+    package: pkg,
+    classId: slotData.classId, 
+    slotId: slotData._id,
+  },
     });
   };
 
-  if (isLoading)
+  if (trainerLoading || slotLoading)
     return (
       <p className="text-center text-lg text-blue-600 mt-10">
-        Loading trainer details...
+        Loading trainer and slot details...
       </p>
     );
-  if (isError || !trainer)
+
+  if (trainerError || slotError || !trainer || !slotData)
     return (
       <p className="text-center text-red-600 mt-10">
-        Failed to load trainer data.
+        Failed to load data. Please try again.
       </p>
     );
 
@@ -79,23 +95,34 @@ const TrainerBooked = () => {
           <h2 className="text-2xl font-semibold text-blue-600">
             {trainer.fullName}
           </h2>
+
           <p>
-            <strong>Slot:</strong>{" "}
-            <span className="text-blue-500">{selectedSlot}</span>
+            <strong>Slot Name:</strong>{" "}
+            <span className="text-blue-500">{slotData.slotName}</span>
           </p>
+
+          <p>
+            <strong>Time:</strong> {slotData.slotTime}
+          </p>
+
+          <p>
+            <strong>Days:</strong> {slotData.days?.join(", ") || "N/A"}
+          </p>
+
+          <p>
+            <strong>Class:</strong> {slotData.className || "Not Assigned"}
+          </p>
+
           <p>
             <strong>Experience:</strong>{" "}
             {trainer.experience ? `${trainer.experience} years` : "N/A"}
           </p>
+
           <p>
-            <strong>Skills:</strong> {trainer.skills?.join(", ")}
+            <strong>Skills:</strong>{" "}
+            {trainer.skills?.length ? trainer.skills.join(", ") : "N/A"}
           </p>
-          <p>
-            <strong>Available Days:</strong> {trainer.availableDays?.join(", ")}
-          </p>
-          <p>
-            <strong>Time:</strong> {trainer.availableTime}
-          </p>
+
           <p>
             <strong>Bio:</strong>{" "}
             <span className="text-sm text-gray-600 italic">

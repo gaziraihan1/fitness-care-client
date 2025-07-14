@@ -48,7 +48,7 @@ const NewClass = () => {
     });
 
     const data = await response.json();
-    return data.secure_url; // Cloudinary image URL
+    return data.secure_url; 
   };
 
   const onSubmit = async (data) => {
