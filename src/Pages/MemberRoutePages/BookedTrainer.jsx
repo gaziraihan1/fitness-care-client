@@ -46,46 +46,48 @@ const BookedTrainer = () => {
   };
 
   const handleReviewSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedBooking || rating === 0) {
-      Swal.fire({
-        icon: "warning",
-        title: "Rating Required",
-        text: "Please select a star rating.",
-      });
-      return;
-    }
+  e.preventDefault();
+  if (!selectedBooking || rating === 0) {
+    Swal.fire({
+      icon: "warning",
+      title: "Rating Required",
+      text: "Please select a star rating.",
+    });
+    return;
+  }
 
-    setSubmitting(true);
-    try {
-      const reviewData = {
-        userEmail: user.email,
-        trainerId: selectedBooking.trainerId,
-        trainerName: selectedBooking.trainerName,
-        feedback,
-        rating,
-        date: new Date(),
-      };
+  setSubmitting(true);
+  try {
+    const reviewData = {
+      userEmail: user.email,
+      userName: user.displayName || "Anonymous",
+      userPhoto: user.photoURL || "/default-avatar.png",
+      trainerId: selectedBooking.trainerId,
+      trainerName: selectedBooking.trainerName,
+      feedback,
+      rating,
+      date: new Date(),
+    };
 
-      await axiosSecure.post("/reviews", reviewData);
+    await axiosSecure.post("/reviews", reviewData);
 
-      Swal.fire({
-        icon: "success",
-        title: "Thank you!",
-        text: "Review submitted successfully!",
-      });
+    Swal.fire({
+      icon: "success",
+      title: "Thank you!",
+      text: "Review submitted successfully!",
+    });
 
-      setShowModal(false);
-    } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Failed",
-        text: "Could not submit review. Try again.",
-      });
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    setShowModal(false);
+  } catch (err) {
+    Swal.fire({
+      icon: "error",
+      title: "Failed",
+      text: "Could not submit review. Try again.",
+    });
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   if (isLoading) return <p className="text-center mt-10">Loading bookings...</p>;
   if (!bookings.length) return <p className="text-center mt-10">No trainers booked yet.</p>;
@@ -113,10 +115,30 @@ const BookedTrainer = () => {
             </div>
 
             <div className="text-sm space-y-2">
-              <p><span className="font-medium text-blue-700">Class:</span> {booking.className || "N/A"}</p>
-              <p><span className="font-medium text-blue-700">Slot:</span> {booking.slot || "N/A"}</p>
-              <p><span className="font-medium text-blue-700">Status:</span> {booking.status}</p>
-            </div>
+  <p>
+    <span className="font-medium text-blue-700">Class:</span>{" "}
+    {booking.className || "N/A"}
+  </p>
+  <p>
+    <span className="font-medium text-blue-700">Slot Name:</span>{" "}
+    {booking.slot?.slotName || "N/A"}
+  </p>
+  <p>
+    <span className="font-medium text-blue-700">Time:</span>{" "}
+    {booking.slot?.slotTime || "N/A"}
+  </p>
+  <p>
+    <span className="font-medium text-blue-700">Days:</span>{" "}
+    {Array.isArray(booking.slot?.days)
+      ? booking.slot.days.join(", ")
+      : "N/A"}
+  </p>
+  <p>
+    <span className="font-medium text-blue-700">Status:</span>{" "}
+    {booking.status}
+  </p>
+</div>
+
 
             <button
               onClick={() => handleReviewClick(booking)}
