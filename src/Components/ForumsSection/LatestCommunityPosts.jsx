@@ -5,7 +5,11 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const LatestCommunityPosts = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: posts = [], isLoading, error } = useQuery({
+  const {
+    data: posts = [],
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["latestForumPosts"],
     queryFn: async () => {
       const res = await axiosSecure.get("/forum/latest");
@@ -14,13 +18,13 @@ const LatestCommunityPosts = () => {
   });
 
   if (isLoading) {
-    console.log(error)
+    error;
     return (
       <section>
-      <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
-      <p className="text-center py-10 text-gray-500 animate-pulse">
-        Loading latest posts...
-      </p>
+        <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
+        <p className="text-center py-10 text-gray-500 animate-pulse">
+          Loading latest posts...
+        </p>
       </section>
     );
   }

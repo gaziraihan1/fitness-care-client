@@ -6,7 +6,7 @@ import SubscriptionCards from "../../Components/Payment/SubscriptionCards";
 import { motion } from "framer-motion";
 
 const TrainerBooked = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -38,17 +38,17 @@ const TrainerBooked = () => {
       return res.data;
     },
   });
-  console.log(slotData)
+  slotData;
 
   const handlePackageSelect = (pkg) => {
     setSelectedPackage(pkg);
     navigate("/payment", {
       state: {
-    trainer,
-    package: pkg,
-    classId: slotData.classId, 
-    slotId: slotData._id,
-  },
+        trainer,
+        package: pkg,
+        classId: slotData.classId,
+        slotId: slotData._id,
+      },
     });
   };
 

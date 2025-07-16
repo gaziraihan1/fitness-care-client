@@ -6,7 +6,7 @@ import useUserRole from "../../Hooks/useUserRole";
 
 const AddForum = () => {
   const [role, isLoading] = useUserRole();
-  console.log(role);
+  role;
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();

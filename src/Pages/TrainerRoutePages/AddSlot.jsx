@@ -36,7 +36,7 @@ const AddSlot = () => {
       return res.data;
     },
   });
-  console.log(classes);
+  classes;
 
   const onSubmit = async (data) => {
     const selectedDays = Array.isArray(data.days)
@@ -72,7 +72,7 @@ const AddSlot = () => {
       value: day,
       label: day,
     })) || [];
-  console.log(defaultDays);
+  defaultDays;
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow p-6 rounded mt-8">

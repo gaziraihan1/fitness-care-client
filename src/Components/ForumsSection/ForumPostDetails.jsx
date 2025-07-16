@@ -4,10 +4,14 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ForumPostDetails = () => {
   const { id } = useParams();
-  console.log(id)
+  id;
   const axiosSecure = useAxiosSecure();
 
-  const { data: post, isLoading, error } = useQuery({
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["forumPost", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/forum/${id}`);
@@ -29,9 +33,7 @@ const ForumPostDetails = () => {
   }
 
   if (!post) {
-    return (
-      <p className="text-center py-10 text-gray-500">Post not found.</p>
-    );
+    return <p className="text-center py-10 text-gray-500">Post not found.</p>;
   }
 
   return (
@@ -39,7 +41,10 @@ const ForumPostDetails = () => {
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
 
       <div className="mb-6 text-gray-600 text-sm">
-        <span>By <strong>{post.author || "Anonymous"}</strong></span> &middot;{" "}
+        <span>
+          By <strong>{post.author || "Anonymous"}</strong>
+        </span>{" "}
+        &middot;{" "}
         <time dateTime={post.createdAt}>
           {new Date(post.createdAt).toLocaleDateString()}
         </time>

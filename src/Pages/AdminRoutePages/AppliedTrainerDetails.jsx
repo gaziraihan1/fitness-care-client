@@ -17,7 +17,7 @@ const AppliedTrainerDetails = () => {
       return res.data;
     },
   });
-  console.log(trainer);
+  trainer;
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
   if (isError || !trainer)

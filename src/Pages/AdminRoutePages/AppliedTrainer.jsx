@@ -34,7 +34,7 @@ const AppliedTrainer = () => {
       return res.data.filter((trainer) => trainer.status === "pending");
     },
   });
-  console.log(trainers)
+  trainers;
 
   const handleConfirm = (id, email) => {
     axiosSecure
@@ -104,7 +104,9 @@ const AppliedTrainer = () => {
                       <button
                         className="btn btn-sm btn-outline"
                         onClick={() =>
-                          navigate(`/dashboard/admin/appliedTrainer/${trainer._id}`)
+                          navigate(
+                            `/dashboard/admin/appliedTrainer/${trainer._id}`
+                          )
                         }
                       >
                         <FaEye size={20} />
@@ -113,7 +115,9 @@ const AppliedTrainer = () => {
                       <IconButton
                         color="success"
                         title="Confirm"
-                        onClick={() => handleConfirm(trainer._id, trainer.email)}
+                        onClick={() =>
+                          handleConfirm(trainer._id, trainer.email)
+                        }
                       >
                         <FaCheckCircle size={20} />
                       </IconButton>
