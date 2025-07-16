@@ -1,15 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Link } from "react-router";
 import { FaDumbbell, FaFire, FaArrowRight } from "react-icons/fa";
+import axios from "axios";
 
 const FeaturedClasses = () => {
-  const axiosSecure = useAxiosSecure();
 
   const { data: featuredClasses = [], isLoading } = useQuery({
     queryKey: ["featured-classes"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/featured-classes");
+      const res = await axios.get("/featured-classes");
       return res.data;
     },
   });

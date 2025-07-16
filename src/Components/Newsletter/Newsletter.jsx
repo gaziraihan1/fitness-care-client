@@ -1,9 +1,8 @@
+import axios from "axios";
 import { useState } from "react";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const Newsletter = () => {
-  const axiosSecure = useAxiosSecure();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +20,7 @@ const Newsletter = () => {
 
     setLoading(true);
     try {
-      await axiosSecure.post("/newsletter", { name, email });
+      await axios.post("/newsletter", { name, email });
       Swal.fire({
         icon: "success",
         title: "Subscribed!",

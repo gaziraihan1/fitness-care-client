@@ -7,14 +7,11 @@ const Banner = () => {
 
   return (
     <section className="relative overflow-hidden w-full mt-0.5">
-      {/* Background Image */}
       <img
         src={bannerImg}
         alt="Gym Banner"
         className="w-full h-[80vh] object-cover object-center"
       />
-
-      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-tr from-black/70 via-black/60 to-black/40 flex items-center justify-center">
         <motion.div
           className="text-center text-white max-w-3xl px-4"
