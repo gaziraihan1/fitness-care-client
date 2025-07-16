@@ -1,17 +1,16 @@
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { FaCheckCircle } from "react-icons/fa";
+import useAxios from "../../Hooks/useAxios";
 
 const TrainerDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const axiosSecure = useAxiosSecure();
-
+  const axiosInstance = useAxios();
   const { data: trainer = {} } = useQuery({
     queryKey: ["trainerDetails", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/trainers/${id}`);
+      const res = await axiosInstance.get(`/trainers/${id}`);
       return res.data;
     },
   });
@@ -20,7 +19,7 @@ const TrainerDetails = () => {
     queryKey: ["trainerSlots", trainer.email],
     enabled: !!trainer.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/slots?email=${trainer.email}`);
+      const res = await axiosInstance.get(`/slots?email=${trainer.email}`);
       return res.data;
     },
   });

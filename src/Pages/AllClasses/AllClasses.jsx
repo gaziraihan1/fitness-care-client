@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { FaUserShield, FaUserTie } from "react-icons/fa";
+import useAxios from "../../Hooks/useAxios";
 
 const roleBadge = {
   admin: <FaUserShield className="text-red-500" />,
@@ -10,7 +10,7 @@ const roleBadge = {
 };
 
 const AllClasses = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosInstance = useAxios()
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const AllClasses = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["all-classes", page, search],
     queryFn: async () => {
-      const res = await axiosSecure.get(
+      const res = await axiosInstance.get(
         `/allClasses?page=${page}&limit=${limit}&search=${search}`
       );
       return res.data;

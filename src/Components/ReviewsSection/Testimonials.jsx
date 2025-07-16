@@ -2,14 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
+import useAxios from "../../Hooks/useAxios";
 
 const Testimonials = () => {
+
+  const axiosInstance = useAxios();
 
   const { data: reviews = [], isLoading } = useQuery({
     queryKey: ["reviews"],
     queryFn: async () => {
-      const res = await axios.get("/reviews");
+      const res = await axiosInstance.get("/reviews");
       return res.data;
     },
   });

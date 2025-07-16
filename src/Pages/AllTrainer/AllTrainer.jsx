@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAxios from "../../Hooks/useAxios";
 
 const AllTrainer = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosInstance = useAxios();
 
   const { data: trainers = [] } = useQuery({
     queryKey: ["allTrainers"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/trainers");
+      const res = await axiosInstance.get("/trainers");
       return res.data;
     },
   });

@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
-import axios from "axios";
+import useAxios from "../../Hooks/useAxios";
 
 const LatestCommunityPosts = () => {
 
+  const axiosInstance = useAxios();
   const {
     data: posts = [],
     isLoading,
@@ -11,7 +12,7 @@ const LatestCommunityPosts = () => {
   } = useQuery({
     queryKey: ["latestForumPosts"],
     queryFn: async () => {
-      const res = await axios.get("/forum/latest");
+      const res = await axiosInstance.get("/forum/latest");
       return res.data;
     },
   });

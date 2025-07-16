@@ -1,11 +1,11 @@
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAxios from "../../Hooks/useAxios";
 
 const ForumPostDetails = () => {
   const { id } = useParams();
-  id;
-  const axiosSecure = useAxiosSecure();
+  const axiosInstance = useAxios();
+
 
   const {
     data: post,
@@ -14,7 +14,7 @@ const ForumPostDetails = () => {
   } = useQuery({
     queryKey: ["forumPost", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/forum/${id}`);
+      const res = await axiosInstance.get(`/forum/${id}`);
       return res.data;
     },
     enabled: !!id,

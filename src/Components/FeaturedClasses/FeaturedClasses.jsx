@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { FaDumbbell, FaFire, FaArrowRight } from "react-icons/fa";
-import axios from "axios";
+import useAxios from "../../Hooks/useAxios";
 
 const FeaturedClasses = () => {
+  const axiosInstance = useAxios()
 
   const { data: featuredClasses = [], isLoading } = useQuery({
     queryKey: ["featured-classes"],
     queryFn: async () => {
-      const res = await axios.get("/featured-classes");
+      const res = await axiosInstance.get("/featured-classes");
       return res.data;
     },
   });

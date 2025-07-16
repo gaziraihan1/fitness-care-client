@@ -3,6 +3,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { FaUserShield, FaUserTie, FaArrowUp, FaArrowDown } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxios from "../../Hooks/useAxios";
 
 const roleBadge = {
   admin: {
@@ -16,13 +17,14 @@ const roleBadge = {
 };
 
 const ForumsPage = () => {
+  const axiosInstance = useAxios();
   const axiosSecure = useAxiosSecure();
   const {user} = useAuth()
 
   const { data: forums = [], isLoading, error, refetch } = useQuery({
     queryKey: ["forums"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/forum?page=1&limit=6");
+      const res = await axiosInstance.get("/forum?page=1&limit=6");
       return res.data.forums;
     },
   });

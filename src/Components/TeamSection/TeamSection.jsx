@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
-import axios from "axios";
+import useAxios from "../../Hooks/useAxios";
 
 const TeamSection = () => {
+  const axiosInstance = useAxios()
 
   const { data: trainers = [], isLoading, isError } = useQuery({
     queryKey: ["homeTrainers"],
     queryFn: async () => {
-      const res = await axios.get("/trainers");
+      const res = await axiosInstance.get("/trainers");
       return res.data;
     },
   });
