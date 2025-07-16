@@ -2,6 +2,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const PaymentForm = ({ trainer, slot, selectedPackage, slotId, classId }) => {
   const stripe = useStripe();
@@ -28,29 +29,30 @@ const PaymentForm = ({ trainer, slot, selectedPackage, slotId, classId }) => {
     },
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!stripe || !elements) return;
 
-    setProcessing(true);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!stripe || !elements) return;
+
+  setProcessing(true);
+
+  try {
     const { data } = await axiosSecure.post("/create-payment-intent", {
       price: selectedPackage.price,
     });
     const clientSecret = data.clientSecret;
 
     const card = elements.getElement(CardElement);
-    const { paymentIntent, error } = await stripe.confirmCardPayment(
-      clientSecret,
-      {
-        payment_method: {
-          card,
-          billing_details: {
-            name: user?.displayName,
-            email: user?.email,
-          },
+
+    const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card,
+        billing_details: {
+          name: user?.displayName,
+          email: user?.email,
         },
-      }
-    );
+      },
+    });
 
     if (paymentIntent?.status === "succeeded") {
       const paymentData = {
@@ -78,13 +80,36 @@ const PaymentForm = ({ trainer, slot, selectedPackage, slotId, classId }) => {
 
       await axiosSecure.post("/bookings", bookingData);
 
-      alert("Payment successful!");
+      Swal.fire({
+        icon: "success",
+        title: "Payment Successful 🎉",
+        text: "Your booking has been confirmed.",
+        showConfirmButton: true,
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK",
+      });
     } else if (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Payment Failed",
+        text: error.message || "Something went wrong with your payment.",
+        confirmButtonText: "Try Again",
+        confirmButtonColor: "#d33",
+      });
     }
-
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      icon: "error",
+      title: "Unexpected Error",
+      text: "An unexpected error occurred. Please try again.",
+      confirmButtonColor: "#d33",
+    });
+  } finally {
     setProcessing(false);
-  };
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit}>
