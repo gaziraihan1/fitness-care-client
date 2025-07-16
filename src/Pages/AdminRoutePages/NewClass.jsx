@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 
 const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 const NewClass = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Add Class";
+    }, []);
   const {
     register,
     handleSubmit,

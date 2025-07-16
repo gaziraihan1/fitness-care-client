@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -6,6 +6,9 @@ import SubscriptionCards from "../../Components/Payment/SubscriptionCards";
 import { motion } from "framer-motion";
 
 const TrainerBooked = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Book Trainer";
+    }, []);
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();

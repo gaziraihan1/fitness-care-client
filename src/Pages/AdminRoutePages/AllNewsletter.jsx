@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useEffect } from "react";
 
 const AllNewsletter = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | All Subscriber";
+    }, []);
   const axiosSecure = useAxiosSecure();
 
   const { data: subscribers = [], isLoading, isError } = useQuery({

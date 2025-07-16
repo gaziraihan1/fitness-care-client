@@ -1,8 +1,12 @@
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useEffect } from "react";
 
 const AppliedTrainerDetails = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Applied Trainer Details";
+    }, []);
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
 

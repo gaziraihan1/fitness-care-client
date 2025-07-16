@@ -1,8 +1,12 @@
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
+import { useEffect } from "react";
 
 const ForumPostDetails = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Forum Details";
+    }, []);
   const { id } = useParams();
   const axiosInstance = useAxios();
 

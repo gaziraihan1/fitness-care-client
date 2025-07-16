@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
@@ -8,6 +8,9 @@ import Modal from "react-modal";
 Modal.setAppElement("#root");
 
 const ActivityLog = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Activity Log";
+    }, []);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [modalIsOpen, setModalIsOpen] = useState(false);

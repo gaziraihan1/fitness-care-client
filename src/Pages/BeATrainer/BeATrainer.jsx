@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { FaCloudUploadAlt } from "react-icons/fa";
@@ -22,6 +22,9 @@ const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 const BeATrainer = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Be A Trainer";
+    }, []);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [selectedDays, setSelectedDays] = useState([]);

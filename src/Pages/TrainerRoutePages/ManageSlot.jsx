@@ -3,8 +3,12 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { FaTrashAlt } from "react-icons/fa";
+import { useEffect } from "react";
 
 const ManageSlots = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Manage Slot";
+    }, []);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 

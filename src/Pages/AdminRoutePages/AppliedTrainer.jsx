@@ -3,7 +3,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { FaCheckCircle, FaTimesCircle, FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import {
@@ -21,6 +21,9 @@ import {
 Modal.setAppElement("#root");
 
 const AppliedTrainer = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Applied Trainer";
+    }, []);
   const axiosSecure = useAxiosSecure();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedTrainer, setSelectedTrainer] = useState(null);

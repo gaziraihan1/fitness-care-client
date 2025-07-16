@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../Hooks/useAuth';
@@ -7,6 +7,9 @@ import SocialLogin from '../SocialLogin/SocialLogin';
 
 
 const Login = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Login";
+    }, []);
   const { signIn, signInWithGoogle } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const axiosSecure = useAxiosSecure();

@@ -4,10 +4,14 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useEffect } from "react";
 
 const stripePromise = loadStripe(import.meta.env.VITE_piblishable_api_key);
 
 const Payment = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Payment";
+    }, []);
   const { state } = useLocation();
   const { trainer, package: selectedPackage, classId, slotId } = state || {};
 

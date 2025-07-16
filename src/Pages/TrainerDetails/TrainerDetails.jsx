@@ -2,8 +2,12 @@ import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { FaCheckCircle } from "react-icons/fa";
 import useAxios from "../../Hooks/useAxios";
+import { useEffect } from "react";
 
 const TrainerDetails = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Trainer Details";
+    }, []);
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosInstance = useAxios();

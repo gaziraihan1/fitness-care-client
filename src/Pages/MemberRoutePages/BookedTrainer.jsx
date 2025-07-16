@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
@@ -21,6 +21,9 @@ const StarRating = ({ rating, setRating }) => {
 };
 
 const BookedTrainer = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Booked Trainer";
+    }, []);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);

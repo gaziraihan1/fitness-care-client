@@ -2,8 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import useAxios from "../../Hooks/useAxios";
+import { useEffect } from "react";
 
 const AllTrainer = () => {
+  useEffect(() => {
+    document.title = "Fitness Care | All Trainer";
+  }, []);
   const axiosInstance = useAxios();
 
   const { data: trainers = [] } = useQuery({

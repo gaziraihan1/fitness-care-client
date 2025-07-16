@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { FaTrashAlt, FaSearch } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // ✅ Material UI table components
 import {
@@ -19,6 +19,9 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const AllTrainerAdmin = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | All Trainer";
+    }, []);
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
 

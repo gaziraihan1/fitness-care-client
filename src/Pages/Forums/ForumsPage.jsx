@@ -4,6 +4,7 @@ import { FaUserShield, FaUserTie, FaArrowUp, FaArrowDown } from "react-icons/fa"
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxios from "../../Hooks/useAxios";
+import { useEffect } from "react";
 
 const roleBadge = {
   admin: {
@@ -17,6 +18,9 @@ const roleBadge = {
 };
 
 const ForumsPage = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Forums";
+    }, []);
   const axiosInstance = useAxios();
   const axiosSecure = useAxiosSecure();
   const {user} = useAuth()

@@ -14,6 +14,9 @@ import { FaMoneyBillWave, FaChartPie, FaChartBar } from "react-icons/fa";
 const COLORS = ["#00C49F", "#FF8042"];
 
 const Balance = () => {
+  useEffect(() => {
+    document.title = "Fitness Care | Balance";
+  }, []);
   const axiosSecure = useAxiosSecure();
   const [chartData, setChartData] = useState([
     { name: "Subscribers", value: 0 },

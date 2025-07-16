@@ -4,6 +4,7 @@ import useAuth from "../../Hooks/useAuth";
 import Select from "react-select";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 
 const dayOptions = [
   { value: "Sunday", label: "Sunday" },
@@ -16,6 +17,9 @@ const dayOptions = [
 ];
 
 const AddSlot = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Add Slot";
+    }, []);
   const { register, handleSubmit, reset, setValue } = useForm();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();

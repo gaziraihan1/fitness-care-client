@@ -3,8 +3,12 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import useUserRole from "../../Hooks/useUserRole";
+import { useEffect } from "react";
 
 const AddForum = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Add Forum";
+    }, []);
   const [role, isLoading] = useUserRole();
   role;
   const { user } = useAuth();

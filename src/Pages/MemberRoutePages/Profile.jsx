@@ -9,13 +9,16 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { FaCloudUploadAlt } from "react-icons/fa";
 const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 const Profile = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | Profile";
+    }, []);
   const { user, updateUserProfile } = useAuth();
   const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: {

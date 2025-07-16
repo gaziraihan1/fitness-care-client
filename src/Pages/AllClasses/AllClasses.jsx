@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { FaUserShield, FaUserTie } from "react-icons/fa";
 import useAxios from "../../Hooks/useAxios";
@@ -10,6 +10,9 @@ const roleBadge = {
 };
 
 const AllClasses = () => {
+  useEffect(() => {
+      document.title = "Fitness Care | All Class";
+    }, []);
   const axiosInstance = useAxios()
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
