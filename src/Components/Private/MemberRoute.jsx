@@ -5,9 +5,9 @@ import useAuth from '../../Hooks/useAuth';
 
 const MemberRoute = ({ children }) => {
     const {user} = useAuth()
-  const [role, loading] = useUserRole();
+  const [role, roleLoading] = useUserRole();
 
-  if (loading) {return <span>Checking access...</span>};
+  if (roleLoading) {return <span>Checking access...</span>};
   if (!user || role !== 'member') {return <Navigate to="/forbidden" replace />};
 
   return children;

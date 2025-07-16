@@ -37,7 +37,6 @@ const AllClasses = () => {
         🎓 Explore Our Classes
       </h1>
 
-      {/* 🔍 Search Only */}
       <div className="mb-8 w-full flex justify-center">
         <input
           type="text"
@@ -45,14 +44,16 @@ const AllClasses = () => {
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
-            setPage(1); // Reset to page 1 when searching
+            setPage(1);
           }}
           className="w-full md:w-1/3 px-4 py-2 border rounded shadow"
         />
       </div>
 
       {isLoading ? (
-        <p className="text-center text-blue-600 font-medium">Loading classes...</p>
+        <p className="text-center text-blue-600 font-medium">
+          Loading classes...
+        </p>
       ) : error ? (
         <p className="text-center text-red-500">Failed to load classes.</p>
       ) : classes.length === 0 ? (
@@ -64,16 +65,26 @@ const AllClasses = () => {
               key={cls._id}
               className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition"
             >
-              <img src={cls.image} alt={cls.className} className="w-full h-48 object-cover" />
+              <img
+                src={cls.image}
+                alt={cls.className}
+                className="w-full h-48 object-cover"
+              />
               <div className="p-4">
-                <h2 className="text-xl font-bold text-gray-800 mb-1">{cls.className}</h2>
+                <h2 className="text-xl font-bold text-gray-800 mb-1">
+                  {cls.className}
+                </h2>
                 <p className="text-gray-600 text-sm mb-2">{cls.details}</p>
                 {cls.additionalInfo && (
-                  <p className="text-xs text-gray-500 italic">{cls.additionalInfo}</p>
+                  <p className="text-xs text-gray-500 italic">
+                    {cls.additionalInfo}
+                  </p>
                 )}
                 {cls.trainers?.length > 0 && (
                   <div className="mt-3">
-                    <p className="text-sm font-medium text-gray-700 mb-1">Trainers:</p>
+                    <p className="text-sm font-medium text-gray-700 mb-1">
+                      Trainers:
+                    </p>
                     <div className="flex -space-x-2">
                       {cls.trainers.slice(0, 5).map((trainer) => (
                         <div
@@ -102,7 +113,6 @@ const AllClasses = () => {
         </div>
       )}
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-10 gap-2 flex-wrap">
           {[...Array(totalPages)].map((_, i) => (
@@ -111,8 +121,8 @@ const AllClasses = () => {
               onClick={() => setPage(i + 1)}
               className={`px-4 py-2 text-sm rounded border font-medium transition-all duration-200 shadow ${
                 page === i + 1
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-100 text-gray-800 hover:bg-gray-200"
               }`}
             >
               {i + 1}

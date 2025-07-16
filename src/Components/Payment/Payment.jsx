@@ -9,20 +9,18 @@ const stripePromise = loadStripe(import.meta.env.VITE_piblishable_api_key);
 
 const Payment = () => {
   const { state } = useLocation();
-  const { trainer,  package: selectedPackage, classId, slotId } = state || {};
-
+  const { trainer, package: selectedPackage, classId, slotId } = state || {};
 
   const axiosSecure = useAxiosSecure();
 
-const { data: slot, isLoading } = useQuery({
-  queryKey: ["slot", slotId],
-  queryFn: async () => {
-    const res = await axiosSecure.get(`/slots/${slotId}`);
-    return res.data;
-  },
-  enabled: !!slotId,
-});
-
+  const { data: slot, isLoading } = useQuery({
+    queryKey: ["slot", slotId],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/slots/${slotId}`);
+      return res.data;
+    },
+    enabled: !!slotId,
+  });
 
   if (!state || !slotId) {
     return (
@@ -40,8 +38,6 @@ const { data: slot, isLoading } = useQuery({
     );
   }
 
- 
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-white/60 backdrop-blur-md border border-blue-100 shadow-xl rounded-2xl p-8 md:p-12">
@@ -50,7 +46,6 @@ const { data: slot, isLoading } = useQuery({
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* Payment Summary */}
           <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-700 mb-4">
               🧾 Payment Summary

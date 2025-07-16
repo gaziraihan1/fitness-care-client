@@ -90,10 +90,8 @@ const Profile = () => {
             margin="normal"
           />
 
-          {/* Hidden input for photoURL */}
           <input type="hidden" {...register("photoURL")} />
 
-          {/* Upload Field */}
           <Box
             display="flex"
             justifyContent="center"

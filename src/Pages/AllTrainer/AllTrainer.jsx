@@ -39,11 +39,15 @@ const AllTrainer = () => {
 
               <p className="text-gray-600 text-sm">
                 <strong>Experience:</strong>{" "}
-                {trainer.experience ? `${trainer.experience} years` : "2+ years"}
+                {trainer.experience
+                  ? `${trainer.experience} years`
+                  : "2+ years"}
               </p>
 
               <div>
-                <strong className="text-gray-700 text-sm">Available Days:</strong>{" "}
+                <strong className="text-gray-700 text-sm">
+                  Available Days:
+                </strong>{" "}
                 <span className="text-gray-600 text-sm">
                   {trainer.availableDays?.join(", ") || "N/A"}
                 </span>

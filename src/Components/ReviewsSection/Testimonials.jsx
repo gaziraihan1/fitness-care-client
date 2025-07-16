@@ -23,7 +23,6 @@ const Testimonials = () => {
     );
   }
 
-  // slick settings
   const settings = {
     dots: true,
     infinite: true,
@@ -33,63 +32,81 @@ const Testimonials = () => {
     autoplay: true,
     autoplaySpeed: 4000,
     cssEase: "ease-in-out",
-    arrows: true,
+    arrows: false,
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 2 } },
       { breakpoint: 768, settings: { slidesToShow: 1 } },
     ],
   };
 
+  const bgVariants = [
+    "from-pink-50 to-white",
+    "from-green-50 to-white",
+    "from-yellow-50 to-white",
+    "from-purple-50 to-white",
+    "from-indigo-50 to-white",
+  ];
+  const borderVariants = [
+    "border-pink-300",
+    "border-green-300",
+    "border-yellow-300",
+    "border-purple-300",
+    "border-indigo-300",
+  ];
+
   return (
     <section className="bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Heading */}
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800">
             🌟 What Our Members Say
           </h2>
           <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
             Hear directly from our community of fitness lovers and trainees.
-            Their stories inspire us every day!
+            Each story is unique and inspiring!
           </p>
         </div>
 
-        {/* Slider */}
         <Slider {...settings}>
-          {reviews.map((review) => (
-            <div key={review._id} className="px-3">
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-100 p-6 h-full flex flex-col justify-between">
-                {/* User Info */}
-                <div className="flex items-center gap-4 mb-6">
-                  <img
-                    src={review?.userPhoto || "/default-avatar.png"}
-                    alt={review.userName}
-                    className="w-14 h-14 rounded-full object-cover border-2 border-blue-500"
-                  />
-                  <div className="text-left">
-                    <h4 className="font-semibold text-gray-800 text-lg">
-                      {review.userName}
-                    </h4>
-                    <p className="text-sm text-gray-500">{review.userEmail}</p>
+          {reviews.map((review, idx) => {
+            const bg = bgVariants[idx % bgVariants.length];
+            const border = borderVariants[idx % borderVariants.length];
+            return (
+              <div key={review._id} className="px-3">
+                <div
+                  className={`bg-gradient-to-br ${bg} rounded-2xl shadow-lg hover:shadow-2xl transition-transform duration-300 transform hover:-translate-y-1 hover:rotate-1 border-t-4 ${border} p-6 h-full flex flex-col justify-between`}
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <img
+                      src={review?.userPhoto || "/default-avatar.png"}
+                      alt={review.userName}
+                      className="w-14 h-14 rounded-full object-cover ring-2 ring-offset-2 ring-blue-400"
+                    />
+                    <div className="text-left">
+                      <h4 className="font-semibold text-gray-800 text-lg">
+                        {review.userName}
+                      </h4>
+                      <p className="text-sm text-gray-500">
+                        {review.userEmail}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-700 text-base leading-relaxed italic mb-6 flex-grow">
+                    “{review.feedback}”
+                  </p>
+
+                  <div className="text-yellow-400 text-xl flex gap-1">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <span key={index}>
+                        {index < review.rating ? "★" : "☆"}
+                      </span>
+                    ))}
                   </div>
                 </div>
-
-                {/* Feedback */}
-                <p className="text-gray-700 text-base leading-relaxed italic mb-6 flex-grow">
-                  “{review.feedback}”
-                </p>
-
-                {/* Rating */}
-                <div className="text-yellow-400 text-xl flex gap-1">
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <span key={index}>
-                      {index < review.rating ? "★" : "☆"}
-                    </span>
-                  ))}
-                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </Slider>
       </div>
     </section>

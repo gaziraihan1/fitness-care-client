@@ -4,9 +4,9 @@ import useAuth from '../../Hooks/useAuth';
 
 const TrainerRoute = ({ children }) => {
     const {user} = useAuth();
-  const [role, loading] = useUserRole();
+  const [role, roleLoading] = useUserRole();
 
-  if (loading) return <span>Checking role...</span>;
+  if (roleLoading) return <span>Checking role...</span>;
   if (!user || role !== 'trainer') return <Navigate to="/forbidden" replace />;
 
   return children;

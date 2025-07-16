@@ -36,42 +36,43 @@ const AddSlot = () => {
       return res.data;
     },
   });
-  console.log(classes)
+  console.log(classes);
 
- const onSubmit = async (data) => {
-  const selectedDays = Array.isArray(data.days)
-    ? data.days.map((d) => d.value)
-    : [];
+  const onSubmit = async (data) => {
+    const selectedDays = Array.isArray(data.days)
+      ? data.days.map((d) => d.value)
+      : [];
 
-  const slotData = {
-    trainerEmail: user.email,
-    slotName: data.slotName,
-    slotTime: data.slotTime,
-    days: selectedDays,
-    classId: data.classId,
-    notes: data.notes || "",
+    const slotData = {
+      trainerEmail: user.email,
+      slotName: data.slotName,
+      slotTime: data.slotTime,
+      days: selectedDays,
+      classId: data.classId,
+      notes: data.notes || "",
+    };
+
+    try {
+      const res = await axiosSecure.post("/slots", slotData);
+      if (res.data.insertedId) {
+        Swal.fire("Success", "Slot added successfully", "success");
+        reset();
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "Failed to add slot", "error");
+    }
   };
 
-  try {
-    const res = await axiosSecure.post("/slots", slotData);
-    if (res.data.insertedId) {
-      Swal.fire("Success", "Slot added successfully", "success");
-      reset();
-    }
-  } catch (err) {
-    console.error(err);
-    Swal.fire("Error", "Failed to add slot", "error");
-  }
-};
+  if (isLoading)
+    return <p className="text-center mt-10">Loading trainer info...</p>;
 
-
-  if (isLoading) return <p className="text-center mt-10">Loading trainer info...</p>;
-
-  const defaultDays = trainerInfo?.availableDays?.map((day) => ({
-    value: day,
-    label: day,
-  })) || [];
-  console.log(defaultDays)
+  const defaultDays =
+    trainerInfo?.availableDays?.map((day) => ({
+      value: day,
+      label: day,
+    })) || [];
+  console.log(defaultDays);
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow p-6 rounded mt-8">
@@ -128,12 +129,14 @@ const AddSlot = () => {
 
         <div>
           <label className="block mb-1 font-medium">Select Class</label>
-         <select
+          <select
             {...register("classId", { required: "Please select a class" })}
             className="w-full px-4 py-2 border rounded"
             defaultValue=""
           >
-            <option value="" disabled>Select a class</option>
+            <option value="" disabled>
+              Select a class
+            </option>
             {classes.map((cls) => (
               <option key={cls._id} value={cls._id}>
                 {cls.className}

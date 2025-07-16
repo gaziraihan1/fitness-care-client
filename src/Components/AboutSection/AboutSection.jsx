@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import aboutImage from "../../assets/gym-about.jpg"; // Replace with your actual image path
+import aboutImage from "../../assets/gym-about.jpg";
 
 const AboutSection = () => {
   return (
     <section className="bg-white overflow-hidden">
       <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-        {/* Image */}
         <motion.div
           initial={{ opacity: 0, x: -60 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -19,7 +18,6 @@ const AboutSection = () => {
           />
         </motion.div>
 
-        {/* Text Content */}
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -31,9 +29,9 @@ const AboutSection = () => {
           </h2>
           <p className="text-gray-600 text-lg mb-4 leading-relaxed">
             At <span className="font-semibold text-blue-600">GYM ELITE</span>,
-            we’re more than just a fitness platform. We are a passionate community
-            focused on helping individuals achieve their best version—physically,
-            mentally, and emotionally.
+            we’re more than just a fitness platform. We are a passionate
+            community focused on helping individuals achieve their best
+            version—physically, mentally, and emotionally.
           </p>
           <p className="text-gray-600 text-base">
             From expert trainers and state-of-the-art classes to personalized

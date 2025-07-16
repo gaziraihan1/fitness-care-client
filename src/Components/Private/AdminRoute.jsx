@@ -5,9 +5,9 @@ import useUserRole from '../../Hooks/useUserRole';
 
 const AdminRoute = ({ children }) => {
     const {user} = useAuth();
-  const [role, loading] = useUserRole();
+  const [role, roleLoading] = useUserRole();
 
-  if (loading) return <span>Checking role...</span>;
+  if (roleLoading) return <span>Checking role...</span>;
   if (!user || role !== 'admin') return <Navigate to="/forbidden" replace />;
 
   return children;

@@ -8,7 +8,11 @@ const ManageSlots = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: slots = [], isLoading, refetch } = useQuery({
+  const {
+    data: slots = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["slots", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/slots?email=${user?.email}`);
@@ -25,7 +29,6 @@ const ManageSlots = () => {
     },
   });
 
-  // Map slots with class info
   const slotsWithClass = slots.map((slot) => {
     const matchedClass = classes.find((c) => c._id === slot.classId);
     return {
@@ -83,7 +86,10 @@ const ManageSlots = () => {
             <tbody>
               {slotsWithClass.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className="text-center py-6 text-gray-500 italic">
+                  <td
+                    colSpan="8"
+                    className="text-center py-6 text-gray-500 italic"
+                  >
                     You haven’t added any slots yet.
                   </td>
                 </tr>
@@ -104,7 +110,9 @@ const ManageSlots = () => {
                       {slot.bookedBy ? (
                         <div>
                           <p className="font-semibold">{slot.bookedBy.name}</p>
-                          <p className="text-xs text-gray-500">{slot.bookedBy.email}</p>
+                          <p className="text-xs text-gray-500">
+                            {slot.bookedBy.email}
+                          </p>
                         </div>
                       ) : (
                         <span className="text-gray-400 italic">Not booked</span>

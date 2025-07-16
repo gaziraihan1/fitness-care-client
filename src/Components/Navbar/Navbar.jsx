@@ -54,7 +54,6 @@ const Navbar = () => {
   return (
     <header className="bg-white sticky top-0 z-50 shadow-sm">
       <nav className="flex justify-between items-center py-3 px-4 lg:px-0 lg:w-11/12 2xl:w-10/12 mx-auto">
-        {/* Brand */}
         <Link
           to="/"
           className="flex items-center gap-2 text-2xl font-extrabold text-blue-700 hover:text-blue-800 transition-colors"
@@ -63,12 +62,10 @@ const Navbar = () => {
           <span>FitnessCare</span>
         </Link>
 
-        {/* Desktop Menu */}
         <ul className="hidden lg:flex items-center gap-8 text-sm font-medium">
           {navLinks}
         </ul>
 
-        {/* Auth Buttons Desktop */}
         <div className="hidden lg:flex items-center gap-4">
           {user ? (
             <>
@@ -105,7 +102,6 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile Menu Toggle */}
         <div className="lg:hidden">
           <button
             onClick={toggleMenu}
@@ -120,7 +116,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Overlay */}
       {menuOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-40 z-40 lg:hidden"
@@ -128,7 +123,6 @@ const Navbar = () => {
         ></div>
       )}
 
-      {/* Mobile Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50 transform transition-transform duration-300 ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
@@ -140,7 +134,9 @@ const Navbar = () => {
             <FaTimes className="text-2xl text-gray-700" />
           </button>
         </div>
-        <ul className="flex flex-col gap-6 p-6 text-base font-medium">{navLinks}</ul>
+        <ul className="flex flex-col gap-6 p-6 text-base font-medium">
+          {navLinks}
+        </ul>
         <div className="px-6 mt-4 border-t pt-4 flex flex-col gap-3">
           {user ? (
             <>
@@ -150,7 +146,9 @@ const Navbar = () => {
                   alt="User"
                   className="w-10 h-10 rounded-full border-2 border-blue-600 shadow"
                 />
-                <span className="text-sm font-semibold">{user.displayName}</span>
+                <span className="text-sm font-semibold">
+                  {user.displayName}
+                </span>
               </div>
               <button
                 onClick={handleLogout}

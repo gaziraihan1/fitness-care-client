@@ -6,7 +6,7 @@ import {
   FaUsers,
   FaStar,
   FaHeartbeat,
-  FaClipboardList
+  FaClipboardList,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 
@@ -14,43 +14,51 @@ const features = [
   {
     icon: <FaDumbbell size={30} className="text-blue-600" />,
     title: "Personalized Training",
-    description: "Customized workout plans from certified trainers tailored to your body type and goals."
+    description:
+      "Customized workout plans from certified trainers tailored to your body type and goals.",
   },
   {
     icon: <FaCalendarCheck size={30} className="text-green-600" />,
     title: "Flexible Scheduling",
-    description: "Easily book your preferred slots with live availability and instant confirmation."
+    description:
+      "Easily book your preferred slots with live availability and instant confirmation.",
   },
   {
     icon: <FaUserCheck size={30} className="text-purple-600" />,
     title: "Verified Trainers",
-    description: "Only approved and experienced professionals guide your fitness journey."
+    description:
+      "Only approved and experienced professionals guide your fitness journey.",
   },
   {
     icon: <FaChalkboardTeacher size={30} className="text-yellow-600" />,
     title: "Live Forums & Tips",
-    description: "Share your experiences and learn from others in our active fitness community."
+    description:
+      "Share your experiences and learn from others in our active fitness community.",
   },
   {
     icon: <FaUsers size={30} className="text-rose-600" />,
     title: "Community Support",
-    description: "Join a positive, like-minded community pushing each other to reach fitness goals."
+    description:
+      "Join a positive, like-minded community pushing each other to reach fitness goals.",
   },
   {
     icon: <FaStar size={30} className="text-amber-500" />,
     title: "Top Rated Classes",
-    description: "Popular classes with high ratings from members — join the best sessions."
+    description:
+      "Popular classes with high ratings from members — join the best sessions.",
   },
   {
     icon: <FaHeartbeat size={30} className="text-red-500" />,
     title: "Health Tracking",
-    description: "Monitor your progress, calories burned, and heart rate in real-time."
+    description:
+      "Monitor your progress, calories burned, and heart rate in real-time.",
   },
   {
     icon: <FaClipboardList size={30} className="text-indigo-600" />,
     title: "Activity Log",
-    description: "Review your daily workout activities, schedules, and trainer interactions."
-  }
+    description:
+      "Review your daily workout activities, schedules, and trainer interactions.",
+  },
 ];
 
 const FeaturedSection = () => {

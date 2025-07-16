@@ -12,7 +12,6 @@ const AllTrainerAdmin = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
-  // Fetch all trainers
   const { data: trainers = [], isLoading } = useQuery({
     queryKey: ["trainers"],
     queryFn: async () => {
@@ -30,7 +29,11 @@ const AllTrainerAdmin = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["allTrainers"]);
-      Swal.fire("Success", "Trainer successfully downgraded and removed successfully", "success");
+      Swal.fire(
+        "Success",
+        "Trainer successfully downgraded and removed successfully",
+        "success"
+      );
     },
     onError: () => {
       Swal.fire("Error", "Failed to remove trainer", "error");
@@ -38,21 +41,20 @@ const AllTrainerAdmin = () => {
   });
 
   const handleDeleteTrainer = (trainer) => {
-  Swal.fire({
-    title: "Are you sure?",
-    text: `Remove ${trainer.fullName} as trainer?`,
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",
-    confirmButtonText: "Yes, remove",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      downgradeTrainer.mutate(trainer);
-    }
-  });
-};
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Remove ${trainer.fullName} as trainer?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Yes, remove",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        downgradeTrainer.mutate(trainer);
+      }
+    });
+  };
 
-  // Filtered and paginated trainers
   const filteredTrainers = trainers.filter((trainer) =>
     trainer.name.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -68,7 +70,6 @@ const AllTrainerAdmin = () => {
     <div>
       <h2 className="text-2xl font-semibold mb-4">All Trainers</h2>
 
-      {/* Search */}
       <div className="mb-4 flex items-center justify-between">
         <div className="relative">
           <input
@@ -78,14 +79,13 @@ const AllTrainerAdmin = () => {
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
-              setCurrentPage(1); // reset to page 1 on search
+              setCurrentPage(1);
             }}
           />
           <FaSearch className="absolute left-3 top-3 text-gray-400" />
         </div>
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto shadow border rounded-md">
         <table className="min-w-full bg-white text-sm">
           <thead className="bg-gray-100 text-left">
@@ -129,7 +129,6 @@ const AllTrainerAdmin = () => {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="flex justify-center gap-2 mt-6 flex-wrap">
         {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
           <button

@@ -25,17 +25,16 @@ const FeaturedClasses = () => {
   return (
     <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Heading */}
         <div className="text-center mb-14">
           <h2 className="text-4xl font-extrabold text-gray-800 tracking-tight">
             🔥 Featured Classes
           </h2>
           <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
-            Explore our most popular and highly booked classes, carefully curated to help you reach your fitness goals.
+            Explore our most popular and highly booked classes, carefully
+            curated to help you reach your fitness goals.
           </p>
         </div>
 
-        {/* Cards */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {featuredClasses.map((cls) => (
             <div
@@ -56,12 +55,15 @@ const FeaturedClasses = () => {
               </h3>
 
               <p className="text-gray-600 text-sm mb-5 line-clamp-3">
-                {cls.details.length > 120 ? cls.details.slice(0, 120) + "..." : cls.details}
+                {cls.details.length > 120
+                  ? cls.details.slice(0, 120) + "..."
+                  : cls.details}
               </p>
 
               <div className="flex justify-between items-center mt-auto pt-3 border-t border-gray-100">
                 <span className="text-sm font-medium text-gray-700 flex items-center gap-1">
-                  <FaFire className="text-red-500" /> {cls.bookings || 0} Bookings
+                  <FaFire className="text-red-500" /> {cls.bookings || 0}{" "}
+                  Bookings
                 </span>
 
                 <Link

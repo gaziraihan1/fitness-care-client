@@ -11,23 +11,22 @@ const PaymentForm = ({ trainer, slot, selectedPackage, slotId, classId }) => {
   const [processing, setProcessing] = useState(false);
 
   const cardStyle = {
-  style: {
-    base: {
-      color: "#32325d",
-      fontFamily: "Arial, sans-serif",
-      fontSmoothing: "antialiased",
-      fontSize: "16px",
-      "::placeholder": {
-        color: "#a0aec0",
+    style: {
+      base: {
+        color: "#32325d",
+        fontFamily: "Arial, sans-serif",
+        fontSmoothing: "antialiased",
+        fontSize: "16px",
+        "::placeholder": {
+          color: "#a0aec0",
+        },
+      },
+      invalid: {
+        color: "#fa755a",
+        iconColor: "#fa755a",
       },
     },
-    invalid: {
-      color: "#fa755a",
-      iconColor: "#fa755a",
-    },
-  },
-};
-
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,16 +39,18 @@ const PaymentForm = ({ trainer, slot, selectedPackage, slotId, classId }) => {
     const clientSecret = data.clientSecret;
 
     const card = elements.getElement(CardElement);
-    const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-  payment_method: {
-    card,
-    billing_details: {
-      name: user?.displayName,
-      email: user?.email,
-    },
-  },
-});
-
+    const { paymentIntent, error } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card,
+          billing_details: {
+            name: user?.displayName,
+            email: user?.email,
+          },
+        },
+      }
+    );
 
     if (paymentIntent?.status === "succeeded") {
       const paymentData = {
@@ -68,14 +69,14 @@ const PaymentForm = ({ trainer, slot, selectedPackage, slotId, classId }) => {
       await axiosSecure.post("/payments", paymentData);
 
       const bookingData = {
-      ...paymentData,
-      trainerImage: trainer.profileImage,
-      className: selectedPackage.name + " Class",
-      status: "booked",
-      createdAt: new Date(),
-    };
+        ...paymentData,
+        trainerImage: trainer.profileImage,
+        className: selectedPackage.name + " Class",
+        status: "booked",
+        createdAt: new Date(),
+      };
 
-    await axiosSecure.post("/bookings", bookingData);
+      await axiosSecure.post("/bookings", bookingData);
 
       alert("Payment successful!");
     } else if (error) {
