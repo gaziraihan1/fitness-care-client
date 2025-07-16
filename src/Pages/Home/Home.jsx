@@ -5,6 +5,7 @@ import AboutSection from '../../Components/AboutSection/AboutSection';
 import FeaturedClasses from '../../Components/FeaturedClasses/FeaturedClasses';
 import Testimonials from '../../Components/ReviewsSection/Testimonials';
 import Newsletter from '../../Components/Newsletter/Newsletter';
+import TeamSection from '../../Components/TeamSection/TeamSection';
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <AboutSection />
             <FeaturedClasses />
             <Testimonials />
+            <TeamSection />
             <Newsletter />
         </div>
     );

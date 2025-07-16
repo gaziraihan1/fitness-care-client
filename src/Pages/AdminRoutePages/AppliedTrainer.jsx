@@ -6,6 +6,19 @@ import Modal from "react-modal";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
+// ✅ MUI Table
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Avatar,
+  IconButton,
+  Paper,
+} from "@mui/material";
+
 Modal.setAppElement("#root");
 
 const AppliedTrainer = () => {
@@ -26,11 +39,9 @@ const AppliedTrainer = () => {
   const handleConfirm = (id, email) => {
     axiosSecure
       .patch(`/trainerApplications/confirm/${id}`)
-      .then(() => {
-        return axiosSecure.patch(`/users/promote/${email}`, {
-          role: "trainer",
-        });
-      })
+      .then(() =>
+        axiosSecure.patch(`/users/promote/${email}`, { role: "trainer" })
+      )
       .then(() => {
         Swal.fire("Success", "Trainer Confirmed", "success");
         refetch();
@@ -45,9 +56,7 @@ const AppliedTrainer = () => {
 
   const submitRejection = () => {
     axiosSecure
-      .patch(`/trainerApplications/reject/${selectedTrainer._id}`, {
-        feedback,
-      })
+      .patch(`/trainerApplications/reject/${selectedTrainer._id}`, { feedback })
       .then(() => {
         Swal.fire("Rejected", "Trainer application rejected.", "info");
         setModalIsOpen(false);
@@ -58,66 +67,82 @@ const AppliedTrainer = () => {
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div>
       <h2 className="text-2xl font-semibold mb-4">Trainer Applications</h2>
-      <table className="min-w-full table-auto text-sm text-left">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className=" py-2">#</th>
-            <th className=" py-2">Profile</th>
-            <th className=" py-2">Name</th>
-            <th className=" py-2">Email</th>
-            <th className=" py-2">Skills</th>
-            <th className=" py-2">Status</th>
-            <th className=" py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody className="">
-          {trainers.map((trainer, idx) => (
-            <tr key={trainer._id}>
-              <td>{idx + 1}</td>
-              <td>
-                <img
-                  src={trainer.profileImage}
-                  className="w-10 h-10 rounded-full"
-                  alt="Profile"
-                />
-              </td>
-              <td>{trainer.fullName}</td>
-              <td>{trainer.email}</td>
-              <td>{trainer.skills.join(", ")}</td>
-              <td>{trainer.status}</td>
-              <td className="flex gap-3 py-2">
-                <button
-                  className="btn btn-sm btn-outline"
-                  onClick={() =>
-                    navigate(`/dashboard/admin/appliedTrainer/${trainer._id}`)
-                  }
-                >
-                  <FaEye size={20} />
-                </button>
 
-                <button
-                  className="text-green-600 tooltip"
-                  data-tip="Confirm"
-                  onClick={() => handleConfirm(trainer._id, trainer.email)}
-                >
-                  <FaCheckCircle size={20} />
-                </button>
+      {/* 🔥 Only table scrolls horizontally */}
+      <div className="overflow-x-auto">
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>#</TableCell>
+                <TableCell>Profile</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Skills</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Actions</TableCell>
+              </TableRow>
+            </TableHead>
 
-                <button
-                  className="text-red-600 tooltip"
-                  data-tip="Reject"
-                  onClick={() => openRejectModal(trainer)}
-                >
-                  <FaTimesCircle size={20} />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            <TableBody>
+              {trainers.map((trainer, idx) => (
+                <TableRow key={trainer._id} hover>
+                  <TableCell>{idx + 1}</TableCell>
+                  <TableCell>
+                    <Avatar src={trainer.profileImage} alt={trainer.fullName} />
+                  </TableCell>
+                  <TableCell>{trainer.fullName}</TableCell>
+                  <TableCell>{trainer.email}</TableCell>
+                  <TableCell>
+                    {trainer.skills && trainer.skills.join(", ")}
+                  </TableCell>
+                  <TableCell>{trainer.status}</TableCell>
+                  <TableCell>
+                    <div className="flex gap-3">
+                      <button
+                        className="btn btn-sm btn-outline"
+                        onClick={() =>
+                          navigate(`/dashboard/admin/appliedTrainer/${trainer._id}`)
+                        }
+                      >
+                        <FaEye size={20} />
+                      </button>
 
+                      <IconButton
+                        color="success"
+                        title="Confirm"
+                        onClick={() => handleConfirm(trainer._id, trainer.email)}
+                      >
+                        <FaCheckCircle size={20} />
+                      </IconButton>
+
+                      <IconButton
+                        color="error"
+                        title="Reject"
+                        onClick={() => openRejectModal(trainer)}
+                      >
+                        <FaTimesCircle size={20} />
+                      </IconButton>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+
+              {trainers.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={7} align="center">
+                    No trainer applications found
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+
+      {/* Modal for rejection */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}

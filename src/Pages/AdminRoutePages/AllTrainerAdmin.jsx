@@ -4,6 +4,20 @@ import { FaTrashAlt, FaSearch } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useState } from "react";
 
+// ✅ Material UI table components
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Avatar,
+  IconButton,
+  Paper,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 const AllTrainerAdmin = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
@@ -28,12 +42,8 @@ const AllTrainerAdmin = () => {
       return res.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["allTrainers"]);
-      Swal.fire(
-        "Success",
-        "Trainer successfully downgraded and removed successfully",
-        "success"
-      );
+      queryClient.invalidateQueries(["trainers"]);
+      Swal.fire("Success", "Trainer successfully downgraded", "success");
     },
     onError: () => {
       Swal.fire("Error", "Failed to remove trainer", "error");
@@ -43,7 +53,7 @@ const AllTrainerAdmin = () => {
   const handleDeleteTrainer = (trainer) => {
     Swal.fire({
       title: "Are you sure?",
-      text: `Remove ${trainer.fullName} as trainer?`,
+      text: `Remove ${trainer.name} as trainer?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -70,6 +80,7 @@ const AllTrainerAdmin = () => {
     <div>
       <h2 className="text-2xl font-semibold mb-4">All Trainers</h2>
 
+      {/* Search */}
       <div className="mb-4 flex items-center justify-between">
         <div className="relative">
           <input
@@ -86,49 +97,56 @@ const AllTrainerAdmin = () => {
         </div>
       </div>
 
-      <div className="overflow-x-auto shadow border rounded-md">
-        <table className="min-w-full bg-white text-sm">
-          <thead className="bg-gray-100 text-left">
-            <tr>
-              <th className="px-4 py-2">#</th>
-              <th className="px-4 py-2">Photo</th>
-              <th className="px-4 py-2">Name</th>
-              <th className="px-4 py-2">Email</th>
-              <th className="px-4 py-2">Role</th>
-              <th className="px-4 py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedTrainers.map((trainer, idx) => (
-              <tr key={trainer._id} className="border-b hover:bg-gray-50">
-                <td className="px-4 py-2">
-                  {(currentPage - 1) * itemsPerPage + idx + 1}
-                </td>
-                <td className="px-4 py-2">
-                  <img
-                    src={trainer.photoURL}
-                    alt="Profile"
-                    className="w-10 h-10 rounded-full"
-                  />
-                </td>
-                <td className="px-4 py-2">{trainer.name}</td>
-                <td className="px-4 py-2">{trainer.email}</td>
-                <td className="px-4 py-2 capitalize">{trainer.role}</td>
-                <td className="px-4 py-2">
-                  <button
-                    onClick={() => handleDeleteTrainer(trainer)}
-                    className="text-red-600 hover:text-red-800"
-                    title="Remove Trainer"
-                  >
-                    <FaTrashAlt />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* ✅ Material UI Table inside a horizontal scroll wrapper */}
+      <div className="overflow-x-auto">
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>#</TableCell>
+                <TableCell>Photo</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Role</TableCell>
+                <TableCell>Action</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {paginatedTrainers.map((trainer, idx) => (
+                <TableRow key={trainer._id} hover>
+                  <TableCell>
+                    {(currentPage - 1) * itemsPerPage + idx + 1}
+                  </TableCell>
+                  <TableCell>
+                    <Avatar src={trainer.photoURL} alt={trainer.name} />
+                  </TableCell>
+                  <TableCell>{trainer.name}</TableCell>
+                  <TableCell>{trainer.email}</TableCell>
+                  <TableCell className="capitalize">{trainer.role}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      color="error"
+                      onClick={() => handleDeleteTrainer(trainer)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {paginatedTrainers.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={6} align="center">
+                    No trainers found
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
 
+      {/* Pagination */}
       <div className="flex justify-center gap-2 mt-6 flex-wrap">
         {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
           <button

@@ -89,7 +89,7 @@ const AllClasses = () => {
                       {cls.trainers.slice(0, 5).map((trainer) => (
                         <div
                           key={trainer._id}
-                          onClick={() => navigate(`/trainer/${trainer._id}`)}
+                          onClick={() => navigate(`/trainerDetails/${trainer.trainerId}`)}
                           className="relative group cursor-pointer"
                         >
                           <img
