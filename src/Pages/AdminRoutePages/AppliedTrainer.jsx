@@ -6,7 +6,6 @@ import Modal from "react-modal";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-// ✅ MUI Table
 import {
   Table,
   TableHead,
@@ -35,6 +34,7 @@ const AppliedTrainer = () => {
       return res.data.filter((trainer) => trainer.status === "pending");
     },
   });
+  console.log(trainers)
 
   const handleConfirm = (id, email) => {
     axiosSecure

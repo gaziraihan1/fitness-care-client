@@ -4,7 +4,7 @@ import { FaBars, FaTimes, FaDumbbell } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut, loading } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -87,17 +87,24 @@ const Navbar = () => {
               </button>
             </>
           ) : (
+            
             <>
+            {
+              loading ? <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div> : 
               <Link to="/register">
                 <button className="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium shadow transition">
                   Register
                 </button>
               </Link>
+            }
+            {
+              loading ? <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>: 
               <Link to="/login">
                 <button className="px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium shadow transition">
                   Login
                 </button>
               </Link>
+            }
             </>
           )}
         </div>

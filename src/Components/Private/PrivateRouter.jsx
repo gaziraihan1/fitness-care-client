@@ -1,6 +1,5 @@
 import React from 'react';
 import useAuth from '../../Hooks/useAuth';
-import Loading from '../Loading/Loading';
 import { Navigate, useLocation } from 'react-router';
 
 const PrivateRouter = ({children}) => {
@@ -9,7 +8,7 @@ const PrivateRouter = ({children}) => {
     const location = useLocation();
 
     if(loading) {
-        return <Loading />
+        return <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
     }
     if(!user) {
         return <Navigate state={location.pathname} replace to={'/login'}/>

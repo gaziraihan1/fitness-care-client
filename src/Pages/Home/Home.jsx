@@ -6,6 +6,7 @@ import FeaturedClasses from '../../Components/FeaturedClasses/FeaturedClasses';
 import Testimonials from '../../Components/ReviewsSection/Testimonials';
 import Newsletter from '../../Components/Newsletter/Newsletter';
 import TeamSection from '../../Components/TeamSection/TeamSection';
+import LatestCommunityPosts from '../../Components/ForumsSection/LatestCommunityPosts';
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <FeaturedSection />
             <AboutSection />
             <FeaturedClasses />
+            <LatestCommunityPosts />
             <Testimonials />
             <TeamSection />
             <Newsletter />

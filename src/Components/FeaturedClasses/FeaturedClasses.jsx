@@ -16,9 +16,10 @@ const FeaturedClasses = () => {
 
   if (isLoading) {
     return (
-      <div className="text-center font-semibold text-blue-500">
-        Loading featured classes...
-      </div>
+      <section className="text-center">
+        <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading Classes...</p>
+      </section>
     );
   }
 

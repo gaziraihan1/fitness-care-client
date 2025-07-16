@@ -17,9 +17,10 @@ const Testimonials = () => {
 
   if (isLoading) {
     return (
-      <p className="text-center py-10 text-blue-600 font-semibold text-lg">
-        Loading testimonials...
-      </p>
+      <section className="text-center">
+        <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading reviews...</p>
+      </section>
     );
   }
 

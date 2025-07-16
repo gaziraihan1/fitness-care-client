@@ -10,11 +10,11 @@ const RootLayout = () => {
 
             <Navbar />
             </div>
-            <main>
+            <main className='min-h-screen'>
 
             <Outlet />
             </main>
-            <footer>
+            <footer className='pt-16 lg:pt-32'>
 
             <Footer />
             </footer>

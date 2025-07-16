@@ -29,6 +29,7 @@ import AppliedTrainerDetails from "../Pages/AdminRoutePages/AppliedTrainerDetail
 import TrainerBooked from "../Pages/TrainerBooked/TrainerBooked";
 import ForumsPage from "../Pages/Forums/ForumsPage";
 import AddForum from "../Pages/Forums/AddForum";
+import ForumPostDetails from "../Components/ForumsSection/ForumPostDetails";
 
 export const router = createBrowserRouter([
     {
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
             {
                 path: 'forums',
                 Component: ForumsPage
+            },
+            {
+                path: 'forumDetails/:id',
+                Component: ForumPostDetails
             },
             {
                 path: 'beATrainer',

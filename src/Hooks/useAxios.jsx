@@ -1,11 +1,11 @@
-import axios from 'axios';
-import React from 'react';
+import axios from "axios";
+import React from "react";
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000'
-})
+  baseURL: "https://server-side-mu-seven.vercel.app",
+});
 const useAxios = () => {
-    return axiosInstance
+  return axiosInstance;
 };
 
 export default useAxios;

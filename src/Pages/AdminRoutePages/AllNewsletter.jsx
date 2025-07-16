@@ -1,11 +1,66 @@
-import React from 'react';
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const AllNewsletter = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const { data: subscribers = [], isLoading, isError } = useQuery({
+    queryKey: ["allSubscribers"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/newsletter");
+      return res.data;
+    },
+  });
+
+  if (isLoading) {
     return (
-        <div>
-            
-        </div>
+      <div className="flex justify-center items-center py-10">
+        <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
     );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center text-red-600 font-medium py-10">
+        Failed to load subscribers.
+      </div>
+    );
+  }
+
+  return (
+    <section className="p-6 md:p-8 bg-gradient-to-r from-blue-50 via-white to-indigo-50 rounded-lg shadow-sm">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+        📧 All Newsletter Subscribers
+      </h2>
+      <div className="overflow-x-auto rounded-lg">
+        <table className="table w-full text-sm">
+          <thead className="bg-gray-100 text-gray-700">
+            <tr>
+              <th className=" py-3">#</th>
+              <th className="py-3">Name</th>
+              <th className="py-3">Email</th>
+              <th className="py-3">Subscribed On</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y">
+            {subscribers.map((subscriber, idx) => (
+              <tr key={subscriber._id} className="hover:bg-gray-50">
+                <td className="px-4 py-3 font-medium">{idx + 1}</td>
+                <td className="px-4 py-3 font-semibold text-gray-800">
+                  {subscriber.name}
+                </td>
+                <td className="px-4 py-3 text-gray-600">{subscriber.email}</td>
+                <td className="px-4 py-3 text-gray-500">
+                  {new Date(subscriber.date).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
 };
 
 export default AllNewsletter;

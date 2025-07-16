@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Link } from "react-router";
 
 const TeamSection = () => {
   const axiosSecure = useAxiosSecure();
@@ -7,14 +8,14 @@ const TeamSection = () => {
   const { data: trainers = [], isLoading, isError } = useQuery({
     queryKey: ["homeTrainers"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users?role=trainer");
+      const res = await axiosSecure.get("/trainers");
       return res.data;
     },
   });
 
   if (isLoading) {
     return (
-      <section className="py-20 text-center">
+      <section className="text-center">
         <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
         <p className="mt-4 text-gray-600">Loading trainers...</p>
       </section>
@@ -72,9 +73,11 @@ const TeamSection = () => {
                   trainer.additionalInfo ||
                   "Passionate about guiding you through your fitness journey with personalized plans."}
               </p>
+              <Link to={`/trainerDetails/${trainer._id}`}>
               <button className="mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium px-6 py-3 rounded-lg hover:shadow-xl transition-all">
                 View Profile
               </button>
+              </Link>
             </div>
           ))}
         </div>

@@ -1,25 +1,28 @@
-import axios from 'axios';
+import axios from "axios";
 
 const axiosSecure = axios.create({
-  baseURL: 'http://localhost:5000' 
+  baseURL: "https://server-side-mu-seven.vercel.app",
 });
 
-axiosSecure.interceptors.request.use(config => {
-  const token = localStorage.getItem('access-token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+axiosSecure.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access-token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
+);
 
 axiosSecure.interceptors.response.use(
-  response => response,
-  error => {
+  (response) => response,
+  (error) => {
     if (error.response?.status === 401 || error.response?.status === 403) {
-      localStorage.removeItem('access-token');
-      window.location.href = '/login';
+      localStorage.removeItem("access-token");
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }
