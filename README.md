@@ -80,14 +80,19 @@ This project was built as part of an assignment/project with modern libraries an
 ### ⚡ Frontend Setup
 ```bash
 # clone repo
+```
 git clone https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-gaziraihan1.git
 cd b11a12-client-side-gaziraihan1
-
+```
 # install dependencies
+```
 npm install
+```
 
 # start development
+```
 npm run dev
+```
 
 ### ⚡ Backend Setup
 ```bash
