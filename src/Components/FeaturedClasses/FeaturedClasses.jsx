@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { FaDumbbell, FaFire, FaArrowRight } from "react-icons/fa";
+import { motion } from "framer-motion";
 import useAxios from "../../Hooks/useAxios";
 
 const FeaturedClasses = () => {
-  const axiosInstance = useAxios()
+  const axiosInstance = useAxios();
 
   const { data: featuredClasses = [], isLoading } = useQuery({
     queryKey: ["featured-classes"],
@@ -26,7 +27,13 @@ const FeaturedClasses = () => {
   return (
     <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-14">
+        <motion.div
+          className="text-center mb-14"
+          initial={{ opacity: 0, y: -40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <h2 className="text-4xl font-extrabold text-gray-800 tracking-tight">
             🔥 Featured Classes
           </h2>
@@ -34,13 +41,17 @@ const FeaturedClasses = () => {
             Explore our most popular and highly booked classes, carefully
             curated to help you reach your fitness goals.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredClasses.map((cls) => (
-            <div
+          {featuredClasses.map((cls, index) => (
+            <motion.div
               key={cls._id}
               className="group bg-white/70 backdrop-blur-lg rounded-2xl shadow-lg border border-transparent hover:border-blue-200 hover:shadow-2xl transition-all duration-300 p-5 flex flex-col"
+              initial={{ opacity: 0, scale: 0.9, y: 40 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
             >
               <div className="relative mb-4 overflow-hidden rounded-xl">
                 <img
@@ -63,8 +74,7 @@ const FeaturedClasses = () => {
 
               <div className="flex justify-between items-center mt-auto pt-3 border-t border-gray-100">
                 <span className="text-sm font-medium text-gray-700 flex items-center gap-1">
-                  <FaFire className="text-red-500" /> {cls.bookings || 0}{" "}
-                  Bookings
+                  <FaFire className="text-red-500" /> {cls.bookings || 0} Bookings
                 </span>
 
                 <Link
@@ -74,7 +84,7 @@ const FeaturedClasses = () => {
                   Know More <FaArrowRight />
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

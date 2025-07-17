@@ -30,11 +30,13 @@ import TrainerBooked from "../Pages/TrainerBooked/TrainerBooked";
 import ForumsPage from "../Pages/Forums/ForumsPage";
 import AddForum from "../Pages/Forums/AddForum";
 import ForumPostDetails from "../Components/ForumsSection/ForumPostDetails";
+import ErrorPage from "../Pages/Error/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         Component: RootLayout,
+        errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
