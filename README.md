@@ -78,8 +78,8 @@ This project was built as part of an assignment/project with modern libraries an
 - Firebase project for Authentication
 
 ### ⚡ Frontend Setup
-```bash
 # clone repo
+
 ```
 git clone https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-gaziraihan1.git
 cd b11a12-client-side-gaziraihan1
@@ -95,13 +95,17 @@ npm run dev
 ```
 
 ### ⚡ Backend Setup
-```bash
+
 # Clone
+```
 git clone https://github.com/Programming-Hero-Web-Course4/b11a12-server-side-gaziraihan1.git
 cd b11a12-server-side-gaziraihan1
+```
 
 # Install dependencies
+```
 npm install
+```
 
 # Create a .env file in the root of this folder with the following keys:
 # MONGO_URI=your_mongo_connection_string
@@ -109,5 +113,7 @@ npm install
 # PORT=5000
 
 # Run in development mode
+```
 nodemon index.js
+```
 
