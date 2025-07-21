@@ -78,31 +78,46 @@ This project was built as part of an assignment/project with modern libraries an
 - Firebase project for Authentication
 
 ### ⚡ Frontend Setup
-```bash
 # clone repo
+
+```
 git clone https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-gaziraihan1.git
 cd b11a12-client-side-gaziraihan1
-
+```
 # install dependencies
+```
 npm install
+```
 
 # start development
+```
 npm run dev
+```
 
 ### ⚡ Backend Setup
-```bash
+
 # Clone
+```
 git clone https://github.com/Programming-Hero-Web-Course4/b11a12-server-side-gaziraihan1.git
 cd b11a12-server-side-gaziraihan1
+```
 
 # Install dependencies
+```
 npm install
+```
 
 # Create a .env file in the root of this folder with the following keys:
-# MONGO_URI=your_mongo_connection_string
-# JWT_SECRET=your_generated_secret_key
-# PORT=5000
+```
+MONGO_NAME=
+MONGO_PASS=
+JWT_SECRET=
+SECRET_KEY_STRIPE=
+
+```
 
 # Run in development mode
+```
 nodemon index.js
+```
 
