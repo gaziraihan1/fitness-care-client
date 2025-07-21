@@ -4,7 +4,6 @@ import { FaTrashAlt, FaSearch } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 
-// ✅ Material UI table components
 import {
   Table,
   TableHead,
@@ -83,7 +82,6 @@ const AllTrainerAdmin = () => {
     <div>
       <h2 className="text-2xl font-semibold mb-4">All Trainers</h2>
 
-      {/* Search */}
       <div className="mb-4 flex items-center justify-between">
         <div className="relative">
           <input
@@ -100,9 +98,9 @@ const AllTrainerAdmin = () => {
         </div>
       </div>
 
-      {/* ✅ Material UI Table inside a horizontal scroll wrapper */}
-      <div className="overflow-x-auto">
-        <TableContainer component={Paper}>
+      <div>
+        <TableContainer className="overflow-x-auto" 
+  style={{ maxWidth: "100%" }} component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
@@ -149,7 +147,6 @@ const AllTrainerAdmin = () => {
         </TableContainer>
       </div>
 
-      {/* Pagination */}
       <div className="flex justify-center gap-2 mt-6 flex-wrap">
         {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
           <button

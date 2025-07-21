@@ -36,9 +36,8 @@ const TeamSection = () => {
   const displayedTrainers = trainers.slice(0, 3);
 
   return (
-    <section className="bg-gradient-to-r from-blue-50 via-white to-indigo-50 px-4">
+    <section className="px-4">
       <div className="max-w-6xl mx-auto text-center">
-        {/* Heading Animation */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}

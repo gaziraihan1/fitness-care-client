@@ -35,7 +35,7 @@ const LatestCommunityPosts = () => {
   }
 
   return (
-    <section className="bg-gradient-to-r from-indigo-50 via-white to-blue-50 px-4">
+    <section className="px-4">
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-12"

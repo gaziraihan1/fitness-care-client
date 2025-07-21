@@ -40,6 +40,7 @@ const BookedTrainer = () => {
       return res.data;
     },
   });
+  console.log(bookings)
 
   const handleReviewClick = (booking) => {
     setSelectedBooking(booking);
@@ -113,14 +114,14 @@ const BookedTrainer = () => {
               />
               <div>
                 <h3 className="text-xl font-semibold">{booking.trainerName}</h3>
-                <p className="text-gray-600 text-sm">{booking.userEmail}</p>
+                <p className="text-gray-600 text-sm">{booking.slot.trainerEmail}</p>
               </div>
             </div>
 
             <div className="text-sm space-y-2">
   <p>
     <span className="font-medium text-blue-700">Class:</span>{" "}
-    {booking.className || "N/A"}
+    {booking.slot.className || "N/A"}
   </p>
   <p>
     <span className="font-medium text-blue-700">Slot Name:</span>{" "}

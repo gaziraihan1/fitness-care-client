@@ -168,7 +168,7 @@ const DashboardLayout = () => {
         ></div>
       )}
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-x-hidden">
         <div className="lg:hidden p-4 bg-white shadow-md flex justify-between items-center sticky top-0 z-30">
           <h1 className="text-lg font-bold text-gray-800">
             {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"}{" "}

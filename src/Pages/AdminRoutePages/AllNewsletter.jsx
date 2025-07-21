@@ -37,7 +37,7 @@ const AllNewsletter = () => {
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
         📧 All Newsletter Subscribers
       </h2>
-      <div className="overflow-x-auto rounded-lg">
+      <div className="rounded-lg overflow-x-auto">
         <table className="table w-full text-sm">
           <thead className="bg-gray-100 text-gray-700">
             <tr>

@@ -25,7 +25,7 @@ const FeaturedClasses = () => {
   }
 
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <section className="relative">
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
           className="text-center mb-14"
