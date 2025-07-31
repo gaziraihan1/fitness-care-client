@@ -81,8 +81,8 @@ This project was built as part of an assignment/project with modern libraries an
 # clone repo
 
 ```
-git clone https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-gaziraihan1.git
-cd b11a12-client-side-gaziraihan1
+git clone https://github.com/gaziraihan1/fitness-care-client.git
+cd fitness-care-client
 ```
 # install dependencies
 ```
@@ -98,8 +98,8 @@ npm run dev
 
 # Clone
 ```
-git clone https://github.com/Programming-Hero-Web-Course4/b11a12-server-side-gaziraihan1.git
-cd b11a12-server-side-gaziraihan1
+git clone https://github.com/gaziraihan1/fitness-care-server.git
+cd fitness-care-server
 ```
 
 # Install dependencies
