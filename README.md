@@ -4,6 +4,8 @@ A **full-stack MERN (MongoDB, Express, React, Node.js)** based Gym Management we
 It includes trainer booking, slot management, class management, forums, newsletters, and JWT-secured private routes.  
 This project was built as part of an assignment/project with modern libraries and best practices.
 
+backend: https://github.com/gaziraihan1/fitness-care-server.git
+
 ---
 
 ## 🚀 Live Demo
