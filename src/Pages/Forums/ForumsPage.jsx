@@ -1,6 +1,11 @@
+import { Link } from "react-router";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { FaUserShield, FaUserTie, FaArrowUp, FaArrowDown } from "react-icons/fa";
+import {
+  FaUserShield,
+  FaUserTie,
+} from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxios from "../../Hooks/useAxios";
@@ -8,7 +13,7 @@ import { useEffect, useState } from "react";
 
 const roleBadge = {
   admin: {
-    icon: <FaUserShield className="text-red-500" />,
+    icon: <FaUserShield className="text-blue-500" />,
     label: "Admin",
   },
   trainer: {
@@ -35,10 +40,10 @@ const ForumsPage = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["forums", page], 
+    queryKey: ["forums", page],
     queryFn: async () => {
       const res = await axiosInstance.get(`/forum?page=${page}&limit=${limit}`);
-      return res.data; 
+      return res.data;
     },
     keepPreviousData: true,
   });
@@ -107,49 +112,70 @@ const ForumsPage = () => {
       {forums.length === 0 ? (
         <p className="text-center text-gray-600">No forum posts available.</p>
       ) : (
-        <div className="grid gap-8">
+        <div className="grid gap-5">
           {forums.map((forum) => (
             <div
               key={forum._id}
-              className="bg-white/60 backdrop-blur-md border border-gray-200 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 p-6 relative"
+              className="relative flex items-center justify-between bg-white/30 backdrop-blur-lg border border-gray-200 
+                 rounded-2xl shadow-md hover:shadow-lg transition-all duration-500 px-5 py-4 group"
             >
-              <div className="flex justify-between items-center mb-2">
-                <h2 className="text-xl lg:text-2xl font-semibold text-gray-800">
-                  {forum.title}
-                </h2>
-                {forum.role && (
-                  <div className="flex items-center gap-1 text-xs bg-gray-100 px-2 py-1 rounded-full border shadow-sm">
-                    {roleBadge[forum.role]?.icon}
-                    <span className="font-semibold text-gray-700">
-                      {roleBadge[forum.role]?.label}
-                    </span>
-                  </div>
-                )}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full">
+                <div>
+                  <h2 className="text-lg md:text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent transition">
+                    {forum.title}
+                  </h2>
+                  <p className="text-sm text-gray-700 line-clamp-2 mt-1">
+                    {forum.content}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-2">
+                    Posted by{" "}
+                    <span className="font-medium text-indigo-600">
+                      {forum.author}
+                    </span>{" "}
+                    · {new Date(forum.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
               </div>
 
-              <p className="text-gray-700 text-sm mb-3">{forum.content}</p>
+              <div className="flex items-center gap-5 ml-4 shrink-0">
+                {forum.role && (
+                  <div
+                    className={`flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full shadow-sm 
+                        bg-gradient-to-r ${
+                          forum.role === "admin"
+                            ? "from-green-500 to-gray-500 text-white"
+                            : forum.role === "moderator"
+                            ? "from-blue-500 to-cyan-400 text-white"
+                            : "from-gray-200 to-gray-100 text-gray-700"
+                        }`}
+                  >
+                    {roleBadge[forum.role]?.icon}
+                    <span>{roleBadge[forum.role]?.label}</span>
+                  </div>
+                )}
 
-              <div className="flex justify-between items-center text-xs text-gray-500">
-                <p>
-                  Posted by{" "}
-                  <span className="font-semibold text-gray-800">
-                    {forum.author}
-                  </span>
-                </p>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 text-sm">
                   <button
-                    className="flex items-center gap-1 text-green-600 hover:text-green-800 transition"
+                    className="flex items-center gap-1 text-green-600 hover:text-green-800 transition transform hover:scale-110"
                     onClick={() => handleVote(forum._id, "up")}
                   >
-                    <FaArrowUp /> <span>{forum.upvotes || 0}</span>
+                    <FaArrowUp /> <span>{forum.upVotes?.length || 0}</span>
                   </button>
                   <button
-                    className="flex items-center gap-1 text-red-500 hover:text-red-700 transition"
+                    className="flex items-center gap-1 text-red-500 hover:text-red-700 transition transform hover:scale-110"
                     onClick={() => handleVote(forum._id, "down")}
                   >
-                    <FaArrowDown /> <span>{forum.downvotes || 0}</span>
+                    <FaArrowDown /> <span>{forum.downVotes?.length || 0}</span>
                   </button>
                 </div>
+
+                <Link
+                  to={`/forumDetails/${forum._id}`}
+                  className="text-xs md:text-sm bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-indigo-500 
+                     text-white px-4 py-1.5 rounded-full shadow-md transition transform hover:scale-105"
+                >
+                  More Details
+                </Link>
               </div>
             </div>
           ))}
