@@ -43,7 +43,7 @@ const Newsletter = () => {
   return (
     <section className="">
       <div className="max-w-4xl mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800">
           📬 Join Our Newsletter
         </h2>
         <p className="text-gray-600 mt-3 mb-10 max-w-2xl mx-auto">

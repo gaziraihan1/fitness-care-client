@@ -44,7 +44,7 @@ const LatestCommunityPosts = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800">
             📝 Latest Community Posts
           </h2>
           <p className="text-gray-600 mt-3 max-w-2xl mx-auto">

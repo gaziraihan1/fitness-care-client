@@ -44,7 +44,7 @@ const TeamSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800">
             🌟 Meet Our Trainers
           </h2>
           <p className="text-gray-600 mt-3 mb-12 max-w-2xl mx-auto">
@@ -57,7 +57,7 @@ const TeamSection = () => {
           {displayedTrainers.map((trainer, index) => (
             <motion.div
               key={trainer._id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center text-center border border-transparent hover:border-blue-200"
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center justify-between text-center border border-transparent hover:border-blue-200"
               initial={{ opacity: 0, scale: 0.9, y: 40 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}

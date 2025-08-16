@@ -65,7 +65,7 @@ const FeaturedSection = () => {
   return (
     <section className=" bg-gray-50">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
           Why Choose Our Platform?
         </h2>
         <p className="text-gray-600 text-lg">
@@ -78,10 +78,10 @@ const FeaturedSection = () => {
           <motion.div
             key={idx}
             className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center transition-all hover:shadow-lg hover:-translate-y-1"
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: idx * 0.1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.42, 0, 0.58, 1] }}
           >
             <div className="mb-4">{feature.icon}</div>
             <h3 className="text-xl font-semibold mb-2 text-gray-800">

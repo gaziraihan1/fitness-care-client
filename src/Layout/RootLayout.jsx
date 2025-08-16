@@ -2,11 +2,13 @@ import React from 'react';
 import { Outlet } from 'react-router';
 import Navbar from '../Components/Navbar/Navbar';
 import Footer from '../Components/Footer/Footer';
+import ScrollToTop from '../Components/ScrollToTop/ScrollToTop';
 
 const RootLayout = () => {
     return (
         <div>
-            <div className='p-4 md:px-6 lg:p-0 shadow-md bg-white'>
+            <ScrollToTop />
+            <div className='p-4 md:px-6 lg:p-0 shadow-md bg-white sticky top-0 left-0 z-50'>
 
             <Navbar />
             </div>

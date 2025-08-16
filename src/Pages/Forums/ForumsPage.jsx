@@ -100,7 +100,7 @@ const ForumsPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-bold text-center mb-10 text-blue-700">
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-10 text-blue-700">
         🌐 Community Forums
       </h1>
 
@@ -114,7 +114,7 @@ const ForumsPage = () => {
               className="bg-white/60 backdrop-blur-md border border-gray-200 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 p-6 relative"
             >
               <div className="flex justify-between items-center mb-2">
-                <h2 className="text-2xl font-semibold text-gray-800">
+                <h2 className="text-xl lg:text-2xl font-semibold text-gray-800">
                   {forum.title}
                 </h2>
                 {forum.role && (

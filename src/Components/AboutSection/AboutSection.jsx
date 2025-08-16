@@ -24,7 +24,7 @@ const AboutSection = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             About Our Fitness Journey 🏋️‍♀️
           </h2>
           <p className="text-gray-600 text-lg mb-4 leading-relaxed">

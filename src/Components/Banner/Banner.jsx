@@ -10,7 +10,7 @@ const Banner = () => {
       <img
         src={bannerImg}
         alt="Gym Banner"
-        className="w-full h-[80vh] object-cover object-center"
+        className="w-full h-[60vh] lg:h-[80vh] object-cover object-center"
       />
       <div className="absolute inset-0 bg-gradient-to-tr from-black/70 via-black/60 to-black/40 flex items-center justify-center">
         <motion.div
@@ -20,10 +20,10 @@ const Banner = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-5 drop-shadow-md leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-extrabold mb-5 drop-shadow-md leading-tight">
             Build Strength. Transform Your Life.
           </h1>
-          <p className="text-lg md:text-xl text-gray-200 mb-8 drop-shadow">
+          <p className="md:text-lg lg:text-xl text-gray-200 mb-8 drop-shadow">
             Join expert trainers and crush your fitness goals with
             personalized plans and top-class facilities.
           </p>

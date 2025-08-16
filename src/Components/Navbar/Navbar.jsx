@@ -142,7 +142,33 @@ const Navbar = () => {
           </button>
         </div>
         <ul className="flex flex-col gap-6 p-6 text-base font-medium">
-          {navLinks}
+          <li>
+      <NavLink to="/" className={navLinkClass} onClick={() => setMenuOpen(false)}>
+        Home
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to="/allTrainer" className={navLinkClass} onClick={() => setMenuOpen(false)}>
+        All Trainer
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to="/allClasses" className={navLinkClass} onClick={() => setMenuOpen(false)}>
+        All Classes
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to="/forums" className={navLinkClass} onClick={() => setMenuOpen(false)}>
+        Forums
+      </NavLink>
+    </li>
+    {user && (
+      <li>
+        <NavLink to="/dashboard" className={navLinkClass} onClick={() => setMenuOpen(false)}>
+          Dashboard
+        </NavLink>
+      </li>
+    )}
         </ul>
         <div className="px-6 mt-4 border-t pt-4 flex flex-col gap-3">
           {user ? (
@@ -166,12 +192,12 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/register">
+              <Link to="/register" onClick={() => setMenuOpen(false)}>
                 <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow transition">
                   Register
                 </button>
               </Link>
-              <Link to="/login">
+              <Link to="/login" onClick={() => setMenuOpen(false)}>
                 <button className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full shadow transition">
                   Login
                 </button>

@@ -31,6 +31,7 @@ import ForumsPage from "../Pages/Forums/ForumsPage";
 import AddForum from "../Pages/Forums/AddForum";
 import ForumPostDetails from "../Components/ForumsSection/ForumPostDetails";
 import ErrorPage from "../Pages/Error/ErrorPage";
+import ClassDetails from "../Components/ClassDetails/ClassDetails";
 
 export const router = createBrowserRouter([
     {
@@ -69,6 +70,11 @@ export const router = createBrowserRouter([
                 path: 'forumDetails/:id',
                 Component: ForumPostDetails
             },
+            {
+                path: 'allClasses/:id',
+                Component: ClassDetails
+            },
+            
             {
                 path: 'beATrainer',
                 element: <MemberRoute><BeATrainer></BeATrainer></MemberRoute>

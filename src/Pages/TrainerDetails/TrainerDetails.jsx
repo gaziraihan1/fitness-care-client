@@ -1,8 +1,10 @@
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCalendarAlt, FaCheckCircle, FaClock } from "react-icons/fa";
 import useAxios from "../../Hooks/useAxios";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
+
 
 const TrainerDetails = () => {
   useEffect(() => {
@@ -46,36 +48,69 @@ const TrainerDetails = () => {
       </div>
 
       <div className="lg:flex gap-10">
-        <div className="lg:w-2/3 space-y-5">
-          <img
-            src={trainer.profileImage}
-            alt={trainer.fullName}
-            className="w-full h-80 object-cover rounded-xl shadow"
-          />
-          <h2 className="text-3xl font-bold text-gray-800">
-            {trainer.fullName}
-          </h2>
-          <p className="text-gray-700">
-            <strong>Experience:</strong> {trainer.experience || "N/A"}
-          </p>
-          <p className="text-gray-700">
-            <strong>Skills:</strong>{" "}
-            {trainer.skills?.length ? trainer.skills.join(", ") : "N/A"}
-          </p>
-          <p className="text-gray-700">
-            <strong>Available Days:</strong>{" "}
-            {trainer.availableDays?.length
-              ? trainer.availableDays.join(", ")
-              : "Not specified"}
-          </p>
-          <p className="text-gray-700">
-            <strong>Available Time:</strong> {trainer.availableTime || "N/A"}
-          </p>
-          <p className="text-gray-700">
-            <strong>About:</strong>{" "}
-            {trainer.additionalInfo || "No additional info provided."}
-          </p>
-        </div>
+        <motion.div
+  className="lg:w-2/3 bg-white rounded-3xl shadow-2xl overflow-hidden mb-10"
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.8, ease: [0.42, 0, 0.58, 1] }}
+>
+  <div className="relative h-80">
+    <img
+      src={trainer.profileImage}
+      alt={trainer.fullName}
+      className="w-full h-full object-cover"
+    />
+    <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/50 to-transparent p-6">
+      <h2 className="text-3xl font-bold text-white">{trainer.fullName}</h2>
+      <p className="text-white">{trainer.experience || "N/A"}</p>
+    </div>
+  </div>
+
+  <div className="p-6 space-y-4">
+    <div className="flex flex-wrap gap-4 text-gray-700">
+      <p>
+        <strong>Email:</strong> {trainer.email}
+      </p>
+      <p>
+        <strong>Age:</strong> {trainer.age || "N/A"}
+      </p>
+    </div>
+
+    <div>
+      <h3 className="font-semibold text-gray-700 mb-2">Skills:</h3>
+      <div className="flex flex-wrap gap-2">
+        {trainer.skills?.map((skill) => (
+          <span
+            key={skill}
+            className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <h3 className="font-semibold text-gray-700 mb-2">Availability:</h3>
+      <p className="flex items-center gap-2 text-gray-600">
+        <FaCalendarAlt />{" "}
+        {trainer.availableDays?.length
+          ? trainer.availableDays.join(", ")
+          : "N/A"}{" "}
+        | <FaClock /> {trainer.availableTime || "N/A"}
+      </p>
+    </div>
+
+    {trainer.additionalInfo && (
+      <div>
+        <h3 className="font-semibold text-gray-700 mb-2">About:</h3>
+        <p className="text-gray-600">{trainer.additionalInfo}</p>
+      </div>
+    )}
+  </div>
+</motion.div>
+
 
         <div className="lg:w-1/3 mt-8 lg:mt-0 space-y-6">
           <div className="bg-white rounded-xl shadow p-5">
