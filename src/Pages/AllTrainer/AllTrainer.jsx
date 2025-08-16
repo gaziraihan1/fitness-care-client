@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import useAxios from "../../Hooks/useAxios";
 import { useEffect } from "react";
+// import 'react-loading-skeleton/dist/skeleton.css'
 
 const AllTrainer = () => {
   useEffect(() => {
@@ -10,13 +11,14 @@ const AllTrainer = () => {
   }, []);
   const axiosInstance = useAxios();
 
-  const { data: trainers = [] } = useQuery({
+  const { data: trainers = [],  isLoading: loading  } = useQuery({
     queryKey: ["allTrainers"],
     queryFn: async () => {
       const res = await axiosInstance.get("/trainers");
       return res.data;
     },
   });
+  const loadingArray = [1,2,3,4,5, 6];
 
   return (
     <section className="py-12 px-4 max-w-7xl mx-auto">
@@ -25,7 +27,22 @@ const AllTrainer = () => {
       </h2>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {trainers.map((trainer) => (
+        {
+          loading ? loadingArray.map((_, idx) => (
+            <div key={idx} className="bg-white shadow-xl rounded-2xl overflow-hidden transition transform hover:-translate-y-1 hover:shadow-2xl group">
+              <div>
+                <div className="animate-pulse h-56 bg-slate-300"></div>
+              </div>
+              <div className="p-5 flex flex-col gap-3">
+                <div className="animate-pulse bg-gray-300 h-4 md:h-6 inline-block w-24 mt-2"></div>
+                <div className="animate-pulse bg-gray-300 h-4 inline-block w-42 mt-2"></div>
+                <div className="animate-pulse bg-gray-300 h-4 inline-block w-42 mt-2"></div>
+                <div className="animate-pulse bg-gray-300 h-4 inline-block w-48 mt-2"></div>
+                <div className="animate-pulse bg-gray-300 h-10 w-full mt-2"></div>
+              </div>
+            </div>
+          )) : 
+          trainers.map((trainer) => (
           <div
             key={trainer._id}
             className="bg-white shadow-xl rounded-2xl overflow-hidden transition transform hover:-translate-y-1 hover:shadow-2xl group"
@@ -40,7 +57,6 @@ const AllTrainer = () => {
               <h3 className="text-xl lg:text-2xl font-bold text-gray-800">
                 {trainer.fullName}
               </h3>
-
               <p className="text-gray-600 text-sm">
                 <strong>Experience:</strong>{" "}
                 {trainer.experience
@@ -71,7 +87,9 @@ const AllTrainer = () => {
               </Link>
             </div>
           </div>
-        ))}
+        ))
+        }
+        
       </div>
     </section>
   );

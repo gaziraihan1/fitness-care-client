@@ -64,7 +64,7 @@ const LatestCommunityPosts = () => {
                 initial={{ opacity: 0, scale: 0.95, y: 40 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+                transition={{ duration: 0.5, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 <Link to={`/forumDetails/${post._id}`} className="block mb-4">
                   <h3 className="text-xl font-semibold text-blue-700 mb-2 hover:underline">

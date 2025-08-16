@@ -14,7 +14,6 @@ const FeaturedClasses = () => {
       return res.data;
     },
   });
-  console.log(featuredClasses)
 
   if (isLoading) {
     return (
