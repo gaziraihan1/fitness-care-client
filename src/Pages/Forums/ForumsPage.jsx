@@ -159,13 +159,13 @@ const ForumsPage = () => {
                     className="flex items-center gap-1 text-green-600 hover:text-green-800 transition transform hover:scale-110"
                     onClick={() => handleVote(forum._id, "up")}
                   >
-                    <FaArrowUp /> <span>{forum.upVotes?.length || 0}</span>
+                    <FaArrowUp /> <span>{forum.upvotes || 0}</span>
                   </button>
                   <button
                     className="flex items-center gap-1 text-red-500 hover:text-red-700 transition transform hover:scale-110"
                     onClick={() => handleVote(forum._id, "down")}
                   >
-                    <FaArrowDown /> <span>{forum.downVotes?.length || 0}</span>
+                    <FaArrowDown /> <span>{forum.downvotes || 0}</span>
                   </button>
                 </div>
 
