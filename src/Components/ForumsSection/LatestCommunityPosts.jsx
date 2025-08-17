@@ -44,23 +44,23 @@ const LatestCommunityPosts = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-gray-200">
             📝 Latest Community Posts
           </h2>
-          <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 mt-3 max-w-2xl mx-auto">
             Discover recent discussions, ideas, and insights shared by our
             community members.
           </p>
         </motion.div>
 
         {posts.length === 0 ? (
-          <p className="text-center text-gray-500">No posts available yet.</p>
+          <p className="text-center text-gray-500 dark:text-gray-300">No posts available yet.</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post, index) => (
               <motion.article
                 key={post._id}
-                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-5 flex flex-col justify-between border border-transparent hover:border-indigo-200"
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-5 flex flex-col justify-between border border-transparent hover:border-indigo-200"
                 initial={{ opacity: 0, scale: 0.95, y: 40 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
@@ -71,12 +71,12 @@ const LatestCommunityPosts = () => {
                 }}
               >
                 <Link to={`/forumDetails/${post._id}`} className="block mb-4">
-                  <h3 className="text-xl font-semibold text-blue-700 mb-2 hover:underline">
+                  <h3 className="text-xl font-semibold text-blue-700 dark:text-blue-500 mb-2 hover:underline">
                     {post.title.length > 60
                       ? post.title.slice(0, 57) + "..."
                       : post.title}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
                     {post.content.length > 100
                       ? post.content.slice(0, 97) + "..."
                       : post.content}

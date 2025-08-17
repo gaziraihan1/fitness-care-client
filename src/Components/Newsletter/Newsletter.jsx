@@ -43,30 +43,30 @@ const Newsletter = () => {
   return (
     <section className="">
       <div className="max-w-4xl mx-auto px-4 text-center">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-gray-200">
           📬 Join Our Newsletter
         </h2>
-        <p className="text-gray-600 mt-3 mb-10 max-w-2xl mx-auto">
+        <p className="text-gray-600 dark:text-gray-300 mt-3 mb-10 max-w-2xl mx-auto">
           Stay updated with our latest classes, trainers, and special offers. Subscribe now and never miss an update!
         </p>
 
         <form
           onSubmit={handleSubscribe}
-          className="bg-white rounded-2xl shadow-lg p-6 md:p-8 flex flex-col md:flex-row items-center gap-4 md:gap-6"
+          className="rounded-2xl shadow-lg p-6 md:p-8 flex flex-col md:flex-row items-center gap-4 md:gap-6"
         >
           <input
             type="text"
             placeholder="Your Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="flex-1 w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
+            className="flex-1 w-full border text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
           />
           <input
             type="email"
             placeholder="Your Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
+            className="flex-1 w-full border text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
           />
           <button
             type="submit"

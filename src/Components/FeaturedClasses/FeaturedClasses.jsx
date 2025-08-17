@@ -34,10 +34,10 @@ const FeaturedClasses = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800 tracking-tight">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-gray-200 tracking-tight">
             🔥 Featured Classes
           </h2>
-          <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 mt-3 max-w-2xl mx-auto">
             Explore our most popular and highly booked classes, carefully
             curated to help you reach your fitness goals.
           </p>
@@ -47,7 +47,7 @@ const FeaturedClasses = () => {
   {featuredClasses.map((cls, index) => (
     <motion.div
       key={cls._id}
-      className="group relative bg-white/30 backdrop-blur-md rounded-3xl shadow-lg border border-transparent hover:border-blue-300 hover:shadow-2xl transition-all duration-300 p-5 flex flex-col"
+      className="group relative bg-white/30 dark:bg-white/5 backdrop-blur-md rounded-3xl shadow-lg border border-transparent hover:border-blue-300 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 p-5 flex flex-col"
       initial={{ opacity: 0, scale: 0.95, y: 40 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -65,11 +65,11 @@ const FeaturedClasses = () => {
         </span>
       </div>
 
-      <h3 className="text-xl font-extrabold text-gray-800 flex items-center gap-2 mb-2">
+      <h3 className="text-xl font-extrabold text-gray-800 dark:text-gray-300 flex items-center gap-2 mb-2">
         <FaDumbbell className="text-blue-600" /> {cls.className}
       </h3>
 
-      <p className="text-gray-700 text-sm mb-5 line-clamp-3">
+      <p className="text-gray-700 dark:text-gray-300 text-sm mb-5 line-clamp-3">
         {cls.details.length > 120
           ? cls.details.slice(0, 120) + "..."
           : cls.details}

@@ -68,29 +68,29 @@ const ForumPostDetails = () => {
   }
 
   if (!post) {
-    return <p className="text-center py-10 text-gray-500 text-lg">Post not found.</p>;
+    return <p className="text-center py-10 text-gray-500 dark:text-gray-300 text-lg">Post not found.</p>;
   }
 
   return (
-    <article className="max-w-4xl mx-4 lg:mx-auto py-6 px-2 sm:px-4 md:px-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl mt-10 border border-gray-200">
+    <article className="max-w-4xl mx-4 lg:mx-auto py-6 px-2 sm:px-4 md:px-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-800 rounded-2xl shadow-2xl mt-10 border border-gray-200 dark:border-gray-600">
       <header className="mb-6">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2 text-gray-800 tracking-wide">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2 text-gray-800 dark:text-gray-200 tracking-wide">
           {post.title}
         </h1>
         <div className="flex items-center gap-3 text-sm text-gray-500">
-          <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+          <span className="bg-blue-100 dark:bg-gray-600 dark:text-gray-300 text-blue-800 px-2 py-1 rounded-full">
             {post.author || "Anonymous"}
           </span>
-          <time dateTime={post.createdAt} className="italic">
+          <time dateTime={post.createdAt} className="italic text-gray-500 dark:text-gray-300">
             {new Date(post.createdAt).toLocaleDateString()}
           </time>
         </div>
         <div className="mt-2 h-1 w-20 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></div>
       </header>
-      <div className="prose prose-lg max-w-none mb-8 whitespace-pre-wrap text-gray-700">
+      <div className="prose prose-lg max-w-none mb-8 whitespace-pre-wrap text-gray-700 dark:text-gray-300">
         {post.content}
       </div>
-      <div className="flex items-center gap-6 text-gray-600 text-lg">
+      <div className="flex items-center gap-6 text-gray-600 dark:text-gray-300 text-lg">
         <button
         onClick={() => handleVote(post._id, "up")} className="flex items-center gap-2 hover:text-blue-500 transition">
           <FaThumbsUp /> {post.upvotes || 0}

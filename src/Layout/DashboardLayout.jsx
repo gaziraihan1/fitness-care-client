@@ -40,7 +40,6 @@ const DashboardLayout = () => {
   const memberRoutes = [
     { to: "/dashboard/activityLog", label: "Activity Log", icon: <FaClipboardList /> },
     { to: "/dashboard/bookedTrainer", label: "Booked Trainer", icon: <FaChalkboardTeacher /> },
-    { to: "/dashboard/profile", label: "Profile", icon: <FaUserCircle /> },
   ];
 
   const trainerRoutes = [

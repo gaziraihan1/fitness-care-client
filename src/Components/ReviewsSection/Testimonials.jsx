@@ -42,28 +42,28 @@ const Testimonials = () => {
   };
 
   const bgVariants = [
-    "from-pink-50 to-white",
-    "from-green-50 to-white",
-    "from-yellow-50 to-white",
-    "from-purple-50 to-white",
-    "from-indigo-50 to-white",
+    "from-pink-50 to-white dark:from-gray-600 dark:to-white/5",
+    "from-green-50 to-white  dark:from-gray-600 dark:to-white/5",
+    "from-yellow-50 to-white dark:from-gray-600 dark:to-white/5",
+    "from-purple-50 to-white dark:from-gray-600 dark:to-white/5",
+    "from-indigo-50 to-white dark:from-gray-600 dark:to-white/5",
   ];
   const borderVariants = [
-    "border-pink-300",
-    "border-green-300",
-    "border-yellow-300",
-    "border-purple-300",
-    "border-indigo-300",
+    "border-pink-300 dark:border-gray-800",
+    "border-green-300 dark:border-gray-800",
+    "border-yellow-300 dark:border-gray-800",
+    "border-purple-300 dark:border-gray-800",
+    "border-indigo-300 dark:border-gray-800",
   ];
 
   return (
     <section className="">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-14">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-gray-200">
             🌟 What Our Members Say
           </h2>
-          <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
             Hear directly from our community of fitness lovers and trainees.
             Each story is unique and inspiring!
           </p>
@@ -85,16 +85,16 @@ const Testimonials = () => {
                       className="w-14 h-14 rounded-full object-cover ring-2 ring-offset-2 ring-blue-400"
                     />
                     <div className="text-left">
-                      <h4 className="font-semibold text-gray-800 text-lg">
+                      <h4 className="font-semibold text-gray-800 dark:text-gray-200 text-lg">
                         {review.userName}
                       </h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-gray-300">
                         {review.userEmail}
                       </p>
                     </div>
                   </div>
 
-                  <p className="text-gray-700 text-base leading-relaxed italic mb-6 flex-grow">
+                  <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed italic mb-6 flex-grow">
                     “{review.feedback}”
                   </p>
 

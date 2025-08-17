@@ -32,11 +32,11 @@ const TrainerDetails = () => {
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-10">
-      <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-xl text-center mb-10 shadow-sm">
-        <h2 className="text-2xl font-semibold text-gray-800">
+      <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-gray-700 dark:to-gray-800 p-6 rounded-xl text-center mb-10 shadow-sm">
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
           🌟 Ready to share your fitness journey?
         </h2>
-        <p className="text-gray-600 mt-1 mb-4">
+        <p className="text-gray-600 dark:text-gray-300 mt-1 mb-4">
           Apply to become a certified trainer on our platform.
         </p>
         <button
@@ -49,7 +49,7 @@ const TrainerDetails = () => {
 
       <div className="lg:flex gap-10">
         <motion.div
-  className="lg:w-2/3 bg-white rounded-3xl shadow-2xl overflow-hidden mb-10"
+  className="lg:w-2/3 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden mb-10"
   initial={{ opacity: 0, y: 40 }}
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true }}
@@ -68,7 +68,7 @@ const TrainerDetails = () => {
   </div>
 
   <div className="p-6 space-y-4">
-    <div className="flex flex-wrap gap-4 text-gray-700">
+    <div className="flex flex-wrap gap-4 text-gray-700 dark:text-gray-300">
       <p>
         <strong>Email:</strong> {trainer.email}
       </p>
@@ -78,12 +78,12 @@ const TrainerDetails = () => {
     </div>
 
     <div>
-      <h3 className="font-semibold text-gray-700 mb-2">Skills:</h3>
+      <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">Skills:</h3>
       <div className="flex flex-wrap gap-2">
         {trainer.skills?.map((skill) => (
           <span
             key={skill}
-            className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
+            className="bg-blue-100 dark:bg-gray-700 dark:text-gray-400 text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
           >
             {skill}
           </span>
@@ -92,8 +92,8 @@ const TrainerDetails = () => {
     </div>
 
     <div>
-      <h3 className="font-semibold text-gray-700 mb-2">Availability:</h3>
-      <p className="flex items-center gap-2 text-gray-600">
+      <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">Availability:</h3>
+      <p className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
         <FaCalendarAlt />{" "}
         {trainer.availableDays?.length
           ? trainer.availableDays.join(", ")
@@ -113,8 +113,8 @@ const TrainerDetails = () => {
 
 
         <div className="lg:w-1/3 mt-8 lg:mt-0 space-y-6">
-          <div className="bg-white rounded-xl shadow p-5">
-            <h3 className="text-2xl font-semibold mb-4 text-gray-800">
+          <div className=" rounded-xl shadow p-5">
+            <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
               Available Slots 🕒
             </h3>
 
@@ -127,7 +127,7 @@ const TrainerDetails = () => {
              <div className="grid grid-cols-1 gap-4">
                 {
                   slots.length === 0 ? (
-              <p className="text-gray-500 italic">No slots available</p>
+              <p className="text-gray-500 dark:text-gray-300 italic">No slots available</p>
             ):
                 slots?.map((slot) => (
                   <button
@@ -135,13 +135,13 @@ const TrainerDetails = () => {
                     onClick={() =>
                       navigate(`/bookTrainer/${trainer._id}?slotId=${slot._id}`)
                     }
-                    className="bg-blue-100 text-blue-700 px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white transition text-sm font-medium flex flex-col text-left"
+                    className="bg-blue-100 dark:bg-gray-800 text-blue-700 dark:text-gray-400 px-4 py-2 rounded-md hover:bg-blue-600 dark:hover:bg-gray-700 hover:text-white transition text-sm font-medium flex flex-col text-left"
                   >
                     <span className="flex items-center gap-2 text-base font-semibold">
                       <FaCheckCircle className="text-green-500" />{" "}
                       {slot.slotName}
                     </span>
-                    <span className="text-xs mt-1 text-gray-400">
+                    <span className="text-xs mt-1 text-gray-400 dark:text-gray-300">
                       {slot.slotTime}
                     </span>
                     <span className="text-xs mt-1 italic">

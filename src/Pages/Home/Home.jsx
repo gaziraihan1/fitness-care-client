@@ -10,7 +10,7 @@ import LatestCommunityPosts from '../../Components/ForumsSection/LatestCommunity
 
 const Home = () => {
     return (
-        <div className='flex flex-col gap-16 lg:gap-32'>
+        <div className='flex flex-col gap-16 lg:gap-32 bg-white dark:bg-gray-900'>
             <Banner />
             <FeaturedSection />
             <AboutSection />

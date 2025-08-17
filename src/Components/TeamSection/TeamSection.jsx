@@ -44,10 +44,10 @@ const TeamSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-gray-200">
             🌟 Meet Our Trainers
           </h2>
-          <p className="text-gray-600 mt-3 mb-12 max-w-2xl mx-auto">
+          <p className="text-gray-600  dark:text-gray-300 mt-3 mb-12 max-w-2xl mx-auto">
             Learn from the best! Our trainers are experienced professionals
             ready to help you achieve your fitness and lifestyle goals.
           </p>
@@ -57,7 +57,7 @@ const TeamSection = () => {
           {displayedTrainers.map((trainer, index) => (
             <motion.div
               key={trainer._id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center justify-between text-center border border-transparent hover:border-blue-200"
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center justify-between text-center border border-transparent hover:border-blue-200"
               initial={{ opacity: 0, scale: 0.9, y: 40 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -74,15 +74,15 @@ const TeamSection = () => {
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 200 }}
               />
-              <h3 className="text-xl font-semibold text-gray-800">
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
                 {trainer.name || trainer.fullName}
               </h3>
-              <p className="text-sm text-blue-600 font-medium mt-1">
+              <p className="text-sm text-blue-600 dark:text-gray-300 font-medium mt-1">
                 {Array.isArray(trainer.skills)
                   ? trainer.skills.join(", ")
                   : trainer.expertise || "Fitness Expert"}
               </p>
-              <p className="text-gray-600 mt-3 text-sm leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 mt-3 text-sm leading-relaxed">
                 {trainer.bio ||
                   trainer.additionalInfo ||
                   "Passionate about guiding you through your fitness journey with personalized plans."}

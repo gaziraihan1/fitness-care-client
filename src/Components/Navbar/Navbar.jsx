@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { FaBars, FaTimes, FaDumbbell } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut, loading } = useAuth();
@@ -16,8 +17,8 @@ const Navbar = () => {
 
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? "relative text-blue-600 font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-600 after:rounded"
-      : "relative text-gray-700 hover:text-blue-600 hover:after:w-full after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-blue-400 after:rounded after:transition-all after:duration-300 after:w-0";
+      ? "relative text-blue-600 dark:text-blue-300 font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-600 after:rounded"
+      : "relative text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-300 hover:after:w-full after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-blue-400 dark:after:bg-blue-300 after:rounded after:transition-all after:duration-300 after:w-0";
 
   const navLinks = (
     <>
@@ -52,7 +53,7 @@ const Navbar = () => {
   );
 
   return (
-    <header className="bg-white sticky top-0 z-50">
+    <header className="bg-white dark:bg-gray-900 sticky top-0 z-50">
       <nav className="flex justify-between items-center py-3 px-4 lg:px-0 lg:w-11/12 2xl:w-10/12 mx-auto">
         <Link
           to="/"
@@ -67,6 +68,7 @@ const Navbar = () => {
         </ul>
 
         <div className="hidden lg:flex items-center gap-4">
+          <ThemeToggle />
           {user ? (
             <>
               <div className="relative group">
@@ -171,6 +173,7 @@ const Navbar = () => {
     )}
         </ul>
         <div className="px-6 mt-4 border-t pt-4 flex flex-col gap-3">
+          <ThemeToggle />
           {user ? (
             <>
               <div className="flex items-center gap-2">

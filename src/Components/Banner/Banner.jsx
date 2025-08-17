@@ -6,7 +6,7 @@ const Banner = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="relative overflow-hidden w-full mt-0.5">
+    <section className="relative overflow-hidden w-full ">
       <img
         src={bannerImg}
         alt="Gym Banner"
