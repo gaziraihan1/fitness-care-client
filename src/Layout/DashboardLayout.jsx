@@ -16,20 +16,28 @@ import {
   FaHome,
   FaBars,
   FaTimes,
-  FaUser
+  FaUser,
 } from "react-icons/fa";
 import useUserRole from "../Hooks/useUserRole";
 import useAuth from "../Hooks/useAuth";
 
 const DashboardLayout = () => {
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
 
   const { user } = useAuth();
   const [role] = useUserRole();
   const [showSidebar, setShowSidebar] = useState(false);
   const location = useLocation();
   useEffect(() => {
-    document.title = 'Fitness Care | Dashboard'
-  }, [])
+    document.title = "Fitness Care | Dashboard";
+  }, []);
 
   const navLinkClass = ({ isActive }) =>
     isActive
@@ -42,26 +50,62 @@ const DashboardLayout = () => {
     }
   };
   const memberRoutes = [
-    {to: '/dashboard/profile', label: "Profile", icon: <FaUser />},
-    { to: "/dashboard/activityLog", label: "Activity Log", icon: <FaClipboardList /> },
-    { to: "/dashboard/bookedTrainer", label: "Booked Trainer", icon: <FaChalkboardTeacher /> },
+    { to: "/dashboard/profile", label: "Profile", icon: <FaUser /> },
+    {
+      to: "/dashboard/activityLog",
+      label: "Activity Log",
+      icon: <FaClipboardList />,
+    },
+    {
+      to: "/dashboard/bookedTrainer",
+      label: "Booked Trainer",
+      icon: <FaChalkboardTeacher />,
+    },
   ];
 
   const trainerRoutes = [
-    {to: '/dashboard/profile', label: "Profile", icon: <FaUser />},
-    { to: "/dashboard/trainer/addForum", label: "Add Forum", icon: <FaDumbbell /> },
+    { to: "/dashboard/profile", label: "Profile", icon: <FaUser /> },
+    {
+      to: "/dashboard/trainer/addForum",
+      label: "Add Forum",
+      icon: <FaDumbbell />,
+    },
     { to: "/dashboard/trainer/addSlot", label: "Add Slot", icon: <FaClock /> },
-    { to: "/dashboard/trainer/manageSlot", label: "Manage Slot", icon: <FaTasks /> },
+    {
+      to: "/dashboard/trainer/manageSlot",
+      label: "Manage Slot",
+      icon: <FaTasks />,
+    },
   ];
 
   const adminRoutes = [
-    {to: '/dashboard/profile', label: "Profile", icon: <FaUser />},
-    { to: "/dashboard/admin/allNewsletter", label: "All Newsletters", icon: <FaEnvelopeOpenText /> },
-    { to: "/dashboard/admin/allTrainer", label: "All Trainers", icon: <FaUserTie /> },
-    { to: "/dashboard/admin/appliedTrainer", label: "Applied Trainers", icon: <FaUserCheck /> },
+    { to: "/dashboard/profile", label: "Profile", icon: <FaUser /> },
+    {
+      to: "/dashboard/admin/allNewsletter",
+      label: "All Newsletters",
+      icon: <FaEnvelopeOpenText />,
+    },
+    {
+      to: "/dashboard/admin/allTrainer",
+      label: "All Trainers",
+      icon: <FaUserTie />,
+    },
+    {
+      to: "/dashboard/admin/appliedTrainer",
+      label: "Applied Trainers",
+      icon: <FaUserCheck />,
+    },
     { to: "/dashboard/admin/balance", label: "Balance", icon: <FaMoneyBill /> },
-    { to: "/dashboard/admin/newClass", label: "New Class", icon: <FaChalkboard /> },
-    { to: "/dashboard/admin/addForum", label: "Add Forum", icon: <FaShieldAlt /> },
+    {
+      to: "/dashboard/admin/newClass",
+      label: "New Class",
+      icon: <FaChalkboard />,
+    },
+    {
+      to: "/dashboard/admin/addForum",
+      label: "Add Forum",
+      icon: <FaShieldAlt />,
+    },
   ];
 
   const roleRoutes =
@@ -82,7 +126,8 @@ const DashboardLayout = () => {
       >
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 shadow-md">
           <h2 className="text-white text-xl font-bold">
-            {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"} Panel
+            {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"}{" "}
+            Panel
           </h2>
           <p className="text-blue-100 text-sm break-all mt-1">{user?.email}</p>
         </div>
@@ -116,7 +161,8 @@ const DashboardLayout = () => {
       <div className="flex-1 flex flex-col overflow-x-hidden">
         <div className="lg:hidden p-4 bg-white dark:bg-gray-900 shadow-md flex justify-between items-center sticky top-0 z-30">
           <h1 className="text-lg font-bold text-gray-800 dark:text-gray-200">
-            {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"} Dashboard
+            {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"}{" "}
+            Dashboard
           </h1>
 
           <button
@@ -124,14 +170,17 @@ const DashboardLayout = () => {
             className="text-gray-700 dark:text-gray-300 hover:text-blue-600 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-gray-400 transition"
             aria-label="Toggle Menu"
           >
-            {showSidebar ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
+            {showSidebar ? (
+              <FaTimes className="text-2xl" />
+            ) : (
+              <FaBars className="text-2xl" />
+            )}
           </button>
         </div>
 
-        <div className="p-4 md:p-6 lg:p-8 overflow-x-hidden">
+        <div className="p-4 md:p-6 lg:p-8 overflow-x-hidden bg-white dark:bg-gray-900">
           {location.pathname === "/dashboard" ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              
               {roleRoutes.map((r) => (
                 <Link
                   key={r.to}
@@ -139,7 +188,9 @@ const DashboardLayout = () => {
                   className="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1"
                 >
                   <div className="text-blue-600 text-3xl mb-3">{r.icon}</div>
-                  <h3 className="text-gray-800 dark:text-gray-200 font-semibold">{r.label}</h3>
+                  <h3 className="text-gray-800 dark:text-gray-200 font-semibold">
+                    {r.label}
+                  </h3>
                 </Link>
               ))}
             </div>

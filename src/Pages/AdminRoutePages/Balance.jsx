@@ -9,7 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { FaMoneyBillWave, FaChartPie, FaChartBar } from "react-icons/fa";
+import { FaMoneyBillWave, FaChartPie } from "react-icons/fa";
 
 const COLORS = ["#00C49F", "#FF8042"];
 
@@ -17,6 +17,7 @@ const Balance = () => {
   useEffect(() => {
     document.title = "Fitness Care | Balance";
   }, []);
+
   const axiosSecure = useAxiosSecure();
   const [chartData, setChartData] = useState([
     { name: "Subscribers", value: 0 },
@@ -35,7 +36,6 @@ const Balance = () => {
     const fetchStats = async () => {
       try {
         const subscribersRes = await axiosSecure.get("/newsletter/count");
-
         const membersRes = await axiosSecure.get("/payments/count");
         setChartData([
           { name: "Subscribers", value: subscribersRes.data.count || 0 },
@@ -49,37 +49,42 @@ const Balance = () => {
   }, [axiosSecure]);
 
   if (isLoading)
-    return <p className="text-center text-blue-500 py-10">Loading balance...</p>;
+    return (
+      <p className="text-center text-blue-500 dark:text-blue-400 py-10">
+        Loading balance...
+      </p>
+    );
   if (error)
     return (
-      <p className="text-center text-red-500 py-10">Failed to load data.</p>
+      <p className="text-center text-red-500 dark:text-red-400 py-10">
+        Failed to load data.
+      </p>
     );
 
   const { totalBalance, recentTransactions } = data || {};
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-8 text-center text-blue-700">
+      <h2 className="text-3xl font-bold mb-8 text-center text-black dark:text-white">
         💰 Admin Balance Overview
       </h2>
 
       <div className="grid md:grid-cols-2 gap-10">
-        {/* Total Balance */}
-        <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-4 mb-4">
             <FaMoneyBillWave className="text-green-500 text-3xl" />
-            <h3 className="text-xl font-semibold">Total Balance</h3>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+              Total Balance
+            </h3>
           </div>
-          <p className="text-4xl font-bold text-green-600">
-            ${totalBalance.toFixed(2)}
+          <p className="text-4xl font-bold text-green-600 dark:text-green-400">
+            ${totalBalance?.toFixed(2) || 0}
           </p>
         </div>
-
-        {/* Pie Chart */}
-        <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-4 mb-4">
             <FaChartPie className="text-purple-500 text-2xl" />
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
               Subscribers vs Paid Members (Pie)
             </h3>
           </div>
@@ -101,39 +106,56 @@ const Balance = () => {
                   />
                 ))}
               </Pie>
-              <Tooltip />
-              <Legend />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#fff",
+                  color: "#000",
+                  borderRadius: "6px",
+                }}
+                wrapperStyle={{ zIndex: 9999 }}
+              />
+              <Legend
+                wrapperStyle={{
+                  color: document.documentElement.classList.contains("dark")
+                    ? "#e5e7eb"
+                    : "#000",
+                }}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       <div className="mt-10">
-        <h3 className="text-xl font-semibold mb-4">🧾 Last 6 Transactions</h3>
+        <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
+          🧾 Last 6 Transactions
+        </h3>
         {recentTransactions?.length ? (
           <ul className="space-y-3">
             {recentTransactions.map((tx, i) => (
               <li
                 key={i}
-                className="bg-gray-100 p-4 rounded border flex justify-between items-center text-sm"
+                className="bg-gray-100 dark:bg-gray-700 p-4 rounded border border-gray-200 dark:border-gray-600 flex justify-between items-center text-sm text-gray-800 dark:text-gray-200"
               >
                 <div>
                   <p>
                     <strong>{tx.userName}</strong> booked{" "}
                     <strong>{tx.trainerName}</strong>
                   </p>
-                  <p className="text-gray-600 text-xs">
+                  <p className="text-gray-600 dark:text-gray-400 text-xs">
                     {new Date(tx.date).toLocaleString()}
                   </p>
                 </div>
-                <span className="text-green-600 font-semibold">
+                <span className="text-green-600 dark:text-green-400 font-semibold">
                   ${tx.price}
                 </span>
               </li>
             ))}
           </ul>
         ) : (
-          <p className="text-gray-500">No transactions available.</p>
+          <p className="text-gray-500 dark:text-gray-400">
+            No transactions available.
+          </p>
         )}
       </div>
     </div>

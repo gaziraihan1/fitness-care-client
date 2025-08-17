@@ -39,10 +39,10 @@ const LatestCommunityPosts = () => {
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-12"
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-gray-200">
             📝 Latest Community Posts

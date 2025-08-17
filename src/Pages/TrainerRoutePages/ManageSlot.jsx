@@ -7,8 +7,8 @@ import { useEffect } from "react";
 
 const ManageSlots = () => {
   useEffect(() => {
-      document.title = "Fitness Care | Manage Slot";
-    }, []);
+    document.title = "Fitness Care | Manage Slot";
+  }, []);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
@@ -67,15 +67,17 @@ const ManageSlots = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold mb-6">🗓️ Manage Slots</h2>
+    <div className="max-w-6xl mx-auto px-4 py-10 text-gray-800 dark:text-gray-200">
+      <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+        🗓️ Manage Slots
+      </h2>
 
       {isLoading ? (
-        <p>Loading slots...</p>
+        <p className="text-gray-700 dark:text-gray-300">Loading slots...</p>
       ) : (
-        <div className="overflow-x-auto bg-white shadow rounded-lg">
+        <div className="overflow-x-auto bg-white dark:bg-gray-800 shadow rounded-lg border border-gray-200 dark:border-gray-700">
           <table className="min-w-full text-sm text-left">
-            <thead className="bg-gray-100 text-gray-700">
+            <thead className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
               <tr>
                 <th className="px-4 py-2">#</th>
                 <th className="px-4 py-2">Slot Name</th>
@@ -92,14 +94,17 @@ const ManageSlots = () => {
                 <tr>
                   <td
                     colSpan="8"
-                    className="text-center py-6 text-gray-500 italic"
+                    className="text-center py-6 text-gray-500 dark:text-gray-400 italic"
                   >
                     You haven’t added any slots yet.
                   </td>
                 </tr>
               ) : (
                 slotsWithClass.map((slot, idx) => (
-                  <tr key={slot._id} className="border-t">
+                  <tr
+                    key={slot._id}
+                    className="border-t border-gray-200 dark:border-gray-700"
+                  >
                     <td className="px-4 py-3">{idx + 1}</td>
                     <td className="px-4 py-3">{slot.slotName}</td>
                     <td className="px-4 py-3">
@@ -114,18 +119,20 @@ const ManageSlots = () => {
                       {slot.bookedBy ? (
                         <div>
                           <p className="font-semibold">{slot.bookedBy.name}</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
                             {slot.bookedBy.email}
                           </p>
                         </div>
                       ) : (
-                        <span className="text-gray-400 italic">Not booked</span>
+                        <span className="text-gray-400 dark:text-gray-500 italic">
+                          Not booked
+                        </span>
                       )}
                     </td>
                     <td className="px-4 py-3">
                       <button
                         onClick={() => handleDelete(slot._id)}
-                        className="text-red-600 hover:text-red-800"
+                        className="text-red-600 hover:text-red-800 dark:hover:text-red-400"
                       >
                         <FaTrashAlt />
                       </button>

@@ -5,8 +5,9 @@ import { useEffect } from "react";
 
 const AppliedTrainerDetails = () => {
   useEffect(() => {
-      document.title = "Fitness Care | Applied Trainer Details";
-    }, []);
+    document.title = "Fitness Care | Applied Trainer Details";
+  }, []);
+
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
 
@@ -21,22 +22,30 @@ const AppliedTrainerDetails = () => {
       return res.data;
     },
   });
-  trainer;
 
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+  if (isLoading)
+    return (
+      <p className="text-center mt-10 text-gray-800 dark:text-gray-200">
+        Loading...
+      </p>
+    );
   if (isError || !trainer)
-    return <p className="text-center text-red-500 mt-10">Trainer not found.</p>;
+    return (
+      <p className="text-center mt-10 text-red-500 dark:text-red-400">
+        Trainer not found.
+      </p>
+    );
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow border">
+    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
       <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
         <img
           src={trainer?.profileImage}
           alt={trainer.fullName}
           className="w-40 h-40 rounded-full object-cover border-4 border-blue-500"
         />
-        <div className="space-y-2 text-gray-700">
-          <h2 className="text-3xl font-bold text-blue-700">
+        <div className="space-y-2 text-gray-700 dark:text-gray-200">
+          <h2 className="text-3xl font-bold text-blue-700 dark:text-blue-400">
             {trainer.fullName}
           </h2>
           <p>
@@ -55,7 +64,7 @@ const AppliedTrainerDetails = () => {
         </div>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700">
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700 dark:text-gray-200">
         <div>
           <h3 className="text-lg font-semibold mb-2">Skills</h3>
           <ul className="list-disc list-inside">
@@ -76,17 +85,17 @@ const AppliedTrainerDetails = () => {
 
         <div className="md:col-span-2">
           <h3 className="text-lg font-semibold mb-2">Additional Info</h3>
-          <p className="bg-gray-100 p-3 rounded border">
+          <p className="bg-gray-100 dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
             {trainer.additionalInfo || "No additional information provided."}
           </p>
         </div>
 
         {trainer.status === "rejected" && trainer.feedback && (
           <div className="md:col-span-2">
-            <h3 className="text-lg font-semibold mb-2 text-red-600">
+            <h3 className="text-lg font-semibold mb-2 text-red-600 dark:text-red-400">
               Rejection Feedback
             </h3>
-            <p className="bg-red-50 p-3 rounded border border-red-300 text-red-800">
+            <p className="bg-red-50 dark:bg-red-900 p-3 rounded border border-red-300 dark:border-red-700 text-red-800 dark:text-red-300">
               {trainer.feedback}
             </p>
           </div>

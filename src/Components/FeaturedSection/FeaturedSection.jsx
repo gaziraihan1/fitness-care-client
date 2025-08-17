@@ -78,10 +78,10 @@ const FeaturedSection = () => {
           <motion.div
             key={idx}
             className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex flex-col items-center text-center transition-all hover:shadow-lg hover:-translate-y-1"
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, delay: idx * 0.2, ease: [0.42, 0, 0.58, 1] }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.42, 0, 0.58, 1] }}
           >
             <div className="mb-4">{feature.icon}</div>
             <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-200">

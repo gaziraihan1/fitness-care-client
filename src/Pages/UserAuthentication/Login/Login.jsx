@@ -76,20 +76,20 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-blue-50 px-6 py-12">
+    <div className="min-h-screen flex items-center justify-center px-6 py-12">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl max-w-md w-full border border-gray-200 relative overflow-hidden"
+        className="bg-white/80 dark:bg-gray-800 backdrop-blur-xl p-10 rounded-3xl shadow-2xl max-w-md w-full border border-gray-200 dark:border-gray-700 relative overflow-hidden"
       >
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-t-3xl"></div>
-        <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-800 tracking-tight">
+        <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-800 dark:text-gray-200 tracking-tight">
           Welcome Back
         </h2>
 
         <div className="mb-6">
           <label
             htmlFor="email"
-            className="block mb-2 text-sm font-semibold text-gray-700"
+            className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
           >
             Email <span className="text-red-500">*</span>
           </label>
@@ -97,7 +97,7 @@ const Login = () => {
             id="email"
             type="email"
             {...register("email", { required: "Email is required" })}
-            className={`w-full px-4 py-3 rounded-lg border ${
+            className={`w-full px-4 py-3 rounded-lg border text-black dark:text-gray-300 ${
               errors.email ? "border-red-500" : "border-gray-300"
             } focus:outline-none focus:ring-2 focus:ring-blue-400 transition`}
             placeholder="you@example.com"
@@ -110,7 +110,7 @@ const Login = () => {
         <div className="mb-6">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-semibold text-gray-700"
+            className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
           >
             Password <span className="text-red-500">*</span>
           </label>
@@ -118,7 +118,7 @@ const Login = () => {
             id="password"
             type="password"
             {...register("password", { required: "Password is required" })}
-            className={`w-full px-4 py-3 rounded-lg border ${
+            className={`w-full px-4 py-3 rounded-lg border text-black dark:text-gray-300 ${
               errors.password ? "border-red-500" : "border-gray-300"
             } focus:outline-none focus:ring-2 focus:ring-blue-400 transition`}
             placeholder="Enter your password"
@@ -148,7 +148,7 @@ const Login = () => {
           <span className="text-gray-400 text-sm">or</span>
           <span className="flex-1 h-px bg-gray-300"></span>
         </div>
-        <p className="mt-6 text-center text-sm text-gray-600">
+        <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-200">
           Don’t have an account?{" "}
           <Link
             to="/register"

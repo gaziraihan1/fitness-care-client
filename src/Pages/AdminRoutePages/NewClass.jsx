@@ -9,8 +9,8 @@ const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 const NewClass = () => {
   useEffect(() => {
-      document.title = "Fitness Care | Add Class";
-    }, []);
+    document.title = "Fitness Care | Add Class";
+  }, []);
   const {
     register,
     handleSubmit,
@@ -19,6 +19,7 @@ const NewClass = () => {
   } = useForm();
   const axiosSecure = useAxiosSecure();
   const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
 
   const classOptions = [
     "Yoga",
@@ -43,8 +44,6 @@ const NewClass = () => {
     "Personal Training",
   ];
 
-  const [imagePreview, setImagePreview] = useState("");
-
   const uploadImageToCloudinary = async (imageFile) => {
     const formData = new FormData();
     formData.append("file", imageFile);
@@ -52,10 +51,7 @@ const NewClass = () => {
 
     const response = await fetch(
       `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
-      {
-        method: "POST",
-        body: formData,
-      }
+      { method: "POST", body: formData }
     );
 
     const data = await response.json();
@@ -96,8 +92,8 @@ const NewClass = () => {
   };
 
   return (
-    <div className="bg-white p-6 md:p-10 rounded-2xl shadow-xl max-w-2xl mx-auto mt-12 border border-gray-200">
-      <h2 className="text-3xl font-bold mb-8 text-center text-blue-700">
+    <div className="bg-white dark:bg-gray-800 p-6 md:p-10 rounded-2xl shadow-xl max-w-2xl mx-auto mt-12 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200">
+      <h2 className="text-3xl font-bold mb-8 text-center text-blue-700 dark:text-blue-400">
         ➕ Add New Class
       </h2>
 
@@ -108,7 +104,7 @@ const NewClass = () => {
           </label>
           <select
             {...register("className", { required: "Class name is required" })}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
             defaultValue=""
           >
             <option value="" disabled>
@@ -128,41 +124,35 @@ const NewClass = () => {
         </div>
 
         <div>
-          <div>
-            <label className="block font-semibold mb-1">
-              Upload Image <span className="text-red-500">*</span>
-            </label>
-
-            <div className="relative border-2  border-gray-400 p-6 rounded-lg flex flex-col items-center justify-center bg-blue-50 text-center cursor-pointer hover:bg-blue-100 transition">
-              <input
-                type="file"
-                accept="image/*"
-                {...register("image", { required: "Image is required" })}
-                onChange={(e) => {
-                  setImageFile(e.target.files[0]);
-                  setImagePreview(URL.createObjectURL(e.target.files[0]));
-                }}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              />
-              <FaCloudUploadAlt className="text-4xl text-blue-600 mb-2" />
-              <span className="text-blue-700 font-medium">
-                {imageFile?.name || "Click or drag to upload image"}
-              </span>
-            </div>
-
-            {imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="w-full h-48 object-cover mt-3 rounded-lg border"
-              />
-            )}
-            {errors.image && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.image.message}
-              </p>
-            )}
+          <label className="block font-semibold mb-1">
+            Upload Image <span className="text-red-500">*</span>
+          </label>
+          <div className="relative border-2 border-gray-400 p-6 rounded-lg flex flex-col items-center justify-center bg-blue-50 dark:bg-gray-700 text-center cursor-pointer hover:bg-blue-100 dark:hover:bg-gray-600 transition">
+            <input
+              type="file"
+              accept="image/*"
+              {...register("image", { required: "Image is required" })}
+              onChange={(e) => {
+                setImageFile(e.target.files[0]);
+                setImagePreview(URL.createObjectURL(e.target.files[0]));
+              }}
+              className="absolute inset-0 opacity-0 cursor-pointer"
+            />
+            <FaCloudUploadAlt className="text-4xl text-blue-600 dark:text-blue-400 mb-2" />
+            <span className="text-blue-700 dark:text-blue-300 font-medium">
+              {imageFile?.name || "Click or drag to upload image"}
+            </span>
           </div>
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="w-full h-48 object-cover mt-3 rounded-lg border border-gray-300 dark:border-gray-600"
+            />
+          )}
+          {errors.image && (
+            <p className="text-red-500 text-sm mt-1">{errors.image.message}</p>
+          )}
         </div>
 
         <div>
@@ -172,7 +162,7 @@ const NewClass = () => {
           <textarea
             {...register("details", { required: "Details are required" })}
             rows={4}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
             placeholder="Describe the class in detail..."
           ></textarea>
           {errors.details && (
@@ -189,7 +179,7 @@ const NewClass = () => {
           <textarea
             {...register("additionalInfo")}
             rows={2}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
             placeholder="Mention anything extra..."
           ></textarea>
         </div>
@@ -197,7 +187,7 @@ const NewClass = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg shadow transition"
+          className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-semibold py-2 rounded-lg shadow transition"
         >
           {isSubmitting ? "Adding..." : "Add Class"}
         </button>

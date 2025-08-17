@@ -4,23 +4,11 @@ import { FaTrashAlt, FaSearch } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 
-import {
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  TableContainer,
-  Avatar,
-  IconButton,
-  Paper,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-
 const AllTrainerAdmin = () => {
   useEffect(() => {
-      document.title = "Fitness Care | All Trainer";
-    }, []);
+    document.title = "Fitness Care | All Trainer";
+  }, []);
+
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
 
@@ -70,24 +58,26 @@ const AllTrainerAdmin = () => {
   const filteredTrainers = trainers.filter((trainer) =>
     trainer.name.toLowerCase().includes(searchText.toLowerCase())
   );
+
   const totalPages = Math.ceil(filteredTrainers.length / itemsPerPage);
   const paginatedTrainers = filteredTrainers.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  if (isLoading) return <p>Loading trainers...</p>;
+  if (isLoading)
+    return <p className="text-black dark:text-white text-center">Loading trainers...</p>;
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">All Trainers</h2>
+    <div className="p-4">
+      <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white/90">All Trainers</h2>
 
       <div className="mb-4 flex items-center justify-between">
         <div className="relative">
           <input
             type="text"
             placeholder="Search by name..."
-            className="border border-gray-300 rounded-md pl-10 pr-4 py-2 focus:outline-none focus:ring focus:border-blue-400"
+            className="border border-gray-300 dark:border-gray-700 text-black dark:text-white rounded-md pl-10 pr-4 py-2 focus:outline-none focus:ring focus:border-blue-400 bg-white dark:bg-gray-800"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
@@ -98,53 +88,55 @@ const AllTrainerAdmin = () => {
         </div>
       </div>
 
-      <div>
-        <TableContainer className="overflow-x-auto" 
-  style={{ maxWidth: "100%" }} component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>#</TableCell>
-                <TableCell>Photo</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Role</TableCell>
-                <TableCell>Action</TableCell>
-              </TableRow>
-            </TableHead>
+      <div className="overflow-x-auto">
+        <table className="min-w-full border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800">
+          <thead className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+            <tr>
+              <th className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">#</th>
+              <th className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">Photo</th>
+              <th className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">Name</th>
+              <th className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">Email</th>
+              <th className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">Role</th>
+              <th className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">Action</th>
+            </tr>
+          </thead>
 
-            <TableBody>
-              {paginatedTrainers.map((trainer, idx) => (
-                <TableRow key={trainer._id} hover>
-                  <TableCell>
-                    {(currentPage - 1) * itemsPerPage + idx + 1}
-                  </TableCell>
-                  <TableCell>
-                    <Avatar src={trainer.photoURL} alt={trainer.name} />
-                  </TableCell>
-                  <TableCell>{trainer.name}</TableCell>
-                  <TableCell>{trainer.email}</TableCell>
-                  <TableCell className="capitalize">{trainer.role}</TableCell>
-                  <TableCell>
-                    <IconButton
-                      color="error"
-                      onClick={() => handleDeleteTrainer(trainer)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {paginatedTrainers.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={6} align="center">
-                    No trainers found
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+          <tbody className="text-gray-800 dark:text-gray-200">
+            {paginatedTrainers.length === 0 && (
+              <tr>
+                <td colSpan="6" className="text-center py-4">
+                  No trainers found
+                </td>
+              </tr>
+            )}
+
+            {paginatedTrainers.map((trainer, idx) => (
+              <tr key={trainer._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">
+                  {(currentPage - 1) * itemsPerPage + idx + 1}
+                </td>
+                <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">
+                  <img
+                    src={trainer.photoURL}
+                    alt={trainer.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                </td>
+                <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">{trainer.name}</td>
+                <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">{trainer.email}</td>
+                <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-600 capitalize">{trainer.role}</td>
+                <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-600">
+                  <button
+                    onClick={() => handleDeleteTrainer(trainer)}
+                    className="text-red-600 dark:text-red-400 hover:underline flex items-center gap-1"
+                  >
+                    <FaTrashAlt /> Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <div className="flex justify-center gap-2 mt-6 flex-wrap">
@@ -154,7 +146,7 @@ const AllTrainerAdmin = () => {
             className={`px-3 py-1 rounded-md border ${
               page === currentPage
                 ? "bg-blue-600 text-white"
-                : "bg-white text-gray-700 hover:bg-gray-100"
+                : "bg-white text-gray-700 dark:bg-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
             }`}
             onClick={() => setCurrentPage(page)}
           >
