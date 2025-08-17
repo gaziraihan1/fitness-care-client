@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useLocation } from "react-router";
 import {
   FaClipboardList,
   FaUserCircle,
@@ -24,6 +24,7 @@ const DashboardLayout = () => {
   const { user } = useAuth();
   const [role] = useUserRole();
   const [showSidebar, setShowSidebar] = useState(false);
+  const location = useLocation();
 
   const navLinkClass = ({ isActive }) =>
     isActive
@@ -36,6 +37,37 @@ const DashboardLayout = () => {
     }
   };
 
+  // Define route shortcuts based on role
+  const memberRoutes = [
+    { to: "/dashboard/activityLog", label: "Activity Log", icon: <FaClipboardList /> },
+    { to: "/dashboard/bookedTrainer", label: "Booked Trainer", icon: <FaChalkboardTeacher /> },
+    { to: "/dashboard/profile", label: "Profile", icon: <FaUserCircle /> },
+  ];
+
+  const trainerRoutes = [
+    { to: "/dashboard/trainer/addForum", label: "Add Forum", icon: <FaDumbbell /> },
+    { to: "/dashboard/trainer/addSlot", label: "Add Slot", icon: <FaClock /> },
+    { to: "/dashboard/trainer/manageSlot", label: "Manage Slot", icon: <FaTasks /> },
+  ];
+
+  const adminRoutes = [
+    { to: "/dashboard/admin/allNewsletter", label: "All Newsletters", icon: <FaEnvelopeOpenText /> },
+    { to: "/dashboard/admin/allTrainer", label: "All Trainers", icon: <FaUserTie /> },
+    { to: "/dashboard/admin/appliedTrainer", label: "Applied Trainers", icon: <FaUserCheck /> },
+    { to: "/dashboard/admin/balance", label: "Balance", icon: <FaMoneyBill /> },
+    { to: "/dashboard/admin/newClass", label: "New Class", icon: <FaChalkboard /> },
+    { to: "/dashboard/admin/addForum", label: "Add Forum", icon: <FaShieldAlt /> },
+  ];
+
+  const roleRoutes =
+    role === "member"
+      ? memberRoutes
+      : role === "trainer"
+      ? trainerRoutes
+      : role === "admin"
+      ? adminRoutes
+      : [];
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       <div
@@ -45,8 +77,7 @@ const DashboardLayout = () => {
       >
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 shadow-md">
           <h2 className="text-white text-xl font-bold">
-            {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"}{" "}
-            Panel
+            {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"} Panel
           </h2>
           <p className="text-blue-100 text-sm break-all mt-1">{user?.email}</p>
         </div>
@@ -60,119 +91,28 @@ const DashboardLayout = () => {
             <FaHome /> Home
           </Link>
 
-          {role === "member" && (
-            <>
-              <NavLink
-                to="/dashboard/activityLog"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaClipboardList /> Activity Log
-              </NavLink>
-              <NavLink
-                to="/dashboard/bookedTrainer"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaChalkboardTeacher /> Booked Trainer
-              </NavLink>
-              <NavLink
-                to="/dashboard/profile"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaUserCircle /> Profile
-              </NavLink>
-            </>
-          )}
-
-          {role === "trainer" && (
-            <>
-              <NavLink
-                to="/dashboard/trainer/addForum"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaDumbbell /> Add Forum
-              </NavLink>
-              <NavLink
-                to="/dashboard/trainer/addSlot"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaClock /> Add Slot
-              </NavLink>
-              <NavLink
-                to="/dashboard/trainer/manageSlot"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaTasks /> Manage Slot
-              </NavLink>
-            </>
-          )}
-
-          {role === "admin" && (
-            <>
-              <NavLink
-                to="/dashboard/admin/allNewsletter"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaEnvelopeOpenText /> All Newsletters
-              </NavLink>
-              <NavLink
-                to="/dashboard/admin/allTrainer"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaUserTie /> All Trainers
-              </NavLink>
-              <NavLink
-                to="/dashboard/admin/appliedTrainer"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaUserCheck /> Applied Trainers
-              </NavLink>
-              <NavLink
-                to="/dashboard/admin/balance"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaMoneyBill /> Balance
-              </NavLink>
-              <NavLink
-                to="/dashboard/admin/newClass"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaChalkboard /> New Class
-              </NavLink>
-              <NavLink
-                to="/dashboard/admin/addForum"
-                className={navLinkClass}
-                onClick={handleLinkClick}
-              >
-                <FaShieldAlt /> Add Forum
-              </NavLink>
-            </>
-          )}
+          {roleRoutes.map((r) => (
+            <NavLink
+              key={r.to}
+              to={r.to}
+              className={navLinkClass}
+              onClick={handleLinkClick}
+            >
+              {r.icon} {r.label}
+            </NavLink>
+          ))}
         </nav>
       </div>
-
       {showSidebar && (
         <div
           onClick={() => setShowSidebar(false)}
           className="fixed inset-0 bg-black bg-opacity-30 z-40 lg:hidden"
         ></div>
       )}
-
       <div className="flex-1 flex flex-col overflow-x-hidden">
         <div className="lg:hidden p-4 bg-white shadow-md flex justify-between items-center sticky top-0 z-30">
           <h1 className="text-lg font-bold text-gray-800">
-            {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"}{" "}
-            Dashboard
+            {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"} Dashboard
           </h1>
 
           <button
@@ -180,16 +120,27 @@ const DashboardLayout = () => {
             className="text-gray-700 hover:text-blue-600 p-2 rounded-md hover:bg-gray-100 transition"
             aria-label="Toggle Menu"
           >
-            {showSidebar ? (
-              <FaTimes className="text-2xl" />
-            ) : (
-              <FaBars className="text-2xl" />
-            )}
+            {showSidebar ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
           </button>
         </div>
 
         <div className="p-4 md:p-6 lg:p-8 overflow-x-hidden">
-          <Outlet />
+          {location.pathname === "/dashboard" ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {roleRoutes.map((r) => (
+                <Link
+                  key={r.to}
+                  to={r.to}
+                  className="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1"
+                >
+                  <div className="text-blue-600 text-3xl mb-3">{r.icon}</div>
+                  <h3 className="text-gray-800 font-semibold">{r.label}</h3>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <Outlet />
+          )}
         </div>
       </div>
     </div>

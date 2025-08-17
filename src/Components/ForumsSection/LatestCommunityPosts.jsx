@@ -64,7 +64,11 @@ const LatestCommunityPosts = () => {
                 initial={{ opacity: 0, scale: 0.95, y: 40 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.15,
+                  ease: [0.25, 0.1, 0.25, 1],
+                }}
               >
                 <Link to={`/forumDetails/${post._id}`} className="block mb-4">
                   <h3 className="text-xl font-semibold text-blue-700 mb-2 hover:underline">
@@ -78,12 +82,20 @@ const LatestCommunityPosts = () => {
                       : post.content}
                   </p>
                 </Link>
+                <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-gray-400">
+                  <div className="flex justify-between sm:justify-start sm:gap-4">
+                    <span>✍️ {post.author || "Community Member"}</span>
+                    <time dateTime={post.createdAt}>
+                      {new Date(post.createdAt).toLocaleDateString()}
+                    </time>
+                  </div>
 
-                <div className="mt-4 flex items-center justify-between text-xs text-gray-400">
-                  <span>✍️ {post.author || "Community Member"}</span>
-                  <time dateTime={post.createdAt}>
-                    {new Date(post.createdAt).toLocaleDateString()}
-                  </time>
+                  <Link
+                    to={`/forumDetails/${post._id}`}
+                    className="inline-block text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-1.5 rounded-lg text-xs font-medium hover:shadow-md hover:scale-105 transition-all duration-300"
+                  >
+                    Read Post →
+                  </Link>
                 </div>
               </motion.article>
             ))}

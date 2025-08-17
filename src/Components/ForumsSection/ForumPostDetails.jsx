@@ -72,9 +72,9 @@ const ForumPostDetails = () => {
   }
 
   return (
-    <article className="max-w-4xl mx-auto p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl mt-10 border border-gray-200">
+    <article className="max-w-4xl mx-4 lg:mx-auto py-6 px-2 sm:px-4 md:px-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl mt-10 border border-gray-200">
       <header className="mb-6">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-2 text-gray-800 tracking-wide">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2 text-gray-800 tracking-wide">
           {post.title}
         </h1>
         <div className="flex items-center gap-3 text-sm text-gray-500">

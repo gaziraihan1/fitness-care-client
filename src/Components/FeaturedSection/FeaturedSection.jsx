@@ -81,7 +81,7 @@ const FeaturedSection = () => {
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8, delay: idx * 0.2, ease: [0.42, 0, 0.58, 1] }}
+            transition={{ duration: 0.6, delay: idx * 0.2, ease: [0.42, 0, 0.58, 1] }}
           >
             <div className="mb-4">{feature.icon}</div>
             <h3 className="text-xl font-semibold mb-2 text-gray-800">
