@@ -16,6 +16,7 @@ import {
   FaHome,
   FaBars,
   FaTimes,
+  FaUser
 } from "react-icons/fa";
 import useUserRole from "../Hooks/useUserRole";
 import useAuth from "../Hooks/useAuth";
@@ -36,8 +37,6 @@ const DashboardLayout = () => {
       setShowSidebar(false);
     }
   };
-
-  // Define route shortcuts based on role
   const memberRoutes = [
     { to: "/dashboard/activityLog", label: "Activity Log", icon: <FaClipboardList /> },
     { to: "/dashboard/bookedTrainer", label: "Booked Trainer", icon: <FaChalkboardTeacher /> },
@@ -91,6 +90,12 @@ const DashboardLayout = () => {
             <FaHome /> Home
           </Link>
 
+          <NavLink
+          to="/dashboard/profile"
+          className={navLinkClass}
+          onClick={handleLinkClick}>
+          <FaUser />  Profile
+          </NavLink>
           {roleRoutes.map((r) => (
             <NavLink
               key={r.to}
@@ -127,6 +132,13 @@ const DashboardLayout = () => {
         <div className="p-4 md:p-6 lg:p-8 overflow-x-hidden">
           {location.pathname === "/dashboard" ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <Link
+                  to="/dashboard/profile"
+                  className="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1"
+                >
+                  <div className="text-blue-600 text-3xl mb-3"><FaUser /></div>
+                  <h3 className="text-gray-800 font-semibold">Profile</h3>
+                </Link>
               {roleRoutes.map((r) => (
                 <Link
                   key={r.to}

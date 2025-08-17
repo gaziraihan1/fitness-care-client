@@ -105,6 +105,10 @@ export const router = createBrowserRouter([
         element: <PrivateRouter> <DashboardLayout></DashboardLayout></PrivateRouter>,
         children:[
             {
+                path: 'profile',
+                Component: Profile
+            },
+            {
                 path: 'activityLog',
                 element: <MemberRoute><ActivityLog></ActivityLog></MemberRoute>
             },
@@ -112,10 +116,7 @@ export const router = createBrowserRouter([
                 path: 'bookedTrainer',
                 element: <MemberRoute><BookedTrainer></BookedTrainer></MemberRoute>
             },
-            {
-                path: 'profile',
-                element: <MemberRoute><Profile></Profile></MemberRoute>
-            },
+            
             {
                 path: 'trainer/addForum',
                 element: <TrainerRoute><AddForum></AddForum></TrainerRoute>
@@ -132,6 +133,7 @@ export const router = createBrowserRouter([
                 path: 'admin/allNewsletter',
                 element: <AdminRoute><AllNewsletter></AllNewsletter></AdminRoute>
             },
+            
             {
                 path: 'admin/allTrainer',
                 element: <AdminRoute><AllTrainerAdmin></AllTrainerAdmin></AdminRoute>
