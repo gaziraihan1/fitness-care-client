@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
 import {
   FaClipboardList,
@@ -22,15 +22,19 @@ import useUserRole from "../Hooks/useUserRole";
 import useAuth from "../Hooks/useAuth";
 
 const DashboardLayout = () => {
+
   const { user } = useAuth();
   const [role] = useUserRole();
   const [showSidebar, setShowSidebar] = useState(false);
   const location = useLocation();
+  useEffect(() => {
+    document.title = 'Fitness Care | Dashboard'
+  }, [])
 
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? "flex items-center gap-3 px-4 py-3 rounded-md bg-blue-600 text-white font-semibold shadow-md transition"
-      : "flex items-center gap-3 px-4 py-3 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition";
+      ? "flex items-center gap-3 px-4 py-3 rounded-md bg-blue-600 dark:bg-gray-700 text-white font-semibold shadow-md transition"
+      : "flex items-center gap-3 px-4 py-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-gray-700 hover:text-blue-700 dark:hover:text-blue-400 transition";
 
   const handleLinkClick = () => {
     if (window.innerWidth < 1024) {
@@ -38,17 +42,20 @@ const DashboardLayout = () => {
     }
   };
   const memberRoutes = [
+    {to: '/dashboard/profile', label: "Profile", icon: <FaUser />},
     { to: "/dashboard/activityLog", label: "Activity Log", icon: <FaClipboardList /> },
     { to: "/dashboard/bookedTrainer", label: "Booked Trainer", icon: <FaChalkboardTeacher /> },
   ];
 
   const trainerRoutes = [
+    {to: '/dashboard/profile', label: "Profile", icon: <FaUser />},
     { to: "/dashboard/trainer/addForum", label: "Add Forum", icon: <FaDumbbell /> },
     { to: "/dashboard/trainer/addSlot", label: "Add Slot", icon: <FaClock /> },
     { to: "/dashboard/trainer/manageSlot", label: "Manage Slot", icon: <FaTasks /> },
   ];
 
   const adminRoutes = [
+    {to: '/dashboard/profile', label: "Profile", icon: <FaUser />},
     { to: "/dashboard/admin/allNewsletter", label: "All Newsletters", icon: <FaEnvelopeOpenText /> },
     { to: "/dashboard/admin/allTrainer", label: "All Trainers", icon: <FaUserTie /> },
     { to: "/dashboard/admin/appliedTrainer", label: "Applied Trainers", icon: <FaUserCheck /> },
@@ -67,9 +74,9 @@ const DashboardLayout = () => {
       : [];
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
       <div
-        className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
           showSidebar ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
@@ -83,18 +90,11 @@ const DashboardLayout = () => {
         <nav className="flex-1 overflow-y-auto p-4 space-y-2">
           <Link
             to="/"
-            className="flex items-center gap-3 px-4 py-3 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition"
+            className="flex items-center gap-3 px-4 py-3 rounded-md text-gray-700 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-gray-700 dark:hover:text-blue-400 hover:text-blue-700 transition"
             onClick={handleLinkClick}
           >
             <FaHome /> Home
           </Link>
-
-          <NavLink
-          to="/dashboard/profile"
-          className={navLinkClass}
-          onClick={handleLinkClick}>
-          <FaUser />  Profile
-          </NavLink>
           {roleRoutes.map((r) => (
             <NavLink
               key={r.to}
@@ -114,14 +114,14 @@ const DashboardLayout = () => {
         ></div>
       )}
       <div className="flex-1 flex flex-col overflow-x-hidden">
-        <div className="lg:hidden p-4 bg-white shadow-md flex justify-between items-center sticky top-0 z-30">
-          <h1 className="text-lg font-bold text-gray-800">
+        <div className="lg:hidden p-4 bg-white dark:bg-gray-900 shadow-md flex justify-between items-center sticky top-0 z-30">
+          <h1 className="text-lg font-bold text-gray-800 dark:text-gray-200">
             {role ? role.charAt(0).toUpperCase() + role.slice(1) : "Loading"} Dashboard
           </h1>
 
           <button
             onClick={() => setShowSidebar(!showSidebar)}
-            className="text-gray-700 hover:text-blue-600 p-2 rounded-md hover:bg-gray-100 transition"
+            className="text-gray-700 dark:text-gray-300 hover:text-blue-600 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-gray-400 transition"
             aria-label="Toggle Menu"
           >
             {showSidebar ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
@@ -131,21 +131,15 @@ const DashboardLayout = () => {
         <div className="p-4 md:p-6 lg:p-8 overflow-x-hidden">
           {location.pathname === "/dashboard" ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <Link
-                  to="/dashboard/profile"
-                  className="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1"
-                >
-                  <div className="text-blue-600 text-3xl mb-3"><FaUser /></div>
-                  <h3 className="text-gray-800 font-semibold">Profile</h3>
-                </Link>
+              
               {roleRoutes.map((r) => (
                 <Link
                   key={r.to}
                   to={r.to}
-                  className="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1"
+                  className="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1"
                 >
                   <div className="text-blue-600 text-3xl mb-3">{r.icon}</div>
-                  <h3 className="text-gray-800 font-semibold">{r.label}</h3>
+                  <h3 className="text-gray-800 dark:text-gray-200 font-semibold">{r.label}</h3>
                 </Link>
               ))}
             </div>

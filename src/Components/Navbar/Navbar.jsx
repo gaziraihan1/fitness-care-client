@@ -17,8 +17,8 @@ const Navbar = () => {
 
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? "relative text-blue-600 dark:text-blue-300 font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-600 after:rounded"
-      : "relative text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-300 hover:after:w-full after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-blue-400 dark:after:bg-blue-300 after:rounded after:transition-all after:duration-300 after:w-0";
+      ? "relative text-blue-600 dark:text-blue-200 font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-600 after:rounded"
+      : "relative text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-300 hover:after:w-full after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-blue-400 dark:after:bg-blue-300 after:rounded after:transition-all after:duration-300 after:w-0";
 
   const navLinks = (
     <>
@@ -114,12 +114,12 @@ const Navbar = () => {
         <div className="lg:hidden">
           <button
             onClick={toggleMenu}
-            className="p-2 rounded-md hover:bg-gray-100 transition"
+            className="p-2 rounded-md dark:hover:bg-gray-800 hover:bg-gray-100 transition"
           >
             {menuOpen ? (
-              <FaTimes className="text-2xl text-gray-800" />
+              <FaTimes className="text-2xl text-gray-800 dark:text-gray-200" />
             ) : (
-              <FaBars className="text-2xl text-gray-800" />
+              <FaBars className="text-2xl text-gray-800 dark:text-gray-200" />
             )}
           </button>
         </div>
@@ -133,14 +133,14 @@ const Navbar = () => {
       )}
 
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50 transform transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 shadow-xl z-50 transform transition-transform duration-300 ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         } lg:hidden`}
       >
         <div className="flex justify-between items-center p-4 border-b">
-          <span className="text-xl font-bold text-blue-700">Menu</span>
+          <span className="text-xl font-bold text-blue-700 dark:text-gray-300">Menu</span>
           <button onClick={toggleMenu}>
-            <FaTimes className="text-2xl text-gray-700" />
+            <FaTimes className="text-2xl text-gray-700 dark:text-gray-200" />
           </button>
         </div>
         <ul className="flex flex-col gap-6 p-6 text-base font-medium">
@@ -182,7 +182,7 @@ const Navbar = () => {
                   alt="User"
                   className="w-10 h-10 rounded-full border-2 border-blue-600 shadow"
                 />
-                <span className="text-sm font-semibold">
+                <span className="text-sm text-black dark:text-gray-300 font-semibold">
                   {user.displayName}
                 </span>
               </div>

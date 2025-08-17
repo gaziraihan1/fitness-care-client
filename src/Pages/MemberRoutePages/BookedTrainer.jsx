@@ -93,18 +93,18 @@ const BookedTrainer = () => {
   }
 };
 
-  if (isLoading) return <p className="text-center mt-10">Loading bookings...</p>;
-  if (!bookings.length) return <p className="text-center mt-10">No trainers booked yet.</p>;
+  if (isLoading) return <p className="text-center mt-10 text-black dark:text-white/80">Loading bookings...</p>;
+  if (!bookings.length) return <p className="text-center mt-10 text-black dark:text-white/70">No trainers booked yet.</p>;
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-3xl font-bold text-center text-blue-700 mb-8">📋 Your Booked Trainers</h2>
+      <h2 className="text-3xl font-bold text-center text-blue-700 dark:text-gray-200 mb-8">📋 Your Booked Trainers</h2>
 
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
         {bookings.map((booking, idx) => (
           <div
             key={idx}
-            className="bg-white/50 backdrop-blur-lg border shadow-xl rounded-xl p-6 flex flex-col justify-between"
+            className="bg-white/50 dark:bg-gray-800 backdrop-blur-lg border dark:border-gray-700 shadow-xl rounded-xl p-6 flex flex-col justify-between"
           >
             <div className="flex items-center gap-4 mb-4">
               <img
@@ -113,32 +113,32 @@ const BookedTrainer = () => {
                 className="w-16 h-16 rounded-full border"
               />
               <div>
-                <h3 className="text-xl font-semibold">{booking.trainerName}</h3>
-                <p className="text-gray-600 text-sm">{booking.slot.trainerEmail}</p>
+                <h3 className="text-xl text-black dark:text-white/90 font-semibold">{booking.trainerName}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">{booking.slot.trainerEmail}</p>
               </div>
             </div>
 
             <div className="text-sm space-y-2">
-  <p>
-    <span className="font-medium text-blue-700">Class:</span>{" "}
+  <p className="text-black dark:text-white/80">
+    <span className="font-medium text-blue-700 dark:text-gray-300">Class:</span>{" "}
     {booking.slot.className || "N/A"}
   </p>
-  <p>
-    <span className="font-medium text-blue-700">Slot Name:</span>{" "}
+  <p className="text-black dark:text-white/80">
+    <span className="font-medium text-blue-700 dark:text-gray-300">Slot Name:</span>{" "}
     {booking.slot?.slotName || "N/A"}
   </p>
-  <p>
-    <span className="font-medium text-blue-700">Time:</span>{" "}
+  <p className="text-black dark:text-white/80">
+    <span className="font-medium text-blue-700 dark:text-gray-300">Time:</span>{" "}
     {booking.slot?.slotTime || "N/A"}
   </p>
-  <p>
-    <span className="font-medium text-blue-700">Days:</span>{" "}
+  <p className="text-black dark:text-white/80">
+    <span className="font-medium text-blue-700 dark:text-gray-300">Days:</span>{" "}
     {Array.isArray(booking.slot?.days)
       ? booking.slot.days.join(", ")
       : "N/A"}
   </p>
-  <p>
-    <span className="font-medium text-blue-700">Status:</span>{" "}
+  <p className="text-black dark:text-white/80">
+    <span className="font-medium text-blue-700 dark:text-gray-300">Status:</span>{" "}
     {booking.status}
   </p>
 </div>

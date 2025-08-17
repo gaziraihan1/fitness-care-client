@@ -72,7 +72,7 @@ const TrainerBooked = () => {
   return (
     <div className="px-4 py-10 max-w-7xl mx-auto">
       <motion.h1
-        className="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700"
+        className="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700 dark:text-gray-100"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -81,7 +81,7 @@ const TrainerBooked = () => {
       </motion.h1>
 
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white shadow-xl rounded-lg overflow-hidden p-6 mb-10 border border-gray-200"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden p-6 mb-10 border border-gray-200 dark:border-gray-700"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -90,18 +90,18 @@ const TrainerBooked = () => {
           <img
             src={trainer.profileImage}
             alt={trainer.fullName}
-            className="w-40 h-40 md:w-52 md:h-52 object-cover rounded-full border-4 border-blue-400"
+            className="w-40 h-40 md:w-52 md:h-52 object-cover rounded-full border-4 border-blue-400 dark:border-blue-800"
           />
         </div>
 
-        <div className="space-y-2 text-gray-800">
-          <h2 className="text-2xl font-semibold text-blue-600">
+        <div className="space-y-2 text-gray-800 dark:text-gray-200">
+          <h2 className="text-2xl font-semibold text-blue-600 dark:text-white">
             {trainer.fullName}
           </h2>
 
           <p>
             <strong>Slot Name:</strong>{" "}
-            <span className="text-blue-500">{slotData.slotName}</span>
+            <span className="text-blue-500 dark:text-blue-200">{slotData.slotName}</span>
           </p>
 
           <p>
@@ -128,7 +128,7 @@ const TrainerBooked = () => {
 
           <p>
             <strong>Bio:</strong>{" "}
-            <span className="text-sm text-gray-600 italic">
+            <span className="text-sm text-gray-600 dark:text-gray-300 italic">
               {trainer.additionalInfo || "No additional info provided."}
             </span>
           </p>
@@ -141,7 +141,7 @@ const TrainerBooked = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
       >
-        <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
+        <h2 className="text-2xl font-bold text-center text-gray-700 dark:text-gray-200 mb-6">
           Choose Your Membership Plan
         </h2>
         <SubscriptionCards onSelect={handlePackageSelect} />

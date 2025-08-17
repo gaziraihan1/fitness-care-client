@@ -39,12 +39,12 @@ const ActivityLog = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-6">📋 Activity Log</h2>
+      <h2 className="text-3xl text-black dark:text-white/90 font-bold mb-6">📋 Activity Log</h2>
 
       {isLoading ? (
-        <p>Loading...</p>
+        <p className="text-black dark:text-white">Loading...</p>
       ) : applications.length === 0 ? (
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-300">
           No pending or rejected applications found.
         </p>
       ) : (
@@ -52,12 +52,12 @@ const ActivityLog = () => {
           {applications.map((app) => (
             <div
               key={app._id}
-              className="bg-white shadow border p-5 rounded flex justify-between items-center"
+              className="bg-white dark:bg-gray-800 shadow border dark:border-gray-500 p-5 rounded flex justify-between items-center"
             >
               <div>
-                <h3 className="text-xl font-semibold">{app.fullName}</h3>
-                <p className="text-sm text-gray-500">{app.email}</p>
-                <p className="text-sm mt-1">
+                <h3 className="text-xl font-semibold text-black dark:text-white/90">{app.fullName}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-300">{app.email}</p>
+                <p className="text-sm mt-1 text-black dark:text-white/80">
                   Status:{" "}
                   <span
                     className={`font-semibold ${
@@ -89,19 +89,19 @@ const ActivityLog = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Rejection Feedback"
-        className="max-w-md w-full mx-auto bg-white rounded p-6 shadow-md mt-40"
+        className="max-w-md w-full mx-auto bg-white dark:bg-gray-800 rounded p-6 shadow-md mt-40"
         overlayClassName="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center"
       >
         <h2 className="text-xl font-semibold mb-4 text-red-600">
           🛑 Rejection Feedback
         </h2>
-        <p className="text-gray-700">
+        <p className="text-gray-700 dark:text-gray-300">
           {selectedFeedback || "No feedback provided."}
         </p>
         <div className="text-right mt-6">
           <button
             onClick={closeModal}
-            className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded"
+            className="bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 hover:bg-gray-300 px-4 py-2 rounded"
           >
             Close
           </button>

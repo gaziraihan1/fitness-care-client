@@ -34,15 +34,15 @@ const SubscriptionCards = ({ onSelect }) => {
       {packages.map((pkg) => (
         <div
           key={pkg.name}
-          className="border rounded-lg shadow p-6 bg-white hover:shadow-lg transition"
+          className="border dark:border-gray-700 rounded-lg shadow p-6 bg-white dark:bg-gray-800 hover:shadow-lg transition"
         >
-          <h3 className="text-xl font-bold mb-3">{pkg.name}</h3>
-          <ul className="text-sm mb-4 space-y-1">
+          <h3 className="text-xl font-bold mb-3 text-black dark:text-white/80">{pkg.name}</h3>
+          <ul className="text-sm mb-4 space-y-1 text-black dark:text-gray-300">
             {pkg.benefits.map((b, i) => (
               <li key={i}>✅ {b}</li>
             ))}
           </ul>
-          <p className="text-lg font-semibold">Price: ${pkg.price}</p>
+          <p className="text-lg font-semibold text-black dark:text-gray-200">Price: ${pkg.price}</p>
           <button
             onClick={() => onSelect(pkg)}
             className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"

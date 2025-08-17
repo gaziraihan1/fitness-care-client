@@ -29,7 +29,7 @@ const Payment = () => {
   if (!state || !slotId) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <p className="text-xl text-gray-500">No booking selected.</p>
+        <p className="text-xl text-gray-500 dark:text-gray-300">No booking selected.</p>
       </div>
     );
   }
@@ -43,45 +43,45 @@ const Payment = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto bg-white/60 backdrop-blur-md border border-blue-100 shadow-xl rounded-2xl p-8 md:p-12">
-        <h2 className="text-3xl font-bold text-center text-blue-700 mb-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto bg-white/60 dark:bg-gray-900 backdrop-blur-md border border-blue-100 dark:border-gray-700 shadow-xl rounded-2xl p-8 md:p-12">
+        <h2 className="text-3xl font-bold text-center text-blue-700 dark:text-white mb-8">
           💳 Complete Your Payment
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8 items-start">
-          <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-700 mb-4">
               🧾 Payment Summary
             </h3>
-            <div className="space-y-3 text-sm text-gray-600">
+            <div className="space-y-3 text-sm text-gray-600 dark:text-white/80">
               <div>
-                <span className="font-medium text-gray-800">Trainer:</span>{" "}
+                <span className="font-medium text-gray-800 dark:text-gray-200">Trainer:</span>{" "}
                 {trainer?.fullName}
               </div>
               <div>
-                <span className="font-medium text-gray-800">Slot:</span>{" "}
+                <span className="font-medium text-gray-800 dark:text-gray-200">Slot:</span>{" "}
                 {slot.slotName} ({slot.slotTime})
               </div>
               <div>
-                <span className="font-medium text-gray-800">Days:</span>{" "}
+                <span className="font-medium text-gray-800 dark:text-gray-200">Days:</span>{" "}
                 {slot.days?.join(", ")}
               </div>
               <div>
-                <span className="font-medium text-gray-800">Package:</span>{" "}
+                <span className="font-medium text-gray-800 dark:text-gray-200">Package:</span>{" "}
                 {selectedPackage?.name}
               </div>
-              <div className="text-lg font-bold text-blue-600 pt-2">
+              <div className="text-lg font-bold text-blue-600 dark:text-gray-300 pt-2">
                 Total: ${selectedPackage?.price}
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">
+            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-100 mb-4">
               💸 Enter Payment Details
             </h3>
-            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-600 shadow">
               <Elements stripe={stripePromise}>
                 <PaymentForm
                   trainer={trainer}
