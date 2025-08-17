@@ -84,14 +84,12 @@ const Profile = () => {
           {user?.displayName || "Your Name"}
         </h2>
         <p className="text-gray-500 text-sm mt-1">
-          Last login: {user?.metadata?.lastSignInTime || "N/A"}
+          Last login: {user?.metadata?.lastSignInTime  || "N/A"}
         </p>
         <span className="mt-2 inline-block px-3 py-1 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold text-sm">
           {role ? role.charAt(0).toUpperCase() + role.slice(1) : "N/A"}
         </span>
       </div>
-
-      {/* Hidden File Input */}
       <input
         type="file"
         id="upload-photo"
@@ -99,8 +97,6 @@ const Profile = () => {
         onChange={handleImageUpload}
         hidden
       />
-
-      {/* Form */}
       <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
